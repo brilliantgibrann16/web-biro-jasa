@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import Footer from "@/components/layout/Footer";
-import Navbar from "@/components/layout/Navbar";
-import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
+import AppChrome from "@/components/layout/AppChrome";
 import { COMPANY, SERVICE_CATEGORIES } from "@/lib/constants";
 import { METADATA_BASE } from "@/lib/metadata";
 import { ThemeProvider } from "@/lib/theme";
@@ -126,15 +124,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
-          <a href="#main-content" className="skip-link">
-            Langsung ke konten utama
-          </a>
-          <Navbar />
-          <main id="main-content" className="flex-1" tabIndex={-1}>
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppFloat />
+          <AppChrome>{children}</AppChrome>
         </ThemeProvider>
       </body>
     </html>
