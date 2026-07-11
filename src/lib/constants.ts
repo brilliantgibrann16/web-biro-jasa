@@ -333,8 +333,13 @@ export const VALUE_PROPS: ValueProp[] = [
   },
 ];
 
+export type ServiceCategoryId =
+  | "dokumen-kendaraan"
+  | "perizinan-bangunan"
+  | "legalitas-teknis";
+
 export interface ServiceCategory {
-  id: string;
+  id: ServiceCategoryId;
   slug: string;
   title: string;
   navLabel: string;
@@ -357,7 +362,7 @@ export interface ServiceCategory {
 
 export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
-    id: "kendaraan",
+    id: "dokumen-kendaraan",
     slug: "dokumen-kendaraan",
     title: "Dokumen Kendaraan",
     navLabel: "Kendaraan",
@@ -472,7 +477,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     ],
   },
   {
-    id: "bangunan",
+    id: "perizinan-bangunan",
     slug: "perizinan-bangunan",
     title: "Perizinan Bangunan",
     navLabel: "Bangunan",
@@ -542,7 +547,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     ],
   },
   {
-    id: "legalitas",
+    id: "legalitas-teknis",
     slug: "legalitas-teknis",
     title: "Legalitas Teknis",
     navLabel: "Legalitas",

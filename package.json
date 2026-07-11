@@ -6,9 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "supabase:push": "supabase db push",
+    "supabase:test:db": "supabase test db",
+    "verify:supabase": "node scripts/verify-supabase-security.mjs",
+    "verify:client-secrets": "node scripts/verify-client-secret-scan.mjs"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.110.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.23.0",
