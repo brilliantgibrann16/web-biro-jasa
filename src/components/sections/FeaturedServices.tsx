@@ -59,15 +59,13 @@ export default function FeaturedServices() {
           >
             <Link
               href={leadService.href}
-              className="editorial-gradient-card group relative flex min-h-[520px] overflow-hidden p-8 text-editorial-text transition-transform duration-500 hover:-translate-y-1 md:p-10"
+              className="group relative flex min-h-[520px] overflow-hidden border border-neutral-200 bg-paper p-8 text-accent transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 md:p-10"
             >
-              <div className="architect-grid absolute inset-0 opacity-28" />
-
               <div className="relative flex min-h-full flex-1 flex-col">
                 <div className="flex items-start justify-between gap-8">
                   <LeadIcon className="h-8 w-8 text-primary" aria-hidden="true" />
                   <span
-                    className="font-display text-8xl font-black leading-none text-editorial-faint"
+                    className="font-display text-8xl font-black leading-none text-neutral-400"
                     aria-hidden="true"
                   >
                     01
@@ -81,13 +79,13 @@ export default function FeaturedServices() {
                   <h3 className="mt-5 font-display text-4xl font-semibold leading-[1.02] sm:text-6xl">
                     {leadService.title}
                   </h3>
-                  <p className="mt-6 max-w-xl text-base leading-8 text-editorial-muted">
+                  <p className="mt-6 max-w-xl text-base leading-8 text-neutral-500">
                     {leadService.description}
                   </p>
                 </div>
 
-                <div className="mt-10 flex items-center justify-between border-t border-editorial-line pt-6">
-                  <span className="text-sm font-bold text-editorial-muted">
+                <div className="mt-10 flex items-center justify-between border-t border-neutral-200 pt-6">
+                  <span className="text-sm font-bold text-neutral-500">
                     Baca halaman layanan
                   </span>
                   <span className="inline-flex items-center gap-2 text-sm font-extrabold text-primary">

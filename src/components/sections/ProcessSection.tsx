@@ -17,57 +17,56 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
     return (
       <section
         id="proses"
-        className="relative overflow-hidden bg-editorial-base py-24 text-editorial-text md:py-36"
+        className="relative overflow-hidden bg-surface py-24 text-accent md:py-36"
         aria-labelledby="process-detail-title"
       >
-        <div className="editorial-gradient-process absolute inset-0" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="grid gap-8 border-b border-editorial-line pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.5fr)] lg:items-end">
+          <div className="grid gap-8 border-b border-neutral-200 pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.5fr)] lg:items-end">
             <div>
               <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary">
                 Lima tahap kerja
               </p>
               <h2
                 id="process-detail-title"
-                className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.02] text-editorial-text sm:text-6xl"
+                className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.02] text-accent sm:text-6xl"
               >
                 Posisi berkas harus tetap bisa dibaca dari awal sampai serah terima.
               </h2>
             </div>
-            <p className="border-l border-editorial-line pl-5 text-base leading-8 text-editorial-muted">
+            <p className="border-l border-neutral-200 pl-5 text-base leading-8 text-neutral-500">
               Setiap tahap punya pertanyaan yang berbeda. Urutannya membantu kami menjelaskan apa yang sudah diketahui, apa yang masih kurang, dan apa yang sedang ditunggu.
             </p>
           </div>
 
-          <ol className="relative mt-8 border-l border-editorial-line lg:ml-20">
+          <ol className="relative mt-8 border-l border-neutral-200 lg:ml-20">
             {PROCESS_STEPS.map((step, index) => (
               <li
                 key={step.step}
-                className="relative border-b border-editorial-line py-9 pl-7 last:border-b-0 sm:pl-10 lg:py-12 lg:pl-16"
+                className="relative border-b border-neutral-200 py-9 pl-7 last:border-b-0 sm:pl-10 lg:py-12 lg:pl-16"
               >
-                <span className="absolute -left-[0.44rem] top-12 h-3 w-3 border-2 border-primary bg-editorial-base" />
+                <span className="absolute -left-[0.44rem] top-12 h-3 w-3 border-2 border-primary bg-surface" />
                 <article className="grid gap-7 lg:grid-cols-[9rem_minmax(0,0.75fr)_minmax(0,1fr)] lg:items-start">
                   <div>
                     <p className="text-[0.64rem] font-black uppercase tracking-[0.18em] text-primary">
                       Tahap {String(index + 1).padStart(2, "0")}
                     </p>
-                    <p className="mt-3 font-display text-5xl font-black leading-none text-editorial-ghost">
+                    <p className="mt-3 font-display text-5xl font-black leading-none text-neutral-400">
                       {String(index + 1).padStart(2, "0")}
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-display text-2xl font-semibold leading-tight text-editorial-text sm:text-3xl">
+                    <h3 className="font-display text-2xl font-semibold leading-tight text-accent sm:text-3xl">
                       {step.title}
                     </h3>
-                    <p className="mt-4 text-sm leading-7 text-editorial-subtle">
+                    <p className="mt-4 text-sm leading-7 text-neutral-500">
                       {step.description}
                     </p>
                   </div>
-                  <div className="border-l border-editorial-line pl-5">
-                    <p className="text-[0.62rem] font-black uppercase tracking-[0.17em] text-editorial-ghost">
+                  <div className="border-l border-neutral-200 pl-5">
+                    <p className="text-[0.62rem] font-black uppercase tracking-[0.17em] text-neutral-400">
                       Yang dijelaskan pada tahap ini
                     </p>
-                    <p className="mt-3 text-sm font-medium leading-7 text-editorial-muted sm:text-base sm:leading-8">
+                    <p className="mt-3 text-sm font-medium leading-7 text-neutral-500 sm:text-base sm:leading-8">
                       {step.detail}
                     </p>
                   </div>
@@ -83,10 +82,9 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
   return (
     <section
       id="proses"
-      className="relative overflow-hidden bg-editorial-base py-24 text-editorial-text md:py-36"
+      className="relative overflow-hidden bg-surface py-24 text-accent md:py-36"
       aria-labelledby="process-preview-title"
     >
-      <div className="editorial-gradient-process absolute inset-0" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end">
           <div>
@@ -95,13 +93,13 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
             </p>
             <h2
               id="process-preview-title"
-              className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.02] text-editorial-text sm:text-6xl"
+              className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.02] text-accent sm:text-6xl"
             >
               Berkas dibaca, jalur ditentukan, hasil diperiksa.
             </h2>
           </div>
           <div>
-            <p className="text-base leading-8 text-editorial-muted">
+            <p className="text-base leading-8 text-neutral-500">
               Ringkasan ini menunjukkan arah kerja. Halaman proses menjelaskan lima tahapnya secara utuh.
             </p>
             <Link
@@ -122,13 +120,13 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
                 index === 1 ? "lg:mt-10" : index === 2 ? "lg:mt-20" : ""
               }`}
             >
-              <p className="font-display text-5xl font-black leading-none text-editorial-ghost">
+              <p className="font-display text-5xl font-black leading-none text-neutral-400">
                 {label}
               </p>
-              <h3 className="mt-6 font-display text-2xl font-semibold leading-tight text-editorial-text">
+              <h3 className="mt-6 font-display text-2xl font-semibold leading-tight text-accent">
                 {step.title}
               </h3>
-              <p className="mt-4 text-sm leading-7 text-editorial-subtle">{step.detail}</p>
+              <p className="mt-4 text-sm leading-7 text-neutral-500">{step.detail}</p>
             </article>
           ))}
         </div>
