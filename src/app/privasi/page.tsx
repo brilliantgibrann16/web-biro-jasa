@@ -131,14 +131,16 @@ export default function PrivacyPage() {
                 Retensi, koreksi, dan penghapusan
               </p>
               <h3 className="mt-4 font-display text-2xl font-semibold text-accent">
-                Belum ada penghapusan otomatis berdasarkan umur data.
+                Inquiry disimpan selama dua belas bulan.
               </h3>
               <p className="mt-5 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
-                Saat ini belum ada kebijakan retensi otomatis yang menghapus
-                inquiry setelah jangka waktu tertentu. Anda dapat meminta data
-                diperiksa, dikoreksi, atau dihapus melalui WhatsApp bisnis.
-                Sebutkan nama dan nomor telepon yang dipakai saat mengisi form;
-                jangan mengirim foto identitas untuk membuka permintaan.
+                Data inquiry dihapus permanen ketika telah melewati dua belas
+                bulan sejak tanggal pengiriman. Pemeriksaan ini dijalankan
+                otomatis setiap hari. Sebelum batas tersebut, Anda tetap dapat
+                meminta data diperiksa, dikoreksi, atau dihapus melalui
+                WhatsApp bisnis. Sebutkan nama dan nomor telepon yang dipakai
+                saat mengisi form; jangan mengirim foto identitas untuk membuka
+                permintaan.
               </p>
               <a
                 href={COMPANY.whatsappUrl(privacyRequestMessage)}
@@ -158,7 +160,7 @@ export default function PrivacyPage() {
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-sm font-semibold text-neutral-600">
-              Terakhir diperbarui 11 Juli 2026.
+              Terakhir diperbarui 12 Juli 2026.
             </p>
             <p className="mt-2 text-sm leading-7 text-neutral-500">
               Pemberitahuan ini akan disesuaikan bila cara pengumpulan atau
