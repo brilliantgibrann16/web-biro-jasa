@@ -1,4 +1,5 @@
 import { Clock3, MessageCircle, Phone } from "lucide-react";
+import InquiryForm from "@/components/contact/InquiryForm";
 import PageHero from "@/components/page/PageHero";
 import {
   COMPANY,
@@ -8,6 +9,12 @@ import {
 import { createRouteMetadata } from "@/lib/metadata";
 
 export const metadata = createRouteMetadata("kontak");
+
+const inquiryCategories = SERVICE_CATEGORIES.map((category) => ({
+  id: category.id,
+  title: category.title,
+  services: category.services.map((service) => service.name),
+}));
 
 export default function KontakPage() {
   return (
@@ -101,6 +108,8 @@ export default function KontakPage() {
           </div>
         </div>
       </section>
+
+      <InquiryForm categories={inquiryCategories} />
 
       <section className="relative overflow-hidden bg-warm-50 py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
