@@ -49,16 +49,28 @@ export default function Navbar() {
   }, []);
 
   const hasDarkOpening = !LIGHT_OPENING_PATHS.has(pathname);
-  const onDarkHero = hasDarkOpening && !isScrolled && !isMobileOpen;
+  const onEditorialHero = pathname === "/" && !isScrolled && !isMobileOpen;
+  const onDarkHero =
+    pathname !== "/" && hasDarkOpening && !isScrolled && !isMobileOpen;
 
   const headerTextClass = useMemo(
-    () => (onDarkHero ? "text-white" : "text-accent"),
-    [onDarkHero]
+    () =>
+      onEditorialHero
+        ? "text-editorial-text"
+        : onDarkHero
+          ? "text-white"
+          : "text-accent",
+    [onDarkHero, onEditorialHero]
   );
 
   const headerMutedClass = useMemo(
-    () => (onDarkHero ? "text-white/74 hover:text-white" : "text-neutral-600 hover:text-accent"),
-    [onDarkHero]
+    () =>
+      onEditorialHero
+        ? "text-editorial-muted hover:text-editorial-text"
+        : onDarkHero
+          ? "text-white/74 hover:text-white"
+          : "text-neutral-600 hover:text-accent",
+    [onDarkHero, onEditorialHero]
   );
 
   useEffect(() => {
@@ -188,7 +200,9 @@ export default function Navbar() {
           >
             <span
               className={`grid h-10 w-10 place-items-center rounded-sm border text-sm font-black transition-colors duration-300 ${
-                onDarkHero
+                onEditorialHero
+                  ? "border-editorial-line bg-editorial-faint text-primary"
+                  : onDarkHero
                   ? "border-primary-light/40 bg-primary-light/10 text-primary-light"
                   : "border-primary/30 bg-primary/8 text-primary"
               }`}
@@ -215,7 +229,9 @@ export default function Navbar() {
                   href={item.href}
                   className={`animated-underline text-[0.82rem] font-bold uppercase tracking-[0.08em] transition-colors duration-300 ${
                     isActive
-                      ? onDarkHero
+                      ? onEditorialHero
+                        ? "text-primary"
+                        : onDarkHero
                         ? "text-white"
                         : "text-primary"
                       : headerMutedClass
@@ -230,14 +246,22 @@ export default function Navbar() {
 
           <div
             className={`hidden items-center gap-4 transition-colors duration-300 lg:flex ${
-              onDarkHero ? "text-white" : "text-accent"
+              onEditorialHero
+                ? "text-editorial-text"
+                : onDarkHero
+                  ? "text-white"
+                  : "text-accent"
             }`}
           >
             <ThemeToggle />
             <a
               href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
               className={`hidden text-[0.82rem] font-bold transition-colors xl:inline ${
-                onDarkHero ? "text-white/68 hover:text-white" : "text-neutral-500 hover:text-accent"
+                onEditorialHero
+                  ? "text-editorial-muted hover:text-editorial-text"
+                  : onDarkHero
+                    ? "text-white/68 hover:text-white"
+                    : "text-neutral-500 hover:text-accent"
               }`}
             >
               {COMPANY.phone}

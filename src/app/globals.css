@@ -60,6 +60,15 @@
   --color-state-success-surface: var(--semantic-state-success-surface);
   --color-state-success-text: var(--semantic-state-success-text);
 
+  --color-editorial-base: var(--theme-editorial-base);
+  --color-editorial-text: var(--theme-editorial-text);
+  --color-editorial-muted: var(--theme-editorial-muted);
+  --color-editorial-subtle: var(--theme-editorial-subtle);
+  --color-editorial-line: var(--theme-editorial-line);
+  --color-editorial-ghost: var(--theme-editorial-ghost);
+  --color-editorial-faint: var(--theme-editorial-faint);
+  --color-editorial-action-hover: var(--theme-editorial-action-hover);
+
   --font-sans: var(--font-inter);
   --font-display: var(--font-jakarta);
 
@@ -135,6 +144,28 @@ html {
   --semantic-state-success-border: #aebca4;
   --semantic-state-success-surface: #e9eee4;
   --semantic-state-success-text: #49603f;
+  --theme-editorial-base: #f2e7d8;
+  --theme-editorial-text: #142033;
+  --theme-editorial-muted: #4f5963;
+  --theme-editorial-subtle: #4f5963;
+  --theme-editorial-line: rgba(143, 69, 28, 0.24);
+  --theme-editorial-ghost: #756f68;
+  --theme-editorial-faint: rgba(20, 32, 51, 0.085);
+  --theme-editorial-action-hover: #a65021;
+  --editorial-frame: rgba(20, 32, 51, 0.15);
+  --editorial-grid-line: rgba(20, 32, 51, 0.055);
+  --editorial-hero-glow: rgba(184, 100, 42, 0.16);
+  --editorial-card-glow: rgba(184, 100, 42, 0.16);
+  --editorial-process-glow: rgba(184, 100, 42, 0.14);
+  --editorial-steel-glow: rgba(20, 32, 51, 0.09);
+  --editorial-hero-start: #f7f0e5;
+  --editorial-hero-mid: #eadfce;
+  --editorial-hero-end: #d8dfe3;
+  --editorial-card-start: #f2e7d8;
+  --editorial-card-end: #cad4d9;
+  --editorial-process-start: #f5e9df;
+  --editorial-process-mid: #ede5da;
+  --editorial-process-end: #d8e0e4;
   --focus-on-light: #07111f;
   --focus-on-dark: #fffdf8;
   scroll-behavior: smooth;
@@ -251,6 +282,28 @@ html[data-theme="dark"] {
   --semantic-state-success-border: #617558;
   --semantic-state-success-surface: #1f2a1e;
   --semantic-state-success-text: #c2d1b7;
+  --theme-editorial-base: #07111f;
+  --theme-editorial-text: #fffdf8;
+  --theme-editorial-muted: #c4c9d0;
+  --theme-editorial-subtle: #a9b0bb;
+  --theme-editorial-line: rgba(255, 255, 255, 0.14);
+  --theme-editorial-ghost: rgba(255, 255, 255, 0.4);
+  --theme-editorial-faint: rgba(255, 255, 255, 0.055);
+  --theme-editorial-action-hover: #0d1a2c;
+  --editorial-frame: rgba(255, 255, 255, 0.12);
+  --editorial-grid-line: rgba(255, 255, 255, 0.055);
+  --editorial-hero-glow: rgba(215, 154, 85, 0.15);
+  --editorial-card-glow: rgba(184, 100, 42, 0.12);
+  --editorial-process-glow: rgba(215, 154, 85, 0.13);
+  --editorial-steel-glow: transparent;
+  --editorial-hero-start: #050b13;
+  --editorial-hero-mid: #07111f;
+  --editorial-hero-end: #101b2e;
+  --editorial-card-start: #07111f;
+  --editorial-card-end: #07111f;
+  --editorial-process-start: #050b13;
+  --editorial-process-mid: #07111f;
+  --editorial-process-end: #0f1d31;
   color-scheme: dark;
 }
 
@@ -300,6 +353,44 @@ html[data-theme="dark"] .glass {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
 }
 
+.editorial-gradient-hero {
+  background:
+    radial-gradient(circle at 82% 22%, var(--editorial-hero-glow), transparent 30%),
+    radial-gradient(circle at 12% 88%, var(--editorial-steel-glow), transparent 42%),
+    linear-gradient(
+      140deg,
+      var(--editorial-hero-start) 0%,
+      var(--editorial-hero-mid) 48%,
+      var(--editorial-hero-end) 100%
+    );
+}
+
+.editorial-gradient-card {
+  background:
+    linear-gradient(140deg, var(--editorial-card-glow), transparent 38%),
+    linear-gradient(
+      142deg,
+      var(--editorial-card-start) 0%,
+      var(--editorial-card-end) 100%
+    );
+}
+
+.editorial-gradient-process {
+  background:
+    radial-gradient(circle at 18% 12%, var(--editorial-process-glow), transparent 27%),
+    radial-gradient(circle at 86% 86%, var(--editorial-steel-glow), transparent 38%),
+    linear-gradient(
+      150deg,
+      var(--editorial-process-start) 0%,
+      var(--editorial-process-mid) 52%,
+      var(--editorial-process-end) 100%
+    );
+}
+
+.editorial-frame {
+  border-color: var(--editorial-frame);
+}
+
 .gradient-navy {
   background:
     linear-gradient(135deg, rgba(184, 100, 42, 0.12) 0%, transparent 34%),
@@ -314,8 +405,8 @@ html[data-theme="dark"] .glass {
 
 .architect-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    linear-gradient(var(--editorial-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--editorial-grid-line) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(to right, transparent 0%, black 22%, black 82%, transparent 100%);
 }

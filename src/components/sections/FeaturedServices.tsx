@@ -59,16 +59,15 @@ export default function FeaturedServices() {
           >
             <Link
               href={leadService.href}
-              className="group relative flex min-h-[520px] overflow-hidden bg-navy p-8 text-white transition-transform duration-500 hover:-translate-y-1 md:p-10"
+              className="editorial-gradient-card group relative flex min-h-[520px] overflow-hidden p-8 text-editorial-text transition-transform duration-500 hover:-translate-y-1 md:p-10"
             >
-              <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(184,100,42,0.12),transparent_38%)]" />
               <div className="architect-grid absolute inset-0 opacity-28" />
 
               <div className="relative flex min-h-full flex-1 flex-col">
                 <div className="flex items-start justify-between gap-8">
-                  <LeadIcon className="h-8 w-8 text-primary-light" aria-hidden="true" />
+                  <LeadIcon className="h-8 w-8 text-primary" aria-hidden="true" />
                   <span
-                    className="font-display text-8xl font-black leading-none text-white/[0.055]"
+                    className="font-display text-8xl font-black leading-none text-editorial-faint"
                     aria-hidden="true"
                   >
                     01
@@ -76,22 +75,22 @@ export default function FeaturedServices() {
                 </div>
 
                 <div className="mt-auto max-w-2xl">
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-primary-light">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-primary">
                     {leadService.scope}
                   </p>
                   <h3 className="mt-5 font-display text-4xl font-semibold leading-[1.02] sm:text-6xl">
                     {leadService.title}
                   </h3>
-                  <p className="mt-6 max-w-xl text-base leading-8 text-neutral-300">
+                  <p className="mt-6 max-w-xl text-base leading-8 text-editorial-muted">
                     {leadService.description}
                   </p>
                 </div>
 
-                <div className="mt-10 flex items-center justify-between border-t border-white/12 pt-6">
-                  <span className="text-sm font-bold text-white/68">
+                <div className="mt-10 flex items-center justify-between border-t border-editorial-line pt-6">
+                  <span className="text-sm font-bold text-editorial-muted">
                     Baca halaman layanan
                   </span>
-                  <span className="inline-flex items-center gap-2 text-sm font-extrabold text-primary-light">
+                  <span className="inline-flex items-center gap-2 text-sm font-extrabold text-primary">
                     Buka
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
