@@ -1,4 +1,5 @@
-import { Clock3, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Clock3, Phone } from "lucide-react";
+import Link from "next/link";
 import InquiryForm from "@/components/contact/InquiryForm";
 import PageHero from "@/components/page/PageHero";
 import {
@@ -24,58 +25,41 @@ export default function KontakPage() {
         title="Hubungi kami setelah Anda tahu dokumen apa yang ingin dibicarakan."
         intro="Tidak perlu menyiapkan semua jawaban sejak awal. Cukup sampaikan jenis dokumen, wilayah, dan kendala yang sedang terjadi. Kami bantu membaca langkah berikutnya."
         asideTitle="Kanal konsultasi"
-        asideBody="WhatsApp menjadi kanal utama agar informasi awal, foto dokumen, dan catatan proses mudah ditelusuri kembali."
+        asideBody="Formulir membantu kebutuhan awal tercatat sebelum percakapan berlanjut. WhatsApp tetap tersedia bila Anda ingin langsung menghubungi kami."
         points={[
-          "Sampaikan jenis dokumen dan wilayah pengurusan.",
-          "Kirim informasi awal yang diminta setelah konsultasi dibuka.",
+          "Isi nama, kategori layanan, wilayah, dan kendala singkat.",
+          "Jangan tulis nomor identitas atau data dokumen sensitif.",
           "Tunggu pemeriksaan berkas sebelum biaya diputuskan.",
         ]}
         primaryAction={{
-          label: "Bicarakan Berkas",
+          label: "Isi Ringkasan Kebutuhan",
+          href: "#inquiry-form",
+        }}
+        secondaryAction={{
+          label: "Langsung ke WhatsApp",
           href: COMPANY.whatsappUrl(WHATSAPP_MESSAGES.kontak),
           external: true,
           icon: "message",
         }}
-        secondaryAction={{ label: "Lihat FAQ", href: "/faq" }}
       />
 
       <section className="relative overflow-hidden bg-paper py-24 md:py-32">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:items-start">
           <div>
             <p className="text-[0.72rem] font-black uppercase tracking-[0.18em] text-primary-dark">
-              Kontak utama
+              Kontak alternatif
             </p>
             <h2 className="mt-5 max-w-xl text-4xl font-semibold leading-[1.04] text-accent sm:text-5xl">
-              Konsultasi awal lebih baik dimulai dengan cerita yang lengkap.
+              Jika form tidak sesuai, Anda tetap bisa menghubungi kami langsung.
             </h2>
             <p className="mt-7 max-w-xl text-base leading-8 text-neutral-500">
-              Tuliskan kebutuhan dalam satu pesan singkat. Jangan kirim nomor
-              identitas atau foto dokumen sensitif sebelum informasi itu
-              diminta untuk pemeriksaan yang relevan.
+              Telepon tersedia pada jam layanan. Untuk percakapan tertulis,
+              gunakan tautan WhatsApp di bagian atas dan jangan kirim nomor
+              identitas atau foto dokumen sensitif sebelum diminta.
             </p>
           </div>
 
           <div className="border-y border-neutral-200">
-            <a
-              href={COMPANY.whatsappUrl(WHATSAPP_MESSAGES.kontak)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group grid gap-4 border-b border-neutral-200 py-6 last:border-b-0 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:items-center"
-            >
-              <MessageCircle className="h-5 w-5 text-primary-dark" aria-hidden="true" />
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-primary-dark">
-                  WhatsApp
-                </p>
-                <p className="mt-2 text-lg font-extrabold text-accent">
-                  {COMPANY.phone}
-                </p>
-              </div>
-              <span className="text-sm font-extrabold text-primary-dark transition-colors group-hover:text-accent">
-                Kirim pesan
-              </span>
-            </a>
-
             <a
               href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
               className="group grid gap-4 border-b border-neutral-200 py-6 last:border-b-0 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:items-center"
@@ -123,17 +107,16 @@ export default function KontakPage() {
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-8 text-neutral-600 lg:justify-self-end">
-              Tautan berikut sudah membawa konteks kategori ke WhatsApp. Detail kasus tetap dibaca setelah percakapan dimulai.
+              Baca cakupan setiap kategori lebih dulu, lalu kembali ke formulir
+              saat Anda sudah menemukan ruang layanan yang paling dekat.
             </p>
           </div>
 
           <div className="mt-12 border-y border-neutral-200">
             {SERVICE_CATEGORIES.map((category) => (
-              <a
+              <Link
                 key={category.id}
-                href={COMPANY.whatsappUrl(category.whatsappMessage)}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/layanan/${category.slug}`}
                 className="group grid gap-4 border-b border-neutral-200 py-7 last:border-b-0 md:grid-cols-[minmax(0,0.58fr)_minmax(0,1fr)_auto] md:items-center"
               >
                 <div>
@@ -148,10 +131,10 @@ export default function KontakPage() {
                   {category.summary}
                 </p>
                 <span className="inline-flex items-center gap-2 border-b border-primary-dark pb-2 text-sm font-extrabold text-primary-dark transition-colors group-hover:text-accent">
-                  Buka chat
-                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                  Lihat layanan
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

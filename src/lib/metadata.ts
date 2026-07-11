@@ -90,6 +90,12 @@ export const ROUTE_METADATA = {
       "Hubungi Biro Jasa Tiga Saudara untuk konsultasi awal pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
     path: "/kontak",
   },
+  privasi: {
+    title: "Pemberitahuan Privasi",
+    description:
+      "Penjelasan data yang diproses ketika Anda mengirim ringkasan kebutuhan melalui website Biro Jasa Tiga Saudara.",
+    path: "/privasi",
+  },
 } as const satisfies Record<string, PageMetadataDefinition>;
 
 export type RouteMetadataKey = keyof typeof ROUTE_METADATA;

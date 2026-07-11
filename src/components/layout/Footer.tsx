@@ -95,14 +95,22 @@ export default function Footer() {
           <p>
             (c) {COMPANY.year} {COMPANY.name}. Seluruh hak cipta dilindungi.
           </p>
-          <a
-            href="#"
-            className="group inline-flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-primary-light"
-            aria-label="Kembali ke atas"
-          >
-            Kembali ke atas
-            <ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
-          </a>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link
+              href="/privasi"
+              className="font-semibold text-neutral-400 transition-colors duration-200 hover:text-primary-light"
+            >
+              Pemberitahuan privasi
+            </Link>
+            <a
+              href="#"
+              className="group inline-flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-primary-light"
+              aria-label="Kembali ke atas"
+            >
+              Kembali ke atas
+              <ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

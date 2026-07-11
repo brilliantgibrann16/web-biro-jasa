@@ -4,6 +4,20 @@ import { isSameOriginMutation, jsonNoStore } from "../../_utils";
 
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const TIMESTAMPTZ_PATTERN =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/;
+
+function readExpectedUpdatedAt(payload: unknown): string | null {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return null;
+  }
+
+  const value = (payload as Record<string, unknown>).updated_at;
+  if (typeof value !== "string") return null;
+
+  const timestamp = value.trim();
+  return TIMESTAMPTZ_PATTERN.test(timestamp) ? timestamp : null;
+}
 
 export async function PATCH(
   request: Request,
@@ -43,11 +57,17 @@ export async function PATCH(
   }
 
   const validation = validateInquiryUpdate(payload);
-  if (!validation.ok) {
+  const expectedUpdatedAt = readExpectedUpdatedAt(payload);
+  if (!validation.ok || !expectedUpdatedAt) {
     return jsonNoStore(
       {
         error: "Periksa kembali data pembaruan.",
-        errors: validation.errors,
+        errors: {
+          ...(validation.ok ? {} : validation.errors),
+          ...(expectedUpdatedAt
+            ? {}
+            : { updated_at: "Versi inquiry tidak valid. Muat ulang halaman." }),
+        },
       },
       { status: 400 },
     );
@@ -57,6 +77,7 @@ export async function PATCH(
     .from("inquiries")
     .update(validation.data)
     .eq("id", id)
+    .eq("updated_at", expectedUpdatedAt)
     .select("id, status, handled_note, updated_at")
     .maybeSingle();
 
@@ -68,6 +89,30 @@ export async function PATCH(
   }
 
   if (!data) {
+    const { data: current, error: currentError } = await auth.supabase
+      .from("inquiries")
+      .select("id, updated_at")
+      .eq("id", id)
+      .maybeSingle();
+
+    if (currentError) {
+      return jsonNoStore(
+        { error: "Inquiry belum dapat diperiksa ulang. Coba lagi." },
+        { status: 500 },
+      );
+    }
+
+    if (current) {
+      return jsonNoStore(
+        {
+          error:
+            "Inquiry telah berubah di sesi lain. Muat data terbaru sebelum menyimpan lagi.",
+          current_updated_at: current.updated_at,
+        },
+        { status: 409 },
+      );
+    }
+
     return jsonNoStore(
       { error: "Inquiry tidak ditemukan." },
       { status: 404 },

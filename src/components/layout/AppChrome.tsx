@@ -8,6 +8,7 @@ import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
 export default function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
+  const isContact = pathname === "/kontak";
 
   return (
     <>
@@ -23,7 +24,7 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppFloat />}
+      {!isAdmin && !isContact && <WhatsAppFloat />}
     </>
   );
 }

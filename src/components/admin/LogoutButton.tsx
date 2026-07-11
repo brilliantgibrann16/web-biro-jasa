@@ -41,7 +41,7 @@ export default function LogoutButton() {
   }
 
   return (
-    <div className="flex flex-col items-end gap-1.5">
+    <div className="flex flex-col items-end gap-1.5" aria-busy={pending}>
       <button
         type="button"
         onClick={handleLogout}

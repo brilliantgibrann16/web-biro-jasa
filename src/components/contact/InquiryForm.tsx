@@ -2,6 +2,7 @@
 
 import { type FormEvent, useMemo, useState } from "react";
 import { ArrowUpRight, LockKeyhole } from "lucide-react";
+import Link from "next/link";
 import { buildInquiryWhatsAppUrl } from "@/lib/inquiries/whatsapp";
 import type {
   InquiryFormCategory,
@@ -51,14 +52,14 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
       region: optionalValue("region"),
       notes: optionalValue("notes"),
     };
-    const whatsappUrl = buildInquiryWhatsAppUrl(inquiry);
     const controller = new AbortController();
     const timeoutId = window.setTimeout(() => controller.abort(), 8_000);
+    let recorded = false;
 
     setIsSubmitting(true);
 
     try {
-      await fetch("/api/inquiries", {
+      const response = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -67,36 +68,40 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
         }),
         signal: controller.signal,
       });
+      recorded = response.ok;
     } catch {
       // Database and network failures must never block the established
       // WhatsApp consultation path.
     } finally {
       window.clearTimeout(timeoutId);
-      window.location.assign(whatsappUrl);
+      window.location.assign(
+        buildInquiryWhatsAppUrl(inquiry, { recorded }),
+      );
     }
   }
 
   return (
     <section
-      className="relative overflow-hidden bg-navy py-20 text-white md:py-28"
+      id="inquiry-form"
+      className="relative scroll-mt-24 overflow-hidden bg-navy py-20 text-white md:py-28"
       aria-labelledby="inquiry-form-title"
     >
       <div className="absolute inset-y-0 right-0 hidden w-[28%] bg-primary-dark/15 lg:block" />
       <div className="relative mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-16">
         <div>
           <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-light">
-            Catat inquiry
+            Mulai konsultasi
           </p>
           <h2
             id="inquiry-form-title"
             className="mt-5 max-w-xl font-display text-4xl font-semibold leading-[1.03] sm:text-5xl"
           >
-            Ringkas kebutuhan, lalu lanjutkan percakapan di WhatsApp.
+            Ceritakan kebutuhan pokok sebelum percakapan dilanjutkan.
           </h2>
           <p className="mt-7 max-w-xl text-base leading-8 text-white/78">
-            Informasi dasar ini membantu kebutuhan Anda tidak hilang di antara
-            percakapan. Setelah dicatat, WhatsApp akan terbuka dengan ringkasan
-            yang sama agar konsultasi bisa langsung dilanjutkan.
+            Kami akan mencoba mencatat ringkasan awal yang Anda tulis. Setelah
+            itu, WhatsApp terbuka dengan informasi yang sama agar Anda tidak
+            perlu mengulang cerita dari awal.
           </p>
 
           <div className="mt-9 flex max-w-xl gap-4 border-t border-white/16 pt-6 text-sm leading-7 text-white/72">
@@ -113,6 +118,8 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
 
         <form
           onSubmit={handleSubmit}
+          action="/api/inquiries"
+          method="post"
           className="rounded-sm bg-paper p-5 text-accent shadow-elevated sm:p-8"
         >
           <div
@@ -153,6 +160,8 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
                 required
                 minLength={8}
                 maxLength={30}
+                pattern="[+0-9][0-9 .\(\)\-]+"
+                title="Gunakan angka, spasi, tanda plus, kurung, titik, atau tanda hubung."
                 inputMode="tel"
                 autoComplete="tel"
                 placeholder="Contoh: 0812 3456 7890"
@@ -247,7 +256,9 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
               disabled={isSubmitting}
               className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-sm bg-primary-dark px-6 py-4 text-base font-extrabold text-white transition-colors hover:bg-navy disabled:cursor-wait disabled:opacity-70 sm:w-auto"
             >
-              {isSubmitting ? "Mencatat kebutuhan..." : "Catat & buka WhatsApp"}
+              {isSubmitting
+                ? "Menyiapkan percakapan..."
+                : "Kirim ringkasan & buka WhatsApp"}
               <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
             </button>
             <p
@@ -256,7 +267,17 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
             >
               {isSubmitting
                 ? "WhatsApp tetap akan dibuka meskipun pencatatan sedang tidak tersedia."
-                : "Dengan melanjutkan, informasi kontak dan kebutuhan dasar Anda dicatat untuk tindak lanjut."}
+                : "Kami mencoba mencatat informasi kontak dan kebutuhan dasar untuk tindak lanjut. Jika pencatatan gagal, pesan WhatsApp akan menandainya untuk admin."}
+            </p>
+            <p className="mt-2 text-xs leading-6 text-neutral-500">
+              Cara kami memakai dan menghapus data dijelaskan dalam{" "}
+              <Link
+                href="/privasi"
+                className="font-bold text-primary-dark underline decoration-primary-dark/35 underline-offset-4"
+              >
+                pemberitahuan privasi
+              </Link>
+              .
             </p>
           </div>
         </form>

@@ -52,7 +52,11 @@ export default function LoginForm({ nextPath, configured }: LoginFormProps) {
   }
 
   return (
-    <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+    <form
+      className="mt-8 space-y-5"
+      onSubmit={handleSubmit}
+      aria-busy={pending}
+    >
       <div>
         <label htmlFor="admin-email" className="text-sm font-bold text-accent">
           Email admin

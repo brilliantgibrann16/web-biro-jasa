@@ -200,7 +200,7 @@ export default function Navbar() {
                 Tiga Saudara
               </span>
               <span className="mt-1 hidden text-[0.68rem] font-semibold uppercase tracking-[0.16em] opacity-60 sm:block">
-                Administrasi Resmi
+                Pendampingan Dokumen
               </span>
             </span>
           </Link>

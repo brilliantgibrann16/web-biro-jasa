@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LogoutButton from "@/components/admin/LogoutButton";
+import { ThemeToggle } from "@/lib/theme";
 
 export default function AdminHeader({ userEmail }: { userEmail?: string }) {
   return (
@@ -20,6 +21,7 @@ export default function AdminHeader({ userEmail }: { userEmail?: string }) {
               {userEmail}
             </p>
           ) : null}
+          <ThemeToggle className="text-accent" />
           <LogoutButton />
         </div>
       </div>

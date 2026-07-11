@@ -1,11 +1,22 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CalendarClock, Phone } from "lucide-react";
+import {
+  ArrowLeft,
+  CalendarClock,
+  MessageCircle,
+  Phone,
+  RefreshCw,
+} from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import InquiryUpdateForm from "@/components/admin/InquiryUpdateForm";
 import StatusBadge from "@/components/admin/StatusBadge";
 import { requireAdminAuth } from "@/lib/auth/admin";
 import { SERVICE_CATEGORY_LABELS } from "@/lib/inquiries/constants";
+import {
+  buildCustomerWhatsAppUrl,
+  normalizePhoneNumber,
+  phoneHref,
+} from "@/lib/inquiries/phone";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +45,9 @@ export default async function InquiryDetailPage({
 
   const { data: inquiry, error } = await supabase
     .from("inquiries")
-    .select("*")
+    .select(
+      "id, created_at, updated_at, full_name, phone, service_category, service_detail, region, notes, status, source, handled_note",
+    )
     .eq("id", id)
     .maybeSingle();
 
@@ -62,6 +75,13 @@ export default async function InquiryDetailPage({
             <p className="mt-2 text-sm leading-7">
               Periksa koneksi Supabase lalu muat ulang halaman ini.
             </p>
+            <a
+              href={`/admin/inquiries/${id}`}
+              className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-current px-4 text-sm font-bold"
+            >
+              <RefreshCw className="h-4 w-4" aria-hidden="true" />
+              Coba lagi
+            </a>
           </div>
         </div>
       </>
@@ -69,6 +89,8 @@ export default async function InquiryDetailPage({
   }
 
   if (!inquiry) notFound();
+
+  const normalizedPhone = normalizePhoneNumber(inquiry.phone);
 
   return (
     <>
@@ -108,13 +130,28 @@ export default async function InquiryDetailPage({
                     Nomor telepon
                   </dt>
                   <dd className="mt-2">
-                    <a
-                      href={`tel:${inquiry.phone.replace(/[^+\d]/g, "")}`}
-                      className="inline-flex min-h-10 items-center gap-2 font-bold text-primary-dark hover:text-accent"
-                    >
-                      <Phone className="h-4 w-4" aria-hidden="true" />
-                      {inquiry.phone}
-                    </a>
+                    <p className="font-bold text-accent">{normalizedPhone}</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      <a
+                        href={phoneHref(inquiry.phone)}
+                        className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-neutral-300 bg-surface px-3 text-sm font-bold text-accent hover:border-primary hover:text-primary-dark"
+                      >
+                        <Phone className="h-4 w-4" aria-hidden="true" />
+                        Telepon
+                      </a>
+                      <a
+                        href={buildCustomerWhatsAppUrl(
+                          inquiry.phone,
+                          inquiry.full_name,
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-neutral-300 bg-surface px-3 text-sm font-bold text-accent hover:border-primary hover:text-primary-dark"
+                      >
+                        <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                        WhatsApp
+                      </a>
+                    </div>
                   </dd>
                 </div>
                 <div>
@@ -182,7 +219,7 @@ export default async function InquiryDetailPage({
             </section>
           </div>
 
-          <aside className="rounded-xl border border-neutral-200 bg-paper p-5 shadow-soft sm:p-6 lg:sticky lg:top-6">
+          <aside className="order-first rounded-xl border border-neutral-200 bg-paper p-5 shadow-soft sm:p-6 lg:order-none lg:sticky lg:top-6">
             <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-primary-dark">
               Penanganan internal
             </p>
@@ -198,6 +235,7 @@ export default async function InquiryDetailPage({
                 inquiryId={inquiry.id}
                 initialStatus={inquiry.status}
                 initialHandledNote={inquiry.handled_note}
+                initialUpdatedAt={inquiry.updated_at}
               />
             </div>
           </aside>
