@@ -259,7 +259,7 @@ export default async function AdminDashboardPage({
 
         {error ? (
           <div
-            className="mt-8 rounded-xl border border-red-300 bg-red-50 p-6 text-red-900 dark:border-red-700 dark:bg-red-950 dark:text-red-100"
+            className="mt-8 rounded-xl border border-state-danger-border bg-state-danger-surface p-6 text-state-danger-text"
             role="alert"
           >
             <h2 className="font-display text-xl font-semibold">

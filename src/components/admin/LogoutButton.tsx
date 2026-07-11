@@ -52,7 +52,7 @@ export default function LogoutButton() {
         {pending ? "Keluar..." : "Keluar"}
       </button>
       {error ? (
-        <p className="max-w-52 text-right text-xs text-red-700" role="alert">
+        <p className="max-w-52 text-right text-xs text-state-danger-text" role="alert">
           {error}
         </p>
       ) : null}

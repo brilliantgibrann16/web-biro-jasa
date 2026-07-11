@@ -94,13 +94,13 @@ export default function LoginForm({ nextPath, configured }: LoginFormProps) {
 
       <div aria-live="polite">
         {!configured ? (
-          <p className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-100">
+          <p className="rounded-lg border border-state-warning-border bg-state-warning-surface px-4 py-3 text-sm leading-6 text-state-warning-text">
             Koneksi Supabase belum dikonfigurasi. Isi environment variable publik
             Supabase sebelum login.
           </p>
         ) : error ? (
           <p
-            className="rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm leading-6 text-red-800 dark:border-red-700 dark:bg-red-950 dark:text-red-100"
+            className="rounded-lg border border-state-danger-border bg-state-danger-surface px-4 py-3 text-sm leading-6 text-state-danger-text"
             role="alert"
           >
             {error}

@@ -161,8 +161,8 @@ export default function InquiryUpdateForm({
             role={message.type === "error" ? "alert" : "status"}
             className={`rounded-lg border px-4 py-3 text-sm leading-6 ${
               message.type === "success"
-                ? "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-700 dark:bg-emerald-950 dark:text-emerald-100"
-                : "border-red-300 bg-red-50 text-red-800 dark:border-red-700 dark:bg-red-950 dark:text-red-100"
+                ? "border-state-success-border bg-state-success-surface text-state-success-text"
+                : "border-state-danger-border bg-state-danger-surface text-state-danger-text"
             }`}
           >
             <p>{message.text}</p>

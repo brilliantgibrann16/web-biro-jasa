@@ -34,6 +34,32 @@
   --color-neutral-800: var(--theme-neutral-800);
   --color-neutral-900: var(--theme-neutral-900);
 
+  --color-status-new-border: var(--semantic-status-new-border);
+  --color-status-new-surface: var(--semantic-status-new-surface);
+  --color-status-new-text: var(--semantic-status-new-text);
+  --color-status-progress-border: var(--semantic-status-progress-border);
+  --color-status-progress-surface: var(--semantic-status-progress-surface);
+  --color-status-progress-text: var(--semantic-status-progress-text);
+  --color-status-waiting-border: var(--semantic-status-waiting-border);
+  --color-status-waiting-surface: var(--semantic-status-waiting-surface);
+  --color-status-waiting-text: var(--semantic-status-waiting-text);
+  --color-status-success-border: var(--semantic-status-success-border);
+  --color-status-success-surface: var(--semantic-status-success-surface);
+  --color-status-success-text: var(--semantic-status-success-text);
+  --color-status-cancelled-border: var(--semantic-status-cancelled-border);
+  --color-status-cancelled-surface: var(--semantic-status-cancelled-surface);
+  --color-status-cancelled-text: var(--semantic-status-cancelled-text);
+
+  --color-state-danger-border: var(--semantic-state-danger-border);
+  --color-state-danger-surface: var(--semantic-state-danger-surface);
+  --color-state-danger-text: var(--semantic-state-danger-text);
+  --color-state-warning-border: var(--semantic-state-warning-border);
+  --color-state-warning-surface: var(--semantic-state-warning-surface);
+  --color-state-warning-text: var(--semantic-state-warning-text);
+  --color-state-success-border: var(--semantic-state-success-border);
+  --color-state-success-surface: var(--semantic-state-success-surface);
+  --color-state-success-text: var(--semantic-state-success-text);
+
   --font-sans: var(--font-inter);
   --font-display: var(--font-jakarta);
 
@@ -85,6 +111,30 @@ html {
   --theme-neutral-900: #151311;
   --semantic-primary-text: #8f451c;
   --semantic-primary-action: #a65021;
+  --semantic-status-new-border: #d8b295;
+  --semantic-status-new-surface: #f5e9df;
+  --semantic-status-new-text: #8f451c;
+  --semantic-status-progress-border: #a9bac4;
+  --semantic-status-progress-surface: #e8edf0;
+  --semantic-status-progress-text: #365066;
+  --semantic-status-waiting-border: #cbb67f;
+  --semantic-status-waiting-surface: #f4ecd8;
+  --semantic-status-waiting-text: #765a22;
+  --semantic-status-success-border: #aebca4;
+  --semantic-status-success-surface: #e9eee4;
+  --semantic-status-success-text: #49603f;
+  --semantic-status-cancelled-border: #c4baaa;
+  --semantic-status-cancelled-surface: #f0ece4;
+  --semantic-status-cancelled-text: #4d4741;
+  --semantic-state-danger-border: #d7a79d;
+  --semantic-state-danger-surface: #f7e9e5;
+  --semantic-state-danger-text: #7b3026;
+  --semantic-state-warning-border: #cbb67f;
+  --semantic-state-warning-surface: #f4ecd8;
+  --semantic-state-warning-text: #765a22;
+  --semantic-state-success-border: #aebca4;
+  --semantic-state-success-surface: #e9eee4;
+  --semantic-state-success-text: #49603f;
   --focus-on-light: #07111f;
   --focus-on-dark: #fffdf8;
   scroll-behavior: smooth;
@@ -177,6 +227,30 @@ html[data-theme="dark"] {
   --theme-neutral-700: #e7e9ed;
   --theme-neutral-800: #f3f4f6;
   --theme-neutral-900: #ffffff;
+  --semantic-status-new-border: #966342;
+  --semantic-status-new-surface: #2c2018;
+  --semantic-status-new-text: #f0b57c;
+  --semantic-status-progress-border: #5b7383;
+  --semantic-status-progress-surface: #182a38;
+  --semantic-status-progress-text: #bfd0d9;
+  --semantic-status-waiting-border: #8f7847;
+  --semantic-status-waiting-surface: #302719;
+  --semantic-status-waiting-text: #e0c98f;
+  --semantic-status-success-border: #617558;
+  --semantic-status-success-surface: #1f2a1e;
+  --semantic-status-success-text: #c2d1b7;
+  --semantic-status-cancelled-border: #53647b;
+  --semantic-status-cancelled-surface: #172840;
+  --semantic-status-cancelled-text: #d7dbe0;
+  --semantic-state-danger-border: #9b5548;
+  --semantic-state-danger-surface: #321d1b;
+  --semantic-state-danger-text: #f2c0b5;
+  --semantic-state-warning-border: #8f7847;
+  --semantic-state-warning-surface: #302719;
+  --semantic-state-warning-text: #e0c98f;
+  --semantic-state-success-border: #617558;
+  --semantic-state-success-surface: #1f2a1e;
+  --semantic-state-success-text: #c2d1b7;
   color-scheme: dark;
 }
 

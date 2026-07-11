@@ -4,15 +4,16 @@ import {
 } from "@/lib/inquiries/constants";
 
 const STATUS_STYLES: Record<InquiryStatus, string> = {
-  baru: "border-primary/30 bg-primary/10 text-primary-dark",
+  baru:
+    "border-status-new-border bg-status-new-surface text-status-new-text",
   diproses:
-    "border-sky-300 bg-sky-100 text-sky-900 dark:border-sky-700 dark:bg-sky-950 dark:text-sky-200",
+    "border-status-progress-border bg-status-progress-surface text-status-progress-text",
   "menunggu-dokumen":
-    "border-amber-300 bg-amber-100 text-amber-950 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200",
+    "border-status-waiting-border bg-status-waiting-surface text-status-waiting-text",
   selesai:
-    "border-emerald-300 bg-emerald-100 text-emerald-950 dark:border-emerald-700 dark:bg-emerald-950 dark:text-emerald-200",
+    "border-status-success-border bg-status-success-surface text-status-success-text",
   dibatalkan:
-    "border-neutral-300 bg-neutral-100 text-neutral-700",
+    "border-status-cancelled-border bg-status-cancelled-surface text-status-cancelled-text",
 };
 
 export default function StatusBadge({ status }: { status: InquiryStatus }) {
