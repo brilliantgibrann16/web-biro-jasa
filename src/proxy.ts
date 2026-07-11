@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { isAdminClaims } from "@/lib/auth/claims";
 import { sanitizeAdminNext } from "@/lib/auth/paths";
 import {
   copyResponseCookies,
@@ -16,9 +17,9 @@ export async function proxy(request: NextRequest) {
   const isAdminApi = pathname.startsWith("/api/admin");
   const isLoginPage = pathname === ADMIN_LOGIN_PATH;
   const isLoginApi = pathname === ADMIN_LOGIN_API_PATH;
-  const isAuthenticated = Boolean(claims?.sub);
+  const isAdmin = isAdminClaims(claims);
 
-  if ((!configured || !isAuthenticated) && isAdminPage && !isLoginPage) {
+  if ((!configured || !isAdmin) && isAdminPage && !isLoginPage) {
     const loginUrl = new URL(ADMIN_LOGIN_PATH, request.url);
     loginUrl.searchParams.set(
       "next",
@@ -30,7 +31,7 @@ export async function proxy(request: NextRequest) {
     );
   }
 
-  if ((!configured || !isAuthenticated) && isAdminApi && !isLoginApi) {
+  if ((!configured || !isAdmin) && isAdminApi && !isLoginApi) {
     return copyResponseCookies(
       response,
       NextResponse.json(
@@ -40,7 +41,7 @@ export async function proxy(request: NextRequest) {
     );
   }
 
-  if (configured && isAuthenticated && isLoginPage) {
+  if (configured && isAdmin && isLoginPage) {
     return copyResponseCookies(
       response,
       NextResponse.redirect(new URL("/admin", request.url)),

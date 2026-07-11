@@ -15,6 +15,7 @@ interface RateLimitResult {
 
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_REQUESTS = 5;
+const MAX_STORE_ENTRIES = 2_000;
 type GlobalWithRateLimit = typeof globalThis & {
   __biroJasaInquiryRateLimit?: Map<string, RateLimitEntry>;
 };
@@ -26,13 +27,14 @@ function getStore(): Map<string, RateLimitEntry> {
 }
 
 function getForwardedAddress(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0];
-  return (
-    forwarded?.trim() ||
-    request.headers.get("cf-connecting-ip")?.trim() ||
-    request.headers.get("x-real-ip")?.trim() ||
-    "unknown"
-  );
+  const forwarded = (
+    request.headers.get("cf-connecting-ip") ||
+    request.headers.get("x-vercel-forwarded-for") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0] ||
+    request.headers.get("x-real-ip")
+  )?.trim();
+
+  return forwarded || "unknown";
 }
 
 function getFingerprint(request: Request): string {
@@ -44,11 +46,15 @@ function getFingerprint(request: Request): string {
   return createHash("sha256").update(raw).digest("hex");
 }
 
-function removeExpiredEntries(store: Map<string, RateLimitEntry>, now: number) {
-  if (store.size < 200) return;
-
+function pruneStore(store: Map<string, RateLimitEntry>, now: number) {
   for (const [key, entry] of store) {
     if (entry.resetAt <= now) store.delete(key);
+  }
+
+  while (store.size >= MAX_STORE_ENTRIES) {
+    const oldestKey = store.keys().next().value as string | undefined;
+    if (!oldestKey) break;
+    store.delete(oldestKey);
   }
 }
 
@@ -58,7 +64,7 @@ export function checkInquiryRateLimit(request: Request): RateLimitResult {
   const fingerprint = getFingerprint(request);
   const existing = store.get(fingerprint);
 
-  removeExpiredEntries(store, now);
+  pruneStore(store, now);
 
   if (!existing || existing.resetAt <= now) {
     store.set(fingerprint, { count: 1, resetAt: now + WINDOW_MS });
@@ -91,4 +97,5 @@ export function checkInquiryRateLimit(request: Request): RateLimitResult {
 export const INQUIRY_RATE_LIMIT = {
   maxRequests: MAX_REQUESTS,
   windowMinutes: WINDOW_MS / 60_000,
+  maxTrackedFingerprints: MAX_STORE_ENTRIES,
 } as const;

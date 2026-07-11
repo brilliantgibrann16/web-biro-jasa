@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { error } = await context.supabase.auth.signOut();
+  const { error } = await context.supabase.auth.signOut({ scope: "local" });
   if (error) {
     return jsonNoStore(
       { error: "Sesi belum dapat diakhiri. Coba lagi." },

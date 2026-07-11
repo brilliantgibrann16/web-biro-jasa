@@ -111,7 +111,21 @@ async function main() {
   );
   const accessToken = authPayload?.access_token;
   ensure(typeof accessToken === "string" && accessToken.length > 0, "JWT admin tidak diterima");
-  pass("login admin pengujian");
+
+  let jwtClaims;
+  try {
+    const encodedClaims = accessToken.split(".")[1];
+    ensure(Boolean(encodedClaims), "JWT admin tidak valid");
+    jwtClaims = JSON.parse(Buffer.from(encodedClaims, "base64url").toString("utf8"));
+  } catch (error) {
+    if (error instanceof VerificationError) throw error;
+    throw new VerificationError("claim JWT admin tidak dapat divalidasi");
+  }
+  ensure(
+    jwtClaims?.app_metadata?.role === "admin",
+    "JWT pengujian tidak memiliki app_metadata.role=admin",
+  );
+  pass("login dan claim admin pengujian");
 
   const anonHeaders = {
     apikey: publishableKey,
@@ -163,6 +177,39 @@ async function main() {
       `anon INSERT gagal (${insertResponse.status})`,
     );
     pass("anon INSERT fixture valid");
+
+    const forbiddenStatusResponse = await safeFetch(restUrl, {
+      method: "POST",
+      headers: {
+        ...anonHeaders,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({ ...fixture, status: "selesai" }),
+    });
+    ensure(
+      isDenied(forbiddenStatusResponse),
+      `anon INSERT status terlarang tidak ditolak (${forbiddenStatusResponse.status})`,
+    );
+    pass("anon tidak dapat menulis status");
+
+    const forbiddenHandledNoteResponse = await safeFetch(restUrl, {
+      method: "POST",
+      headers: {
+        ...anonHeaders,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({
+        ...fixture,
+        handled_note: "forbidden-internal-note",
+      }),
+    });
+    ensure(
+      isDenied(forbiddenHandledNoteResponse),
+      `anon INSERT handled_note terlarang tidak ditolak (${forbiddenHandledNoteResponse.status})`,
+    );
+    pass("anon tidak dapat menulis handled_note");
 
     const anonSelectUrl = fixtureQueryUrl();
     anonSelectUrl.searchParams.set("select", "id,status,notes,handled_note");

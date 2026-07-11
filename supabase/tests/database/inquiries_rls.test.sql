@@ -2,7 +2,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(20);
+select plan(24);
 
 select has_table('public', 'inquiries', 'inquiries table exists');
 select has_column('public', 'inquiries', 'id', 'inquiries.id exists');
@@ -151,10 +151,60 @@ select throws_ok(
 );
 
 set local role authenticated;
+set local request.jwt.claims =
+  '{"sub":"22222222-2222-4222-8222-222222222222","role":"authenticated","app_metadata":{"role":"viewer"}}';
+
+select is(
+  (select count(*) from public.inquiries),
+  0::bigint,
+  'authenticated non-admin cannot select inquiries'
+);
+select throws_ok(
+  $$
+    insert into public.inquiries (
+      full_name,
+      phone,
+      service_category
+    ) values (
+      'Non Admin RLS Test',
+      '+628166666666',
+      'dokumen-kendaraan'
+    )
+  $$,
+  '42501',
+  null,
+  'authenticated non-admin cannot insert inquiries'
+);
+select is(
+  (
+    with updated as (
+      update public.inquiries
+      set status = 'diproses'
+      returning 1
+    )
+    select count(*) from updated
+  ),
+  0::bigint,
+  'authenticated non-admin cannot update inquiries'
+);
+select is(
+  (
+    with deleted as (
+      delete from public.inquiries
+      returning 1
+    )
+    select count(*) from deleted
+  ),
+  0::bigint,
+  'authenticated non-admin cannot delete inquiries'
+);
+
+set local request.jwt.claims =
+  '{"sub":"33333333-3333-4333-8333-333333333333","role":"authenticated","app_metadata":{"role":"admin"}}';
 
 select lives_ok(
   $$ select * from public.inquiries $$,
-  'authenticated admin can select inquiries'
+  'admin claim can select inquiries'
 );
 select lives_ok(
   $$
@@ -176,7 +226,7 @@ select lives_ok(
       'Fixture internal'
     )
   $$,
-  'authenticated admin can insert inquiries'
+  'admin claim can insert inquiries'
 );
 select lives_ok(
   $$
@@ -186,7 +236,7 @@ select lives_ok(
       updated_at = '2000-01-01 00:00:00+00'
     where id = '11111111-1111-4111-8111-111111111111'
   $$,
-  'authenticated admin can update inquiries'
+  'admin claim can update inquiries'
 );
 select ok(
   (
@@ -201,7 +251,7 @@ select lives_ok(
     delete from public.inquiries
     where id = '11111111-1111-4111-8111-111111111111'
   $$,
-  'authenticated admin can delete inquiries'
+  'admin claim can delete inquiries'
 );
 
 reset role;

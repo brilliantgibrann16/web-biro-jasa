@@ -1,3 +1,4 @@
+import { isAdminClaims } from "@/lib/auth/claims";
 import { sanitizeAdminNext } from "@/lib/auth/paths";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { isSameOriginMutation, jsonNoStore } from "../_utils";
@@ -45,11 +46,26 @@ export async function POST(request: Request) {
     );
   }
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) {
+  const { data: signInData, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  if (error || !signInData.session?.access_token) {
     return jsonNoStore(
       { error: "Email atau kata sandi tidak cocok." },
       { status: 401 },
+    );
+  }
+
+  const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(
+    signInData.session.access_token,
+  );
+
+  if (claimsError || !isAdminClaims(claimsData?.claims)) {
+    await supabase.auth.signOut({ scope: "local" });
+    return jsonNoStore(
+      { error: "Akun tidak memiliki akses admin." },
+      { status: 403 },
     );
   }
 

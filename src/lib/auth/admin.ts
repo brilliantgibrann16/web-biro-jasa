@@ -1,6 +1,7 @@
 import "server-only";
 
 import { redirect } from "next/navigation";
+import { isAdminClaims } from "@/lib/auth/claims";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export async function getAdminAuthContext() {
@@ -9,7 +10,7 @@ export async function getAdminAuthContext() {
 
   const { data, error } = await supabase.auth.getClaims();
   const claims = error ? null : data?.claims ?? null;
-  if (!claims?.sub) return null;
+  if (!isAdminClaims(claims)) return null;
 
   return { supabase, claims };
 }

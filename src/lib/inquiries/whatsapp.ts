@@ -4,6 +4,7 @@ import type { InquiryPublicInput } from "@/lib/inquiries/types";
 
 export function buildInquiryWhatsAppMessage(
   inquiry: InquiryPublicInput,
+  options: { recorded?: boolean } = {},
 ): string {
   const lines = [
     "Halo Biro Jasa Tiga Saudara, saya baru mengisi formulir inquiry di website.",
@@ -23,10 +24,20 @@ export function buildInquiryWhatsAppMessage(
     lines.push(`Catatan: ${inquiry.notes}`);
   }
 
+  if (options.recorded === false) {
+    lines.push(
+      "",
+      "Catatan sistem: pencatatan website belum berhasil. Mohon admin mencatat inquiry ini secara manual.",
+    );
+  }
+
   lines.push("", "Mohon bantu periksa kebutuhan awal saya.");
   return lines.join("\n");
 }
 
-export function buildInquiryWhatsAppUrl(inquiry: InquiryPublicInput): string {
-  return COMPANY.whatsappUrl(buildInquiryWhatsAppMessage(inquiry));
+export function buildInquiryWhatsAppUrl(
+  inquiry: InquiryPublicInput,
+  options: { recorded?: boolean } = {},
+): string {
+  return COMPANY.whatsappUrl(buildInquiryWhatsAppMessage(inquiry, options));
 }

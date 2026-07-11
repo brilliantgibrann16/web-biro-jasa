@@ -6,6 +6,11 @@ import type {
   InquiryPublicInput,
   InquiryUpdateInput,
 } from "@/lib/inquiries/types";
+import { SERVICE_CATEGORIES } from "@/lib/constants";
+import {
+  isValidPhoneInput,
+  normalizePhoneNumber,
+} from "@/lib/inquiries/phone";
 
 interface ValidationSuccess<T> {
   ok: true;
@@ -21,8 +26,18 @@ export type ValidationResult<T> =
   | ValidationSuccess<T>
   | ValidationFailure;
 
+function removeUnsafeControlCharacters(value: string): string {
+  return value.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "");
+}
+
 function cleanRequired(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
+  return typeof value === "string"
+    ? removeUnsafeControlCharacters(value).trim()
+    : "";
+}
+
+function cleanSingleLine(value: unknown): string {
+  return cleanRequired(value).replace(/\s+/g, " ");
 }
 
 function cleanOptional(value: unknown): string | null {
@@ -38,20 +53,23 @@ export function validatePublicInquiry(
   }
 
   const input = payload as Record<string, unknown>;
-  const fullName = cleanRequired(input.full_name);
-  const phone = cleanRequired(input.phone);
-  const serviceDetail = cleanOptional(input.service_detail);
-  const region = cleanOptional(input.region);
+  const fullName = cleanSingleLine(input.full_name);
+  const phoneInput = cleanSingleLine(input.phone);
+  const serviceDetail = cleanOptional(input.service_detail)?.replace(/\s+/g, " ") ?? null;
+  const region = cleanOptional(input.region)?.replace(/\s+/g, " ") ?? null;
   const notes = cleanOptional(input.notes);
   const errors: Record<string, string> = {};
+  const category = isServiceCategoryId(input.service_category)
+    ? SERVICE_CATEGORIES.find((item) => item.id === input.service_category)
+    : undefined;
 
   if (fullName.length < 2 || fullName.length > 120) {
     errors.full_name = "Nama harus berisi 2–120 karakter.";
   }
-  if (phone.length < 8 || phone.length > 30) {
+  if (phoneInput.length < 8 || phoneInput.length > 30) {
     errors.phone = "Nomor telepon harus berisi 8–30 karakter.";
   }
-  if (!/^[+\d][\d\s().-]+$/.test(phone)) {
+  if (!isValidPhoneInput(phoneInput)) {
     errors.phone = "Gunakan format nomor telepon yang valid.";
   }
   if (!isServiceCategoryId(input.service_category)) {
@@ -59,6 +77,13 @@ export function validatePublicInquiry(
   }
   if (serviceDetail && serviceDetail.length > 160) {
     errors.service_detail = "Detail layanan maksimal 160 karakter.";
+  }
+  if (
+    serviceDetail &&
+    category &&
+    !category.services.some((service) => service.name === serviceDetail)
+  ) {
+    errors.service_detail = "Pilih sub-layanan dari kategori yang tersedia.";
   }
   if (region && region.length > 120) {
     errors.region = "Wilayah maksimal 120 karakter.";
@@ -75,7 +100,7 @@ export function validatePublicInquiry(
     ok: true,
     data: {
       full_name: fullName,
-      phone,
+      phone: normalizePhoneNumber(phoneInput),
       service_category: input.service_category as InquiryPublicInput["service_category"],
       service_detail: serviceDetail,
       region,
