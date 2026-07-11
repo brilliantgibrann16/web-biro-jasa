@@ -25,6 +25,11 @@ npm run build
 npm start
 ```
 
+Salin `.env.example` menjadi `.env.local`, lalu isi `NEXT_PUBLIC_SITE_URL`
+dengan origin produksi asli. Nilai ini dipakai untuk canonical URL dan social
+preview. Saat belum diisi, build lokal memakai `http://localhost:3000` hanya
+sebagai basis preview lokal dan tidak menerbitkan canonical produksi.
+
 ## Struktur utama
 
 - `src/app/` — route, metadata, dan style global
