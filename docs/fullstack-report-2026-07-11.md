@@ -79,7 +79,10 @@ Next.js 16 menggunakan `src/proxy.ts`, bukan `middleware.ts`. Proxy menyegarkan 
 
 Global public signup dan anonymous sign-in Supabase dinonaktifkan. Email provider tetap aktif hanya agar akun yang dibuat manual dapat login. Password minimum disetel 12 karakter dan TOTP tetap aktif pada konfigurasi remote.
 
-Tidak ada admin permanen rekaan yang ditinggalkan. Akun uji sementara dibuat untuk verifikasi, kemudian dihapus. Admin pertama harus dibuat manual melalui **Supabase Dashboard → Authentication → Users → Add user**.
+Pada verifikasi keamanan awal, akun uji sementara dibuat lalu dihapus. Follow-up
+12 Juli 2026 kemudian membuat satu admin permanen melalui Admin API dengan claim
+`app_metadata.role = "admin"` pada request awal. Credential hanya ditampilkan di
+terminal operator dan tidak disimpan dalam repository atau laporan.
 
 ## Pengujian keamanan langsung
 

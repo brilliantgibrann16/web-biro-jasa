@@ -4,7 +4,7 @@ Tanggal pekerjaan: 11–12 Juli 2026
 
 Project Supabase: `ybsyxuugydemuznobiaf` (`ap-southeast-1`)
 
-Status: **siap dideploy setelah domain, hosting, URL Auth, dan admin permanen diisi oleh pemilik**
+Status: **preview production lokal siap di `http://localhost:3100`; go-live hanya menunggu domain, hosting, dan deploy ke origin asli**
 
 ## Ruang lingkup final
 
@@ -14,7 +14,7 @@ Website menyediakan:
 - formulir inquiry di `/kontak` yang mencoba mencatat data ke Supabase lalu
   membuka WhatsApp;
 - validasi server, honeypot, batas body, dan rate limit aplikasi;
-- pemberitahuan privasi yang menjelaskan aliran data dan keterbatasan retensi;
+- pemberitahuan privasi yang menjelaskan aliran data dan retensi inquiry 12 bulan;
 - login admin manual tanpa sign-up;
 - dashboard inquiry dengan filter, pagination 25 baris, detail, telepon,
   WhatsApp, status, dan catatan internal;
@@ -39,7 +39,7 @@ Website menyediakan:
 - PostCSS dikunci ke versi patched melalui npm override; jangan hapus override
   tanpa audit dependency baru.
 
-## Environment production
+## Environment preview lokal dan production
 
 Hanya tiga variable aplikasi yang perlu diisi:
 
@@ -49,30 +49,27 @@ NEXT_PUBLIC_SUPABASE_URL=https://ybsyxuugydemuznobiaf.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
 ```
 
+Untuk preview production lokal, ketiga URL saat ini menggunakan origin
+`http://localhost:3100`. Jalankan `npm run build` lalu `npm start -- -p 3100`.
+Sebelum live, ganti `NEXT_PUBLIC_SITE_URL`, Supabase Auth **Site URL**, dan
+redirect URL dengan origin HTTPS domain asli.
+
 `SUPABASE_TEST_ADMIN_EMAIL` dan `SUPABASE_TEST_ADMIN_PASSWORD` hanya untuk
 verifier lokal. Keduanya tidak boleh dideploy. Jangan menambahkan
 `SUPABASE_SERVICE_ROLE_KEY`, password admin, atau token ke environment client.
 
-## Membuat admin permanen
+## Admin permanen
 
-1. Buka Supabase Dashboard dan pilih project `ybsyxuugydemuznobiaf`.
-2. Buka **Authentication → Users → Add user**.
-3. Buat user memakai email pemilik dan password unik minimal 12 karakter,
-   konfirmasi email, lalu simpan credential di password manager.
-4. Di **SQL Editor**, ganti placeholder email dan jalankan:
+Satu admin permanen sudah dibuat melalui Supabase Admin API. Claim
+`app_metadata.role = "admin"` disertakan pada request pembuatan awal, bukan
+ditambal setelah user terbentuk. Login aplikasi di `/admin/login` dan akses
+dashboard telah diverifikasi dengan HTTP 200.
 
-```sql
-update auth.users
-set raw_app_meta_data = coalesce(raw_app_meta_data, '{}'::jsonb)
-  || '{"role":"admin"}'::jsonb
-where lower(email) = lower('ADMIN_EMAIL_ASLI');
-```
-
-5. Pastikan tepat satu user diperbarui.
-6. Login di `https://DOMAIN-ASLI/admin/login`. Jika claim ditambahkan setelah
-   login pertama, logout dan login ulang agar JWT diperbarui.
-
-User tanpa claim admin sengaja ditolak meskipun email/password valid.
+Credential hanya ditampilkan satu kali di terminal operator dan tidak disimpan
+di repository, laporan, screenshot, atau environment client. Pemilik perlu
+memindahkannya ke password manager dan merotasi password apabila terminal pernah
+terekspos. User tanpa claim admin tetap sengaja ditolak meskipun email/password
+valid.
 
 ## Supabase sebelum live
 
@@ -83,8 +80,12 @@ User tanpa claim admin sengaja ditolak meskipun email/password valid.
 3. Pastikan migration berikut tercatat di remote:
    - `20260711124715_create_inquiries.sql`
    - `20260711223000_require_admin_claim_for_inquiries.sql`
-4. Jalankan remote DB lint dan live security verifier dari mesin operator.
-5. Hapus semua akun/fixture QA setelah pemeriksaan.
+   - `20260712050000_add_inquiry_retention_policy.sql`
+   - `20260712053000_allow_retention_service_role_invocation.sql`
+4. Pastikan cron `purge-expired-inquiries-daily` aktif dan policy tunggal tetap
+   berisi `retention_months = 12`.
+5. Jalankan remote DB lint dan live security verifier dari mesin operator.
+6. Hapus semua akun/fixture QA setelah pemeriksaan.
 
 ## Checklist deployment
 
@@ -92,14 +93,15 @@ User tanpa claim admin sengaja ditolak meskipun email/password valid.
 2. Hubungkan repository ke Vercel atau hosting Node.js yang mendukung Next.js 16.
 3. Isi variable Production dari `.env.example`; jangan unggah `.env.local`.
 4. Samakan domain hosting, `NEXT_PUBLIC_SITE_URL`, dan Supabase Auth Site URL.
-5. Jalankan `npm ci`, lint, typecheck, build, secret scan, dan verifier.
-6. Deploy production.
-7. Ulangi smoke test pada domain asli:
+5. Pindahkan credential admin permanen yang sudah dibuat ke password manager.
+6. Jalankan `npm ci`, lint, typecheck, build, secret scan, dan verifier.
+7. Deploy production.
+8. Ulangi smoke test pada domain asli:
    - halaman publik, metadata, robots, sitemap, dan social image;
    - submit form dan handoff WhatsApp;
    - login admin, filter/pagination, detail, update status, dan logout;
    - mobile 390 px, tablet, desktop 1440 px, dark mode, keyboard, dan overflow.
-8. Pantau inquiry pertama bersama pemilik dan pastikan jalur WhatsApp benar.
+9. Pantau inquiry pertama bersama pemilik dan pastikan jalur WhatsApp benar.
 
 ## Yang sengaja tidak dibangun
 
@@ -118,12 +120,14 @@ User tanpa claim admin sengaja ditolak meskipun email/password valid.
   anon insert ke Data API. Jika spam nyata muncul, pindahkan write publik ke
   RPC/Edge Function atau rate limiter terdistribusi sebelum menambah kompleksitas
   lain.
-- Belum ada kebijakan penghapusan inquiry otomatis. Pemilik perlu menetapkan
-  jangka retensi yang sesuai operasional dan kewajiban hukumnya.
+- Retensi inquiry aktif selama 12 bulan melalui
+  `private.inquiry_retention_policy`. Job `purge-expired-inquiries-daily`
+  menegakkannya setiap hari dan fungsi purge yang sama dapat dijalankan manual.
 - Alamat kantor, badan usaha/nomor izin, wilayah layanan, testimoni, dan statistik
   historis tetap kosong sampai ada sumber yang dapat dibuktikan.
-- Domain, hosting, akses deploy, Auth Site URL, dan akun admin permanen belum
-  diberikan; karena itu statusnya **belum deployed**.
+- Deployment publik masih menunggu domain, target/akses hosting, dan deploy ke
+  origin asli. URL preview localhost harus diganti bersamaan setelah origin
+  production diketahui; karena itu statusnya **belum deployed**.
 
 ## Evidence QA
 
@@ -136,9 +140,13 @@ Verifikasi final diselesaikan 12 Juli 2026 terhadap build production lokal:
 | `npm run build` | Lulus; 21 static pages generated dan seluruh route dinamis terdaftar |
 | `npm run verify:client-secrets` | Lulus; 22 client bundle bersih |
 | `npm audit --omit=dev --audit-level=moderate` | 0 vulnerability |
-| Migration local/remote | `20260711124715` dan `20260711223000` sejajar |
+| Migration local/remote | Empat migration sampai `20260712053000` sejajar |
 | `supabase db lint --linked --level warning` | No schema errors found |
 | Live Supabase verifier | Admin claim, anon insert-only, field internal denial, admin CRUD, dan cleanup lulus |
+| Admin permanen | Claim admin ada; login aplikasi HTTP 200; dashboard HTTP 200 |
+| Retensi inquiry | Policy 12 bulan dan cron harian aktif; fixture 13 bulan terhapus 1/1 |
+| Audit warna semantik | Palette kromatik Tailwind di luar token dan arbitrary color admin menghasilkan 0 temuan |
+| Preview production lokal | `http://localhost:3100` merespons HTTP 200 |
 | Hosted public signup | Ditolak HTTP 422 |
 | Non-admin RLS/app login | SELECT 0 row; INSERT 403; login admin app 403 |
 | Native form tanpa JavaScript | HTTP 303 ke `wa.me`, `X-Inquiry-Recorded: yes` |
@@ -151,7 +159,7 @@ Verifikasi final diselesaikan 12 Juli 2026 terhadap build production lokal:
 | Rate limiter | `201, 201, 201, 201, 429, 429, 429` |
 | Runtime | Unexpected console error 0; page error 0 |
 | Security headers/utility | CSP, DENY framing, nosniff, no `X-Powered-By`, custom 404, robots, dan sitemap lulus |
-| Cleanup akhir | Fixture QA 0; akun QA 0; auth user 0; inquiry row 0 |
+| Cleanup akhir | Fixture inquiry QA 0; akun QA sementara 0; satu admin permanen tersisa; inquiry row 0 |
 
 Runner pgTAP lokal tidak dijalankan karena Docker Server tidak tersedia pada
 mesin ini. File test memiliki 24 assertion, sementara boundary yang sama
@@ -168,14 +176,22 @@ lint.
 - `output/playwright/final-production/admin-dashboard-desktop-1440.png`
 - `output/playwright/final-production/admin-detail-desktop-1440.png`
 - `output/playwright/final-production/privacy-dark-mobile-390.png`
+- `output/playwright/color-system/before-admin-statuses.png`
+- `output/playwright/color-system/after-admin-statuses.png`
+- `output/playwright/color-system/before-admin-error.png`
+- `output/playwright/color-system/after-admin-error.png`
 
-Screenshot admin memakai fixture dan akun QA sementara. Seluruhnya telah
-dihapus; tidak ada credential atau data pelanggan nyata di dalam evidence.
+Screenshot status admin memakai fixture inquiry dan akun QA sementara. Screenshot
+error adalah simulasi visual dengan kelas komponen produksi. Seluruh fixture dan
+akun QA sementara telah dihapus; admin permanen tetap aktif. Tidak ada credential
+atau data pelanggan nyata di dalam evidence.
 
 ## Commit implementasi
 
 - `024432d` — `fix: harden inquiry and admin authorization`
 - `f0364b7` — `feat: polish public and admin workflows`
+- `37ca729` — `feat: enforce twelve month inquiry retention`
+- `e9b71d2` — `refactor: unify semantic admin colors`
 
 Commit dokumentasi/handoff memuat file ini dan dicatat pada laporan akhir
 setelah commit dibuat.

@@ -20,24 +20,28 @@ npm ci
 npm run dev
 ```
 
-Buka `http://localhost:3000`. Untuk pemeriksaan production:
+Buka `http://localhost:3000` untuk development. Preview production lokal
+standar project memakai port 3100:
 
 ```bash
 npm run lint
 npm run typecheck
 npm run build
-npm start
+npm start -- -p 3100
 ```
+
+Buka `http://localhost:3100`.
 
 Salin `.env.example` menjadi `.env.local`, lalu isi:
 
-- `NEXT_PUBLIC_SITE_URL` dengan origin produksi asli untuk metadata, robots,
-  sitemap, canonical, dan social preview;
+- `NEXT_PUBLIC_SITE_URL` dengan origin preview atau produksi untuk metadata,
+  robots, sitemap, canonical, dan social preview;
 - `NEXT_PUBLIC_SUPABASE_URL` dengan Project URL;
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` dengan publishable key Supabase.
 
-Saat URL produksi belum diisi, build lokal memakai origin localhost hanya untuk
-preview dan tidak menerbitkan canonical atau sitemap produksi.
+Preview saat ini memakai `NEXT_PUBLIC_SITE_URL=http://localhost:3100`.
+Supabase Auth Site URL dan redirect URL remote juga sementara menunjuk ke origin
+tersebut. Ketiganya wajib diganti bersamaan ketika domain asli tersedia.
 
 Project tidak memakai `SUPABASE_SERVICE_ROLE_KEY` atau `sb_secret_*` di kode
 aplikasi. Dashboard hanya menerima user terautentikasi yang memiliki claim
@@ -75,28 +79,14 @@ isi konfigurasi produksi yang benar terlebih dahulu.
 
 ### Membuat admin permanen
 
-Tidak ada halaman sign-up publik. Buat akun manual, lalu beri claim admin:
+Admin permanen sudah dibuat melalui Supabase Admin API dengan
+`app_metadata.role = "admin"` pada request pembuatan pertama. Login nyata
+melalui aplikasi dan akses dashboard telah diverifikasi. Credential tidak
+disimpan di repo; pemilik harus menyimpannya di password manager.
 
-1. Buka Supabase Dashboard dan pilih project `ybsyxuugydemuznobiaf`.
-2. Buka **Authentication → Users → Add user**.
-3. Isi email pemilik bisnis dan password unik minimal 12 karakter. Tandai email
-   sebagai terkonfirmasi, lalu simpan password di password manager.
-4. Buka **SQL Editor**, ganti placeholder email, lalu jalankan:
-
-```sql
-update auth.users
-set raw_app_meta_data = coalesce(raw_app_meta_data, '{}'::jsonb)
-  || '{"role":"admin"}'::jsonb
-where lower(email) = lower('ADMIN_EMAIL_ASLI');
-```
-
-5. Pastikan perintah hanya memperbarui satu user.
-6. Login melalui `/admin/login`. Jika user sempat login sebelum claim
-   ditambahkan, logout lalu login ulang agar JWT baru memuat role admin.
-
-User email/password biasa tanpa claim tersebut ditolak oleh aplikasi dan RLS.
-Jangan menyimpan email admin, password, access token, atau service-role key di
-repo.
+Jika admin perlu diganti, buat penggantinya melalui Admin API dengan claim
+tersebut sejak awal. Jangan membuat user authenticated biasa lalu memberi claim
+belakangan. User tanpa claim admin tetap ditolak oleh aplikasi dan RLS.
 
 ### Menjaga public signup tetap nonaktif
 
@@ -107,7 +97,9 @@ verifikasi endpoint Auth hosted tetap menolak public sign-up.
 
 ### URL Auth produksi
 
-Setelah domain asli tersedia, buka **Authentication → URL Configuration**:
+Untuk preview, Site URL dan redirect URL saat ini adalah
+`http://localhost:3100`. Setelah domain asli tersedia, buka
+**Authentication → URL Configuration**:
 
 1. set **Site URL** ke origin produksi persis, misalnya
    `https://domain-asli.tld`;
@@ -132,6 +124,29 @@ instance. Karena anon masih diberi `INSERT` langsung oleh kebutuhan arsitektur
 saat ini, pemanggil Data API secara sengaja juga dapat melewati limiter Next.js.
 Proteksi spam global kelak memerlukan RPC/Edge Function atau pembatas Data API
 terpisah.
+
+## Retensi inquiry
+
+Inquiry disimpan selama **12 bulan sejak `created_at`**, lalu dihapus permanen.
+Satu-satunya nilai operasional disimpan pada singleton row
+`private.inquiry_retention_policy`. Job `pg_cron`
+`purge-expired-inquiries-daily` menjalankan penghapusan setiap hari pukul
+02.30 UTC (09.30 WIB).
+
+Untuk mengubah masa retensi, operator menjalankan satu update berikut melalui
+Supabase SQL Editor, lalu menyesuaikan copy pemberitahuan privasi:
+
+```sql
+update private.inquiry_retention_policy
+set retention_months = 12, updated_at = now()
+where id = true;
+```
+
+Purge manual yang memakai nilai policy yang sama:
+
+```sql
+select private.purge_expired_inquiries();
+```
 
 ## Verifikasi keamanan
 
@@ -169,14 +184,15 @@ Checklist aman untuk Vercel atau hosting Node.js yang mendukung Next.js 16:
    Production; jangan deploy variable verifier;
 3. samakan `NEXT_PUBLIC_SITE_URL`, domain hosting, dan Supabase Auth Site URL;
 4. terapkan migration remote dari mesin operator yang sudah login ke Supabase;
-5. buat admin permanen dan claim role dengan langkah di atas;
+5. pastikan credential admin permanen tersimpan di password manager dan login
+   berhasil pada origin production;
 6. jalankan lint, typecheck, build, secret scan, dan verifier Supabase;
 7. deploy, lalu ulangi smoke test form inquiry, handoff WhatsApp, login,
    dashboard, update status, logout, metadata, dan layout responsive pada domain
    asli.
 
-Deployment belum dilakukan dari repo ini karena domain asli, pilihan/akses
-hosting, dan credential admin permanen belum diberikan.
+Deployment belum dilakukan dari repo ini karena domain asli serta pilihan/akses
+hosting belum diberikan.
 
 ## Aturan konten
 
