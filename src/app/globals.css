@@ -67,6 +67,16 @@
   --color-editorial-faint: var(--theme-editorial-faint);
   --color-editorial-action-hover: var(--theme-editorial-action-hover);
 
+  --color-dossier-surface: var(--theme-dossier-surface);
+  --color-dossier-text: var(--theme-dossier-text);
+  --color-dossier-strong: var(--theme-dossier-strong);
+  --color-dossier-muted: var(--theme-dossier-muted);
+  --color-dossier-ghost: var(--theme-dossier-ghost);
+  --color-dossier-border: var(--theme-dossier-border);
+  --color-dossier-line: var(--theme-dossier-line);
+  --color-dossier-accent: var(--theme-dossier-accent);
+  --color-dossier-accent-line: var(--theme-dossier-accent-line);
+
   --font-sans: var(--font-inter);
   --font-display: var(--font-jakarta);
 
@@ -148,6 +158,16 @@ html {
   --theme-editorial-line: rgba(143, 69, 28, 0.24);
   --theme-editorial-faint: rgba(20, 32, 51, 0.085);
   --theme-editorial-action-hover: #a65021;
+  --theme-dossier-surface: #fff8eb;
+  --theme-dossier-text: #07111f;
+  --theme-dossier-strong: rgba(7, 17, 31, 0.82);
+  --theme-dossier-muted: rgba(7, 17, 31, 0.7);
+  --theme-dossier-ghost: rgba(7, 17, 31, 0.28);
+  --theme-dossier-border: #e7dcc9;
+  --theme-dossier-line: rgba(7, 17, 31, 0.1);
+  --theme-dossier-accent: #8f451c;
+  --theme-dossier-accent-line: rgba(184, 100, 42, 0.4);
+  --dossier-grid-line: rgba(16, 23, 37, 0.055);
   --editorial-frame: rgba(20, 32, 51, 0.15);
   --editorial-hero-glow: rgba(184, 100, 42, 0.16);
   --editorial-steel-glow: rgba(20, 32, 51, 0.09);
@@ -276,6 +296,16 @@ html[data-theme="dark"] {
   --theme-editorial-line: rgba(255, 255, 255, 0.14);
   --theme-editorial-faint: rgba(255, 255, 255, 0.055);
   --theme-editorial-action-hover: #0d1a2c;
+  --theme-dossier-surface: #2b2926;
+  --theme-dossier-text: #fff8eb;
+  --theme-dossier-strong: #eee7dc;
+  --theme-dossier-muted: #c9c0b4;
+  --theme-dossier-ghost: rgba(255, 248, 235, 0.4);
+  --theme-dossier-border: rgba(215, 154, 85, 0.38);
+  --theme-dossier-line: rgba(255, 248, 235, 0.14);
+  --theme-dossier-accent: #d79a55;
+  --theme-dossier-accent-line: rgba(215, 154, 85, 0.48);
+  --dossier-grid-line: rgba(255, 248, 235, 0.055);
   --editorial-frame: rgba(255, 255, 255, 0.12);
   --editorial-hero-glow: rgba(215, 154, 85, 0.15);
   --editorial-steel-glow: transparent;
@@ -289,15 +319,11 @@ html[data-theme="dark"] :focus-visible {
   outline-color: var(--focus-on-dark);
 }
 
-html[data-theme="dark"] .paper-grid .text-primary {
-  color: #8f451c;
-}
-
 html[data-theme="dark"] .text-primary-dark {
   color: #d79a55;
 }
 
-html[data-theme="dark"] .fixed-paper .text-primary-dark {
+html[data-theme="dark"] .fixed-light-paper .text-primary-dark {
   color: #8f451c;
 }
 
@@ -359,10 +385,10 @@ html[data-theme="dark"] .glass {
     linear-gradient(160deg, #070d17 0%, #0c1728 52%, #121c2e 100%);
 }
 
-.paper-grid {
+.dossier-grid {
   background-image:
-    linear-gradient(rgba(16, 23, 37, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 23, 37, 0.055) 1px, transparent 1px);
+    linear-gradient(var(--dossier-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dossier-grid-line) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 

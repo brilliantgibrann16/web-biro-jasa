@@ -342,7 +342,7 @@ export default function PageHero({
           />
         </div>
 
-        <aside className="fixed-paper relative rotate-[0.6deg] border border-[#e7dcc9] bg-[#fff8eb] px-6 py-7 text-navy shadow-[0_30px_80px_-50px_rgba(0,0,0,0.95)] sm:px-8">
+        <aside className="fixed-light-paper relative rotate-[0.6deg] border border-[#e7dcc9] bg-[#fff8eb] px-6 py-7 text-navy shadow-[0_30px_80px_-50px_rgba(0,0,0,0.95)] sm:px-8">
           <div className="absolute -right-3 -top-3 h-full w-full border border-white/10" />
           <div className="relative">
             <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-primary-dark">
