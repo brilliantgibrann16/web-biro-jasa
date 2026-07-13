@@ -16,7 +16,7 @@ export default function IndustriesSection() {
                 Profil kebutuhan
               </p>
               <span
-                className="font-display text-2xl font-semibold text-neutral-300 lg:mt-4 lg:block lg:text-3xl"
+                className="font-display text-2xl font-semibold text-neutral-400 lg:mt-4 lg:block lg:text-3xl"
                 aria-hidden="true"
               >
                 01—{String(INDUSTRIES.length).padStart(2, "0")}

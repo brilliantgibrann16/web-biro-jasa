@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, ChevronDown, MessageCircleMore } from "lucide-react";
 import { useRef, useState } from "react";
 import { COMPANY, FAQ_ITEMS, WHATSAPP_MESSAGES } from "@/lib/constants";
@@ -64,47 +64,52 @@ export default function FAQSection() {
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 >
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(isOpen ? null : i)}
-                    className="grid w-full grid-cols-[3.2rem_minmax(0,1fr)_2.75rem] items-start gap-3 py-6 text-left md:grid-cols-[4rem_minmax(0,1fr)_3rem] md:gap-5"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${i}`}
-                  >
-                    <span className={`font-display text-3xl font-black leading-none transition-colors ${
-                      isOpen ? "text-primary" : "text-neutral-400"
-                    }`}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="max-w-3xl text-lg font-extrabold leading-snug text-accent md:text-xl">
-                      {item.question}
-                    </span>
-                    <motion.span
-                      animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                      className="grid h-10 w-10 place-items-center border border-neutral-200 text-primary"
+                  <h3>
+                    <button
+                      id={`faq-question-${i}`}
+                      type="button"
+                      onClick={() => setOpenIndex(isOpen ? null : i)}
+                      className="grid w-full grid-cols-[3.2rem_minmax(0,1fr)_2.75rem] items-start gap-3 py-6 text-left md:grid-cols-[4rem_minmax(0,1fr)_3rem] md:gap-5"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${i}`}
                     >
-                      <ChevronDown className="h-4 w-4" />
-                    </motion.span>
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        id={`faq-answer-${i}`}
-                        role="region"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
+                      <span className={`font-display text-3xl font-black leading-none transition-colors ${
+                        isOpen ? "text-primary" : "text-neutral-400"
+                      }`}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="max-w-3xl text-lg font-extrabold leading-snug text-accent md:text-xl">
+                        {item.question}
+                      </span>
+                      <motion.span
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        className="grid h-10 w-10 place-items-center border border-neutral-200 text-primary"
+                        aria-hidden="true"
                       >
-                        <p className="max-w-3xl pb-7 pl-[4.05rem] text-sm leading-7 text-neutral-500 md:ml-20 md:pl-0 md:text-base md:leading-8">
-                          {item.answer}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        <ChevronDown className="h-4 w-4" />
+                      </motion.span>
+                    </button>
+                  </h3>
+
+                  <motion.div
+                    id={`faq-answer-${i}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${i}`}
+                    aria-hidden={!isOpen}
+                    initial={false}
+                    animate={
+                      isOpen
+                        ? { height: "auto", opacity: 1 }
+                        : { height: 0, opacity: 0 }
+                    }
+                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <p className="max-w-3xl pb-7 pl-[4.05rem] text-sm leading-7 text-neutral-500 md:ml-20 md:pl-0 md:text-base md:leading-8">
+                      {item.answer}
+                    </p>
+                  </motion.div>
                 </motion.article>
               );
             })}

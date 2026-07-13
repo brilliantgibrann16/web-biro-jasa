@@ -205,7 +205,7 @@ export default async function AdminDashboardPage({
               id="status-filter"
               name="status"
               defaultValue={status ?? ""}
-              className="mt-2 min-h-11 w-full rounded-lg border border-neutral-300 bg-surface px-3 text-sm text-accent"
+              className="mt-2 min-h-11 w-full rounded-lg border border-control-border bg-surface px-3 text-sm text-accent"
             >
               <option value="">Semua status</option>
               {INQUIRY_STATUSES.map((value) => (
@@ -227,7 +227,7 @@ export default async function AdminDashboardPage({
               id="category-filter"
               name="category"
               defaultValue={category ?? ""}
-              className="mt-2 min-h-11 w-full rounded-lg border border-neutral-300 bg-surface px-3 text-sm text-accent"
+              className="mt-2 min-h-11 w-full rounded-lg border border-control-border bg-surface px-3 text-sm text-accent"
             >
               <option value="">Semua kategori</option>
               {SERVICE_CATEGORIES.map((item) => (

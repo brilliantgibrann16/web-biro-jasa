@@ -1,6 +1,6 @@
 export default function AdminLoading() {
   return (
-    <main
+    <section
       className="min-h-screen bg-warm-50 px-5 py-10 text-accent sm:px-8"
       aria-busy="true"
       aria-labelledby="admin-loading-title"
@@ -28,6 +28,6 @@ export default function AdminLoading() {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

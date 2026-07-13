@@ -68,7 +68,7 @@ export default function LoginForm({ nextPath, configured }: LoginFormProps) {
           autoComplete="email"
           required
           disabled={!configured || pending}
-          className="mt-2 min-h-12 w-full rounded-lg border border-neutral-300 bg-surface px-4 text-base text-accent placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-2 min-h-12 w-full rounded-lg border border-control-border bg-surface px-4 text-base text-accent placeholder:text-form-placeholder disabled:cursor-not-allowed disabled:opacity-60"
           placeholder="admin@contoh.com"
         />
       </div>
@@ -87,12 +87,12 @@ export default function LoginForm({ nextPath, configured }: LoginFormProps) {
           autoComplete="current-password"
           required
           disabled={!configured || pending}
-          className="mt-2 min-h-12 w-full rounded-lg border border-neutral-300 bg-surface px-4 text-base text-accent placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-2 min-h-12 w-full rounded-lg border border-control-border bg-surface px-4 text-base text-accent placeholder:text-form-placeholder disabled:cursor-not-allowed disabled:opacity-60"
           placeholder="Masukkan kata sandi"
         />
       </div>
 
-      <div aria-live="polite">
+      <div>
         {!configured ? (
           <p className="rounded-lg border border-state-warning-border bg-state-warning-surface px-4 py-3 text-sm leading-6 text-state-warning-text">
             Koneksi Supabase belum dikonfigurasi. Isi environment variable publik

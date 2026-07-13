@@ -342,17 +342,17 @@ export default function PageHero({
           />
         </div>
 
-        <aside className="fixed-light-paper relative rotate-[0.6deg] border border-[#e7dcc9] bg-[#fff8eb] px-6 py-7 text-navy shadow-[0_30px_80px_-50px_rgba(0,0,0,0.95)] sm:px-8">
+        <aside className="relative rotate-[0.6deg] border border-fixed-paper-border bg-fixed-paper-surface px-6 py-7 text-fixed-paper-text shadow-[0_30px_80px_-50px_rgba(0,0,0,0.95)] sm:px-8">
           <div className="absolute -right-3 -top-3 h-full w-full border border-white/10" />
           <div className="relative">
-            <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-primary-dark">
+            <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-fixed-paper-accent">
               {asideTitle}
             </p>
-            <p className="mt-4 text-sm font-semibold leading-7 text-navy/75">{asideBody}</p>
-            <div className="mt-6 divide-y divide-navy/10 border-y border-navy/10">
+            <p className="mt-4 text-sm font-semibold leading-7 text-fixed-paper-muted">{asideBody}</p>
+            <div className="mt-6 divide-y divide-fixed-paper-line border-y border-fixed-paper-line">
               {points.map((point) => (
-                <p key={point} className="flex gap-3 py-4 text-sm font-bold leading-7 text-navy">
-                  <span className="mt-3 h-px w-6 shrink-0 bg-primary-dark" />
+                <p key={point} className="flex gap-3 py-4 text-sm font-bold leading-7 text-fixed-paper-text">
+                  <span className="mt-3 h-px w-6 shrink-0 bg-fixed-paper-accent" />
                   {point}
                 </p>
               ))}

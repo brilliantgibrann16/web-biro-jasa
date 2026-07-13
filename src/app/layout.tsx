@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import AppChrome from "@/components/layout/AppChrome";
-import { COMPANY, SERVICE_CATEGORIES } from "@/lib/constants";
+import { COMPANY } from "@/lib/constants";
 import { METADATA_BASE } from "@/lib/metadata";
 import { ThemeProvider } from "@/lib/theme";
 import "./globals.css";
@@ -80,20 +80,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: COMPANY.name,
-    description:
-      "Jasa pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
-    telephone: COMPANY.phone,
-    openingHours: "Mo-Sa 08:00-17:00",
-    serviceType: SERVICE_CATEGORIES.flatMap((category) =>
-      category.services.map((service) => service.name)
-    ),
-  };
-  const serializedJsonLd = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
-
   const themeScript = `
     (function() {
       try {
@@ -117,10 +103,6 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: serializedJsonLd }}
-        />
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>

@@ -77,7 +77,7 @@ export const COMPANY = {
   whatsappUrl: (message: string = WHATSAPP_MESSAGES.default) =>
     `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
   defaultWhatsappMessage: WHATSAPP_MESSAGES.default,
-  hours: "Senin - Sabtu: 08.00 - 17.00 WIB",
+  hours: "Senin–Sabtu: 08.00–17.00 WIB",
   year: new Date().getFullYear(),
 } as const;
 
@@ -118,7 +118,7 @@ export const TRUST_ITEMS: TrustItem[] = [
   },
   {
     icon: MessageCircle,
-    label: "Update seperlunya",
+    label: "Pembaruan seperlunya",
     description: "Klien diberi kabar saat ada status, kebutuhan, atau keputusan.",
   },
 ];
@@ -225,7 +225,7 @@ export const WHY_CHOOSE_US: WhyUsItem[] = [
     icon: Clock,
     title: "Komunikasi dibuat singkat dan berguna",
     description:
-      "Update tidak perlu ramai. Yang penting klien tahu status terakhir, hal yang sedang menunggu, dan dokumen tambahan bila diperlukan.",
+      "Pembaruan tidak perlu ramai. Yang penting klien tahu status terakhir, hal yang sedang menunggu, dan dokumen tambahan bila diperlukan.",
     proof: "Tertib kabar",
   },
   {
@@ -287,7 +287,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     description:
       "Berkas yang masuk proses dipantau, terutama saat ada verifikasi, koreksi, atau permintaan dokumen tambahan.",
     detail:
-      "Update disampaikan ketika ada perkembangan yang perlu diketahui, bukan sekadar pesan formal tanpa isi.",
+      "Pembaruan disampaikan ketika ada perkembangan yang perlu diketahui, bukan sekadar pesan formal tanpa isi.",
   },
   {
     step: 5,

@@ -22,7 +22,7 @@ export default function TrustIndicators() {
                 Standar kerja
               </p>
               <span
-                className="font-display text-2xl font-semibold text-neutral-300 sm:mt-3 sm:block"
+                className="font-display text-2xl font-semibold text-neutral-400 sm:mt-3 sm:block"
                 aria-hidden="true"
               >
                 01—{String(TRUST_ITEMS.length).padStart(2, "0")}

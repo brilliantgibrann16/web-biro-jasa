@@ -7,7 +7,7 @@ export function buildInquiryWhatsAppMessage(
   options: { recorded?: boolean } = {},
 ): string {
   const lines = [
-    "Halo Biro Jasa Tiga Saudara, saya baru mengisi formulir inquiry di website.",
+    "Halo Biro Jasa Tiga Saudara, saya baru mengisi formulir kebutuhan di situs web.",
     "",
     `Nama: ${inquiry.full_name}`,
     `Nomor telepon: ${inquiry.phone}`,
@@ -27,7 +27,7 @@ export function buildInquiryWhatsAppMessage(
   if (options.recorded === false) {
     lines.push(
       "",
-      "Catatan sistem: pencatatan website belum berhasil. Mohon admin mencatat inquiry ini secara manual.",
+      "Catatan sistem: pencatatan situs web belum berhasil. Mohon admin mencatat permintaan ini secara manual.",
     );
   }
 

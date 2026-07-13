@@ -63,7 +63,7 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
                     </p>
                   </div>
                   <div className="border-l border-neutral-200 pl-5">
-                    <p className="text-[0.62rem] font-black uppercase tracking-[0.17em] text-neutral-400">
+                    <p className="text-[0.62rem] font-black uppercase tracking-[0.17em] text-neutral-500">
                       Yang dijelaskan pada tahap ini
                     </p>
                     <p className="mt-3 text-sm font-medium leading-7 text-neutral-500 sm:text-base sm:leading-8">

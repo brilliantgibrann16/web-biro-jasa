@@ -137,7 +137,6 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       disabled={!mounted}
       className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-current/20 bg-current/[0.06] transition-colors duration-300 hover:bg-current/10 disabled:cursor-wait ${className}`}
       aria-label={label}
-      aria-pressed={mounted ? isDark : undefined}
       title={mounted ? (isDark ? "Mode Terang" : "Mode Gelap") : "Tema warna"}
     >
       <span className="sr-only">{label}</span>

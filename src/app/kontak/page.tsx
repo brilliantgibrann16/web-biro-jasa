@@ -50,7 +50,7 @@ export default function KontakPage() {
               Kontak alternatif
             </p>
             <h2 className="mt-5 max-w-xl text-4xl font-semibold leading-[1.04] text-accent sm:text-5xl">
-              Jika form tidak sesuai, Anda tetap bisa menghubungi kami langsung.
+              Jika formulir tidak sesuai, Anda tetap bisa menghubungi kami langsung.
             </h2>
             <p className="mt-7 max-w-xl text-base leading-8 text-neutral-500">
               Telepon tersedia pada jam layanan. Untuk percakapan tertulis,

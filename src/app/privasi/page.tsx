@@ -6,7 +6,7 @@ import { createRouteMetadata } from "@/lib/metadata";
 export const metadata = createRouteMetadata("privasi");
 
 const privacyRequestMessage =
-  "Halo Biro Jasa Tiga Saudara, saya ingin meminta pemeriksaan, koreksi, atau penghapusan data inquiry yang pernah saya kirim melalui website.";
+  "Halo Biro Jasa Tiga Saudara, saya ingin meminta pemeriksaan, koreksi, atau penghapusan data permintaan yang pernah saya kirim melalui situs web.";
 
 export default function PrivacyPage() {
   return (
@@ -24,7 +24,7 @@ export default function PrivacyPage() {
               </h1>
               <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-neutral-600 sm:text-xl sm:leading-9">
                 Halaman ini menjelaskan data yang diproses ketika Anda mengisi
-                formulir inquiry, siapa yang dapat mengaksesnya, dan bagaimana
+                formulir kebutuhan, siapa yang dapat mengaksesnya, dan bagaimana
                 meminta koreksi atau penghapusan.
               </p>
             </div>
@@ -53,9 +53,9 @@ export default function PrivacyPage() {
               Kami menjelaskan aliran data tanpa menyembunyikannya di balik istilah teknis.
             </h2>
             <p className="mt-7 max-w-lg text-base leading-8 text-neutral-600">
-              Pengelola website dan data inquiry ini adalah Biro Jasa Tiga
+              Pengelola situs web dan data permintaan ini adalah Biro Jasa Tiga
               Saudara. Kontak yang tersedia untuk urusan data sama dengan kanal
-              bisnis yang tercantum di website.
+              bisnis yang tercantum di situs web.
             </p>
           </div>
 
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
                   <li>
                     Alamat jaringan dan informasi browser diproses menjadi
                     penanda teknis sementara untuk membatasi spam. Penanda ini
-                    tidak ditampilkan sebagai isi inquiry di dashboard.
+                    tidak ditampilkan sebagai isi permintaan di dashboard.
                   </li>
                 </ul>
               </div>
@@ -99,10 +99,10 @@ export default function PrivacyPage() {
                 <p className="mt-5 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
                   Data dipakai untuk mencatat permintaan, menyiapkan ringkasan
                   percakapan WhatsApp, membantu tindak lanjut, dan melindungi
-                  endpoint publik dari pengiriman berulang. Data inquiry dapat
+                  jalur formulir publik dari pengiriman berulang. Data permintaan dapat
                   dibaca dan diperbarui oleh admin yang berhasil masuk ke ruang
                   internal; pengunjung publik tidak diberi akses membaca daftar
-                  inquiry.
+                  permintaan.
                 </p>
               </div>
             </article>
@@ -121,7 +121,7 @@ export default function PrivacyPage() {
                   admin. Ketika Anda memilih melanjutkan, ringkasan yang sama
                   diteruskan ke WhatsApp untuk membuka percakapan. Pemrosesan di
                   WhatsApp berada pada layanan WhatsApp/Meta dan tidak
-                  dikendalikan oleh aplikasi website ini.
+                  dikendalikan oleh aplikasi situs web ini.
                 </p>
               </div>
             </article>
@@ -131,15 +131,15 @@ export default function PrivacyPage() {
                 Retensi, koreksi, dan penghapusan
               </p>
               <h3 className="mt-4 font-display text-2xl font-semibold text-accent">
-                Inquiry disimpan selama dua belas bulan.
+                Permintaan disimpan selama dua belas bulan.
               </h3>
               <p className="mt-5 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
-                Data inquiry dihapus permanen ketika telah melewati dua belas
+                Data permintaan dihapus permanen ketika telah melewati dua belas
                 bulan sejak tanggal pengiriman. Pemeriksaan ini dijalankan
                 otomatis setiap hari. Sebelum batas tersebut, Anda tetap dapat
                 meminta data diperiksa, dikoreksi, atau dihapus melalui
                 WhatsApp bisnis. Sebutkan nama dan nomor telepon yang dipakai
-                saat mengisi form; jangan mengirim foto identitas untuk membuka
+                saat mengisi formulir; jangan mengirim foto identitas untuk membuka
                 permintaan.
               </p>
               <a

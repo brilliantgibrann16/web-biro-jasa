@@ -15,11 +15,16 @@ export async function updateSupabaseSession(request: NextRequest) {
     config.url,
     config.publishableKey,
     {
+      cookieOptions: {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+      },
       cookies: {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet, headers) {
           cookiesToSet.forEach(({ name, value }) => {
             request.cookies.set(name, value);
           });
@@ -28,6 +33,10 @@ export async function updateSupabaseSession(request: NextRequest) {
 
           cookiesToSet.forEach(({ name, value, options }) => {
             response.cookies.set(name, value, options);
+          });
+
+          Object.entries(headers).forEach(([name, value]) => {
+            response.headers.set(name, value);
           });
         },
       },
@@ -50,5 +59,11 @@ export function copyResponseCookies(
   source.cookies.getAll().forEach((cookie) => {
     target.cookies.set(cookie);
   });
+
+  for (const name of ["cache-control", "expires", "pragma"]) {
+    const value = source.headers.get(name);
+    if (value) target.headers.set(name, value);
+  }
+
   return target;
 }

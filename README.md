@@ -37,7 +37,9 @@ Salin `.env.example` menjadi `.env.local`, lalu isi:
 - `NEXT_PUBLIC_SITE_URL` dengan origin preview atau produksi untuk metadata,
   robots, sitemap, canonical, dan social preview;
 - `NEXT_PUBLIC_SUPABASE_URL` dengan Project URL;
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` dengan publishable key Supabase.
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` dengan publishable key Supabase;
+- `RATE_LIMIT_TRUSTED_PROXY_HEADER` hanya setelah hosting dipastikan menimpa dan
+  membersihkan header IP tersebut. Biarkan kosong pada preview langsung.
 
 Preview saat ini memakai `NEXT_PUBLIC_SITE_URL=http://localhost:3100`.
 Supabase Auth Site URL dan redirect URL remote juga sementara menunjuk ke origin
@@ -190,6 +192,9 @@ Checklist aman untuk Vercel atau hosting Node.js yang mendukung Next.js 16:
 7. deploy, lalu ulangi smoke test form inquiry, handoff WhatsApp, login,
    dashboard, update status, logout, metadata, dan layout responsive pada domain
    asli.
+8. verifikasi reverse proxy membersihkan header IP dari client, lalu isi
+   `RATE_LIMIT_TRUSTED_PROXY_HEADER`; pada deployment multi-instance, ganti
+   limiter in-memory dengan penyimpanan terdistribusi.
 
 Deployment belum dilakukan dari repo ini karena domain asli serta pilihan/akses
 hosting belum diberikan.

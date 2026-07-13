@@ -55,7 +55,7 @@ export interface PageMetadataOptions {
 
 export const ROUTE_METADATA = {
   home: {
-    title: "Pengurusan Dokumen dan Perizinan",
+    title: "Biro Jasa Tiga Saudara | Pengurusan Dokumen dan Perizinan",
     description:
       "Biro Jasa Tiga Saudara membantu pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis melalui pemeriksaan berkas yang rapi sejak awal.",
     path: "/",

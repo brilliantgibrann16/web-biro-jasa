@@ -14,7 +14,7 @@ interface InquiryFormProps {
 }
 
 const fieldClassName =
-  "mt-2 min-h-12 w-full rounded-sm border border-neutral-300 bg-paper px-4 py-3 text-base text-accent outline-none transition-colors placeholder:text-neutral-400 focus:border-primary-dark focus:ring-2 focus:ring-primary/20";
+  "mt-2 min-h-12 w-full rounded-sm border border-control-border bg-paper px-4 py-3 text-base text-accent outline-none transition-colors placeholder:text-form-placeholder focus:border-primary-dark focus:ring-2 focus:ring-primary/20";
 
 export default function InquiryForm({ categories }: InquiryFormProps) {
   const [categoryId, setCategoryId] = useState("");

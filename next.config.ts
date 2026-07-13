@@ -42,10 +42,21 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
   },
-] as const;
+  ...(!isDevelopment
+    ? [
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=31536000",
+        },
+      ]
+    : []),
+];
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  experimental: {
+    globalNotFound: true,
+  },
   async headers() {
     return [
       {

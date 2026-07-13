@@ -12,6 +12,11 @@ export async function createServerSupabaseClient() {
   const cookieStore = await cookies();
 
   return createServerClient<Database>(config.url, config.publishableKey, {
+    cookieOptions: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    },
     cookies: {
       getAll() {
         return cookieStore.getAll();

@@ -119,7 +119,7 @@ export default function InquiryUpdateForm({
           value={status}
           onChange={(event) => setStatus(event.target.value as InquiryStatus)}
           disabled={pending}
-          className="mt-2 min-h-12 w-full rounded-lg border border-neutral-300 bg-surface px-4 text-base text-accent disabled:cursor-wait disabled:opacity-60"
+          className="mt-2 min-h-12 w-full rounded-lg border border-control-border bg-surface px-4 text-base text-accent disabled:cursor-wait disabled:opacity-60"
         >
           {INQUIRY_STATUSES.map((value) => (
             <option key={value} value={value}>
@@ -147,7 +147,7 @@ export default function InquiryUpdateForm({
           rows={8}
           disabled={pending}
           aria-describedby="handled-note-help"
-          className="mt-2 w-full resize-y rounded-lg border border-neutral-300 bg-surface px-4 py-3 text-base leading-7 text-accent placeholder:text-neutral-400 disabled:cursor-wait disabled:opacity-60"
+          className="mt-2 w-full resize-y rounded-lg border border-control-border bg-surface px-4 py-3 text-base leading-7 text-accent placeholder:text-form-placeholder disabled:cursor-wait disabled:opacity-60"
           placeholder="Contoh: sudah dihubungi, menunggu foto STNK..."
         />
         <p className="mt-1 text-right text-xs text-neutral-500">
@@ -155,7 +155,7 @@ export default function InquiryUpdateForm({
         </p>
       </div>
 
-      <div aria-live="polite">
+      <div>
         {message ? (
           <div
             role={message.type === "error" ? "alert" : "status"}
