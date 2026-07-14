@@ -109,7 +109,6 @@ export default function PageHero({
   if (variant === "index") {
     return (
       <section className="relative overflow-hidden bg-page text-accent">
-        <div className="absolute inset-y-0 left-[9%] hidden w-px bg-neutral-200 lg:block" />
         <div className="mx-auto max-w-7xl px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40">
           <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
