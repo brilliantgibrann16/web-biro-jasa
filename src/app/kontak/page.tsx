@@ -43,7 +43,7 @@ export default function KontakPage() {
         }}
       />
 
-      <section className="relative overflow-hidden bg-paper py-24 md:py-32">
+      <section className="relative overflow-hidden bg-page py-24 md:py-32">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:items-start">
           <div>
             <p className="text-[0.72rem] font-black uppercase tracking-[0.18em] text-primary-dark">
@@ -95,7 +95,7 @@ export default function KontakPage() {
 
       <InquiryForm categories={inquiryCategories} />
 
-      <section className="relative overflow-hidden bg-warm-50 py-20 md:py-28">
+      <section className="relative overflow-hidden bg-page py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid gap-7 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-end">
             <div>

@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -23,13 +22,6 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
 
-const LIGHT_OPENING_PATHS = new Set([
-  "/layanan",
-  "/proses",
-  "/tentang",
-  "/faq",
-]);
-
 interface BackgroundElementState {
   element: HTMLElement;
   inert: boolean;
@@ -47,31 +39,6 @@ export default function Navbar() {
   const closeMobileMenu = useCallback(() => {
     setIsMobileOpen(false);
   }, []);
-
-  const hasDarkOpening = !LIGHT_OPENING_PATHS.has(pathname);
-  const onEditorialHero = pathname === "/" && !isScrolled && !isMobileOpen;
-  const onDarkHero =
-    pathname !== "/" && hasDarkOpening && !isScrolled && !isMobileOpen;
-
-  const headerTextClass = useMemo(
-    () =>
-      onEditorialHero
-        ? "text-editorial-text"
-        : onDarkHero
-          ? "text-white"
-          : "text-accent",
-    [onDarkHero, onEditorialHero]
-  );
-
-  const headerMutedClass = useMemo(
-    () =>
-      onEditorialHero
-        ? "text-editorial-muted hover:text-editorial-text"
-        : onDarkHero
-          ? "text-white/74 hover:text-white"
-          : "text-neutral-600 hover:text-accent",
-    [onDarkHero, onEditorialHero]
-  );
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
@@ -180,11 +147,9 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? "border-b border-neutral-200/80 bg-paper/94 py-3 shadow-soft backdrop-blur-md"
-            : "bg-transparent py-5"
-        } ${onDarkHero ? "focus-surface-dark" : ""}`}
+        className={`fixed inset-x-0 top-0 z-50 border-b border-site-chrome-line bg-site-header transition-all duration-500 ${
+          isScrolled ? "py-3 shadow-soft" : "py-4"
+        }`}
         initial={{ y: -96 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
@@ -196,20 +161,13 @@ export default function Navbar() {
           <Link
             href="/"
             className="relative z-10 flex items-center gap-3.5"
-            aria-label="Tiga Saudara - Beranda"
           >
             <span
-              className={`grid h-10 w-10 place-items-center rounded-sm border text-sm font-black transition-colors duration-300 ${
-                onEditorialHero
-                  ? "border-editorial-line bg-editorial-faint text-primary"
-                  : onDarkHero
-                  ? "border-primary-light/40 bg-primary-light/10 text-primary-light"
-                  : "border-primary/30 bg-primary/8 text-primary"
-              }`}
+              className="grid h-10 w-10 place-items-center rounded-sm border border-primary/30 bg-primary/8 text-sm font-black text-primary transition-colors duration-300"
             >
               TS
             </span>
-            <span className={`leading-none transition-colors duration-300 ${headerTextClass}`}>
+            <span className="leading-none text-accent transition-colors duration-300">
               <span className="block text-[0.95rem] font-extrabold uppercase tracking-[0.04em]">
                 Tiga Saudara
               </span>
@@ -229,12 +187,8 @@ export default function Navbar() {
                   href={item.href}
                   className={`animated-underline text-[0.82rem] font-bold uppercase tracking-[0.08em] transition-colors duration-300 ${
                     isActive
-                      ? onEditorialHero
-                        ? "text-primary"
-                        : onDarkHero
-                        ? "text-white"
-                        : "text-primary"
-                      : headerMutedClass
+                      ? "text-primary"
+                      : "text-neutral-600 hover:text-accent"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
@@ -244,25 +198,11 @@ export default function Navbar() {
             })}
           </div>
 
-          <div
-            className={`hidden items-center gap-4 transition-colors duration-300 lg:flex ${
-              onEditorialHero
-                ? "text-editorial-text"
-                : onDarkHero
-                  ? "text-white"
-                  : "text-accent"
-            }`}
-          >
+          <div className="hidden items-center gap-4 text-accent transition-colors duration-300 lg:flex">
             <ThemeToggle />
             <a
               href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
-              className={`hidden text-[0.82rem] font-bold transition-colors xl:inline ${
-                onEditorialHero
-                  ? "text-editorial-muted hover:text-editorial-text"
-                  : onDarkHero
-                    ? "text-white/68 hover:text-white"
-                    : "text-neutral-500 hover:text-accent"
-              }`}
+              className="hidden text-[0.82rem] font-bold text-neutral-500 transition-colors hover:text-accent xl:inline"
             >
               {COMPANY.phone}
             </a>
@@ -281,7 +221,7 @@ export default function Navbar() {
             ref={menuButtonRef}
             type="button"
             onClick={() => setIsMobileOpen((value) => !value)}
-            className={`relative z-10 rounded-sm border border-current/10 p-2.5 transition-colors duration-300 lg:hidden ${headerTextClass}`}
+            className="relative z-10 rounded-sm border border-current/10 p-2.5 text-accent transition-colors duration-300 lg:hidden"
             aria-label={isMobileOpen ? "Tutup menu" : "Buka menu"}
             aria-expanded={isMobileOpen}
             aria-controls="mobile-nav"
@@ -317,7 +257,7 @@ export default function Navbar() {
             />
 
             <motion.nav
-              className="absolute bottom-0 right-0 top-0 flex w-[88%] max-w-sm flex-col overflow-hidden bg-paper text-accent shadow-elevated"
+              className="absolute bottom-0 right-0 top-0 flex w-[88%] max-w-sm flex-col overflow-hidden bg-panel text-accent shadow-elevated"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}

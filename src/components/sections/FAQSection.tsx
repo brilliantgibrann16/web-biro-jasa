@@ -14,7 +14,7 @@ export default function FAQSection() {
     <section
       id="faq"
       ref={ref}
-      className="relative overflow-hidden bg-warm-50 py-24 md:py-36"
+      className="relative overflow-hidden bg-page py-24 md:py-36"
       aria-label="Pertanyaan yang sering diajukan"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">

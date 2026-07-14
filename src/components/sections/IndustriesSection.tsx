@@ -5,7 +5,7 @@ export default function IndustriesSection() {
 
   return (
     <section
-      className="relative overflow-hidden bg-paper py-20 md:py-28"
+      className="relative overflow-hidden bg-page py-20 md:py-28"
       aria-labelledby="industries-title"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">

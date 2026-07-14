@@ -224,7 +224,7 @@ export default function HeroSection() {
         <DesktopDossier />
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-paper to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-page to-transparent" />
     </section>
   );
 }

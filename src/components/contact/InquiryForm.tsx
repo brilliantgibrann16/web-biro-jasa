@@ -83,13 +83,12 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
   return (
     <section
       id="inquiry-form"
-      className="relative scroll-mt-24 overflow-hidden bg-navy py-20 text-white md:py-28"
+      className="relative scroll-mt-24 overflow-hidden bg-page py-20 text-accent md:py-28"
       aria-labelledby="inquiry-form-title"
     >
-      <div className="absolute inset-y-0 right-0 hidden w-[28%] bg-primary-dark/15 lg:block" />
       <div className="relative mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-16">
         <div>
-          <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-light">
+          <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
             Mulai konsultasi
           </p>
           <h2
@@ -98,15 +97,15 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
           >
             Ceritakan kebutuhan pokok sebelum percakapan dilanjutkan.
           </h2>
-          <p className="mt-7 max-w-xl text-base leading-8 text-white/78">
+          <p className="mt-7 max-w-xl text-base leading-8 text-neutral-600">
             Kami akan mencoba mencatat ringkasan awal yang Anda tulis. Setelah
             itu, WhatsApp terbuka dengan informasi yang sama agar Anda tidak
             perlu mengulang cerita dari awal.
           </p>
 
-          <div className="mt-9 flex max-w-xl gap-4 border-t border-white/16 pt-6 text-sm leading-7 text-white/72">
+          <div className="mt-9 flex max-w-xl gap-4 border-t border-neutral-200 pt-6 text-sm leading-7 text-neutral-600">
             <LockKeyhole
-              className="mt-1 h-5 w-5 shrink-0 text-primary-light"
+              className="mt-1 h-5 w-5 shrink-0 text-primary-dark"
               aria-hidden="true"
             />
             <p>
@@ -120,7 +119,7 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
           onSubmit={handleSubmit}
           action="/api/inquiries"
           method="post"
-          className="rounded-sm bg-paper p-5 text-accent shadow-elevated sm:p-8"
+          className="rounded-sm border border-neutral-200 bg-panel p-5 text-accent shadow-medium sm:p-8"
         >
           <div
             className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
@@ -204,7 +203,7 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
                 name="service_detail"
                 disabled={!selectedCategory}
                 defaultValue=""
-                className={`${fieldClassName} disabled:cursor-not-allowed disabled:bg-warm-50 disabled:text-neutral-400`}
+                className={`${fieldClassName} disabled:cursor-not-allowed disabled:bg-inset disabled:text-neutral-400`}
               >
                 <option value="">
                   {selectedCategory

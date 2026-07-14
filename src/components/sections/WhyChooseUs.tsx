@@ -6,7 +6,7 @@ export default function WhyChooseUs() {
   return (
     <section
       id="keunggulan"
-      className="relative overflow-hidden bg-paper py-24 md:py-36"
+      className="relative overflow-hidden bg-page py-24 md:py-36"
       aria-labelledby="why-us-title"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -28,16 +28,16 @@ export default function WhyChooseUs() {
         </div>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-12 lg:items-stretch">
-          <article className="relative overflow-hidden bg-navy p-7 text-white sm:p-10 lg:col-span-7 lg:min-h-[430px]">
-            <div className="absolute inset-y-0 right-0 w-1/3 bg-[linear-gradient(135deg,transparent,rgba(215,154,85,0.12))]" />
+          <article className="relative overflow-hidden border border-neutral-200 bg-panel p-7 text-accent sm:p-10 lg:col-span-7 lg:min-h-[430px]">
+            <div className="absolute inset-y-0 right-0 w-1/3 bg-[linear-gradient(135deg,transparent,rgba(184,100,42,0.07))]" />
             <div className="relative flex h-full flex-col">
-              <p className="text-[0.66rem] font-black uppercase tracking-[0.19em] text-primary-light">
+              <p className="text-[0.66rem] font-black uppercase tracking-[0.19em] text-primary-dark">
                 {leadItem.proof}
               </p>
               <h3 className="mt-auto max-w-2xl pt-20 font-display text-4xl font-semibold leading-[1.03] sm:text-5xl">
                 {leadItem.title}
               </h3>
-              <p className="mt-6 max-w-xl text-base leading-8 text-neutral-300">
+              <p className="mt-6 max-w-xl text-base leading-8 text-neutral-600">
                 {leadItem.description}
               </p>
             </div>

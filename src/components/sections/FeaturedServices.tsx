@@ -17,7 +17,7 @@ export default function FeaturedServices() {
     <section
       id="layanan"
       ref={ref}
-      className="relative overflow-hidden bg-warm-50 py-24 md:py-36"
+      className="relative overflow-hidden bg-page py-24 md:py-36"
       aria-label="Layanan unggulan"
     >
       <div className="absolute inset-x-0 top-0 h-px bg-neutral-200" />
@@ -59,7 +59,7 @@ export default function FeaturedServices() {
           >
             <Link
               href={leadService.href}
-              className="group relative flex min-h-[520px] overflow-hidden border border-neutral-200 bg-paper p-8 text-accent transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 md:p-10"
+              className="group relative flex min-h-[520px] overflow-hidden border border-neutral-200 bg-panel p-8 text-accent transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 md:p-10"
             >
               <div className="relative flex min-h-full flex-1 flex-col">
                 <div className="flex items-start justify-between gap-8">
@@ -105,7 +105,7 @@ export default function FeaturedServices() {
           >
             <Link
               href={secondaryService.href}
-              className="group flex min-h-[520px] flex-col border border-neutral-200 bg-paper p-8 text-accent transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 md:p-10"
+              className="group flex min-h-[520px] flex-col border border-neutral-200 bg-panel p-8 text-accent transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 md:p-10"
             >
               <div className="flex items-start justify-between gap-8">
                 <SecondaryIcon className="h-8 w-8 text-primary" aria-hidden="true" />

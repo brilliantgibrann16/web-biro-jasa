@@ -108,7 +108,7 @@ export default function PageHero({
 }: PageHeroProps) {
   if (variant === "index") {
     return (
-      <section className="relative overflow-hidden bg-paper text-accent">
+      <section className="relative overflow-hidden bg-page text-accent">
         <div className="absolute inset-y-0 left-[9%] hidden w-px bg-neutral-200 lg:block" />
         <div className="mx-auto max-w-7xl px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40">
           <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
@@ -152,7 +152,7 @@ export default function PageHero({
 
   if (variant === "process") {
     return (
-      <section className="relative overflow-hidden bg-warm-50 text-accent">
+      <section className="relative overflow-hidden bg-page text-accent">
         <div className="absolute left-0 top-0 h-2 w-1/3 bg-primary-dark" />
         <div className="mx-auto grid min-h-[72vh] max-w-7xl gap-14 px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40 lg:grid-cols-[minmax(0,1.08fr)_minmax(330px,0.72fr)] lg:items-end">
           <div>
@@ -193,7 +193,7 @@ export default function PageHero({
 
   if (variant === "manifesto") {
     return (
-      <section className="relative overflow-hidden bg-paper text-accent">
+      <section className="relative overflow-hidden bg-page text-accent">
         <div className="mx-auto max-w-7xl px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40">
           <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
             {asideTitle}
@@ -213,7 +213,7 @@ export default function PageHero({
                 surface="light"
               />
             </div>
-            <aside className="bg-warm-50 px-6 py-7 sm:px-8">
+            <aside className="bg-inset px-6 py-7 sm:px-8">
               <p className="border-l-2 border-primary-dark pl-5 text-base font-semibold leading-8 text-accent">
                 {asideBody}
               </p>
@@ -236,7 +236,7 @@ export default function PageHero({
 
   if (variant === "questions") {
     return (
-      <section className="relative overflow-hidden bg-warm-50 text-accent">
+      <section className="relative overflow-hidden bg-page text-accent">
         <span
           className="pointer-events-none absolute -right-4 top-20 font-display text-[18rem] font-black leading-none text-primary-dark/[0.055] sm:text-[28rem]"
           aria-hidden="true"
@@ -283,34 +283,33 @@ export default function PageHero({
 
   if (variant === "contact") {
     return (
-      <section className="relative overflow-hidden bg-ink text-white">
-        <div className="absolute inset-y-0 right-0 hidden w-[34%] bg-primary-dark/18 lg:block" />
+      <section className="page-ambient relative overflow-hidden bg-page text-accent">
         <div className="relative mx-auto grid min-h-[72vh] max-w-7xl gap-12 px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.58fr)] lg:items-end">
           <div>
-            <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-light">
+            <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
               Kanal konsultasi
             </p>
             <h1 className="mt-6 max-w-5xl font-display text-[3rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.8rem]">
               {title}
             </h1>
-            <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-neutral-300 sm:text-xl sm:leading-9">
+            <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-neutral-600 sm:text-xl sm:leading-9">
               {intro}
             </p>
             <HeroActions
               primaryAction={primaryAction}
               secondaryAction={secondaryAction}
-              surface="dark"
+              surface="light"
             />
           </div>
 
-          <aside className="border-l border-primary-light/60 pl-6 lg:mb-1 lg:pl-8">
-            <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-primary-light">
+          <aside className="border-l border-primary-dark/35 pl-6 lg:mb-1 lg:pl-8">
+            <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-primary-dark">
               {asideTitle}
             </p>
-            <p className="mt-4 text-base font-semibold leading-8 text-white">{asideBody}</p>
-            <div className="mt-6 space-y-4 border-t border-white/14 pt-5">
+            <p className="mt-4 text-base font-semibold leading-8 text-accent">{asideBody}</p>
+            <div className="mt-6 space-y-4 border-t border-neutral-200 pt-5">
               {points.map((point) => (
-                <p key={point} className="text-sm leading-7 text-neutral-300">
+                <p key={point} className="text-sm leading-7 text-neutral-600">
                   {point}
                 </p>
               ))}
@@ -322,37 +321,36 @@ export default function PageHero({
   }
 
   return (
-    <section className="relative overflow-hidden bg-navy text-white">
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,#050b13_0%,#07111f_62%,#101b2e_100%)]" />
+    <section className="relative overflow-hidden bg-page text-accent">
       <div className="relative mx-auto grid min-h-[72vh] max-w-7xl gap-12 px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40 lg:grid-cols-[minmax(0,1.05fr)_minmax(330px,0.62fr)] lg:items-center">
         <div>
-          <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-light">
+          <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
             Ruang layanan
           </p>
           <h1 className="mt-6 max-w-5xl font-display text-[3rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.65rem]">
             {title}
           </h1>
-          <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-neutral-300 sm:text-xl sm:leading-9">
+          <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-neutral-600 sm:text-xl sm:leading-9">
             {intro}
           </p>
           <HeroActions
             primaryAction={primaryAction}
             secondaryAction={secondaryAction}
-            surface="dark"
+            surface="light"
           />
         </div>
 
-        <aside className="relative rotate-[0.6deg] border border-fixed-paper-border bg-fixed-paper-surface px-6 py-7 text-fixed-paper-text shadow-[0_30px_80px_-50px_rgba(0,0,0,0.95)] sm:px-8">
-          <div className="absolute -right-3 -top-3 h-full w-full border border-white/10" />
+        <aside className="relative rotate-[0.6deg] border border-dossier-border bg-dossier-surface px-6 py-7 text-dossier-text shadow-medium sm:px-8">
+          <div className="absolute -right-3 -top-3 h-full w-full border border-neutral-200" />
           <div className="relative">
-            <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-fixed-paper-accent">
+            <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-dossier-accent">
               {asideTitle}
             </p>
-            <p className="mt-4 text-sm font-semibold leading-7 text-fixed-paper-muted">{asideBody}</p>
-            <div className="mt-6 divide-y divide-fixed-paper-line border-y border-fixed-paper-line">
+            <p className="mt-4 text-sm font-semibold leading-7 text-dossier-muted">{asideBody}</p>
+            <div className="mt-6 divide-y divide-dossier-line border-y border-dossier-line">
               {points.map((point) => (
-                <p key={point} className="flex gap-3 py-4 text-sm font-bold leading-7 text-fixed-paper-text">
-                  <span className="mt-3 h-px w-6 shrink-0 bg-fixed-paper-accent" />
+                <p key={point} className="flex gap-3 py-4 text-sm font-bold leading-7 text-dossier-text">
+                  <span className="mt-3 h-px w-6 shrink-0 bg-dossier-accent" />
                   {point}
                 </p>
               ))}

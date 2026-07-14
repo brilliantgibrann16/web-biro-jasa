@@ -11,7 +11,7 @@ export default function TrustIndicators() {
   return (
     <section
       ref={ref}
-      className="relative bg-paper py-12 md:py-16"
+      className="relative bg-page py-12 md:py-16"
       aria-labelledby="trust-indicators-title"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">

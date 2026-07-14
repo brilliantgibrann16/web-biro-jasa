@@ -18,7 +18,7 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
       {!isAdmin && <Navbar />}
       <main
         id="main-content"
-        className={isAdmin ? "min-h-screen flex-1 bg-warm-50" : "flex-1"}
+        className={isAdmin ? "min-h-screen flex-1 bg-warm-50" : "flex-1 bg-page"}
         tabIndex={-1}
       >
         {children}

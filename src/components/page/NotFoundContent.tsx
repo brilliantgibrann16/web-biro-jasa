@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function NotFoundContent() {
   return (
-    <section className="relative flex min-h-[72vh] items-center overflow-hidden bg-paper pb-20 pt-36 text-accent md:pb-28 md:pt-44">
-      <div className="absolute inset-y-0 right-0 hidden w-[30%] bg-warm-50 lg:block" />
+    <section className="relative flex min-h-[72vh] items-center overflow-hidden bg-page pb-20 pt-36 text-accent md:pb-28 md:pt-44">
+      <div className="absolute inset-y-0 right-0 hidden w-[30%] bg-inset/45 lg:block" />
       <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.42fr)] lg:items-end">
         <div>
           <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">

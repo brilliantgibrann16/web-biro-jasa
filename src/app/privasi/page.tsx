@@ -11,7 +11,7 @@ const privacyRequestMessage =
 export default function PrivacyPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-paper pb-20 pt-36 text-accent md:pb-28 md:pt-44">
+      <section className="relative overflow-hidden bg-page pb-20 pt-36 text-accent md:pb-28 md:pt-44">
         <div className="absolute inset-y-0 left-[9%] hidden w-px bg-neutral-200 lg:block" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
@@ -43,7 +43,7 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-warm-50 py-20 md:py-28">
+      <section className="relative overflow-hidden bg-page py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.56fr)_minmax(0,1fr)] lg:gap-20">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      <section className="bg-paper py-16 md:py-20">
+      <section className="bg-page py-16 md:py-20">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-sm font-semibold text-neutral-600">

@@ -17,7 +17,7 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
     return (
       <section
         id="proses"
-        className="relative overflow-hidden bg-surface py-24 text-accent md:py-36"
+        className="relative overflow-hidden bg-page py-24 text-accent md:py-36"
         aria-labelledby="process-detail-title"
       >
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
@@ -44,7 +44,7 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
                 key={step.step}
                 className="relative border-b border-neutral-200 py-9 pl-7 last:border-b-0 sm:pl-10 lg:py-12 lg:pl-16"
               >
-                <span className="absolute -left-[0.44rem] top-12 h-3 w-3 border-2 border-primary bg-surface" />
+                <span className="absolute -left-[0.44rem] top-12 h-3 w-3 border-2 border-primary bg-page" />
                 <article className="grid gap-7 lg:grid-cols-[9rem_minmax(0,0.75fr)_minmax(0,1fr)] lg:items-start">
                   <div>
                     <p className="text-[0.64rem] font-black uppercase tracking-[0.18em] text-primary">
@@ -82,7 +82,7 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
   return (
     <section
       id="proses"
-      className="relative overflow-hidden bg-surface py-24 text-accent md:py-36"
+      className="relative overflow-hidden bg-page py-24 text-accent md:py-36"
       aria-labelledby="process-preview-title"
     >
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">

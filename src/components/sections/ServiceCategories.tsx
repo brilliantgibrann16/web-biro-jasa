@@ -6,7 +6,7 @@ export default function ServiceCategories() {
   return (
     <section
       id="kategori"
-      className="relative overflow-hidden bg-warm-50 py-24 md:py-32"
+      className="relative overflow-hidden bg-page py-24 md:py-32"
       aria-labelledby="service-index-title"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">

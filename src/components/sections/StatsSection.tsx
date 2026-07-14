@@ -3,7 +3,7 @@ import { VALUE_PROPS } from "@/lib/constants";
 export default function StatsSection() {
   return (
     <section
-      className="relative overflow-hidden bg-warm-50 py-24 md:py-32"
+      className="relative overflow-hidden bg-page py-24 md:py-32"
       aria-labelledby="service-charter-title"
     >
       <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">

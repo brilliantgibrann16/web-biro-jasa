@@ -27,7 +27,7 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
         secondaryAction={{ label: "Lihat Semua Layanan", href: "/layanan" }}
       />
 
-      <section className="relative overflow-hidden bg-paper py-24 md:py-32">
+      <section className="relative overflow-hidden bg-page py-24 md:py-32">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.86fr)_minmax(310px,0.52fr)] lg:gap-20">
           <div>
             <div className="mb-8 flex items-center gap-3 text-primary-dark">
@@ -66,7 +66,7 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-warm-50 py-24 md:py-32">
+      <section className="relative overflow-hidden bg-page py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:items-end">
             <div>
@@ -103,7 +103,7 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-paper py-24 md:py-32">
+      <section className="relative overflow-hidden bg-page py-24 md:py-32">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.64fr)_minmax(0,1.36fr)] lg:gap-20">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
@@ -118,13 +118,13 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            <article className="bg-navy px-6 py-8 text-white sm:px-8">
-              <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-primary-light">
+            <article className="border border-neutral-200 bg-panel px-6 py-8 text-accent sm:px-8">
+              <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-primary-dark">
                 Dokumen yang biasanya dicek
               </p>
-              <div className="mt-6 divide-y divide-white/12 border-y border-white/12">
+              <div className="mt-6 divide-y divide-neutral-200 border-y border-neutral-200">
                 {category.documents.map((item) => (
-                  <p key={item} className="py-4 text-sm leading-7 text-neutral-300">
+                  <p key={item} className="py-4 text-sm leading-7 text-neutral-600">
                     {item}
                   </p>
                 ))}

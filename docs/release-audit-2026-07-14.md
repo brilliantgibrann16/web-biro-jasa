@@ -4,6 +4,8 @@ Repo: `biro-jasa-tiga-saudara`
 Baseline sebelum audit: `67b8df1 fix: theme hero dossier surfaces`
 Mode audit: production build lokal pada `http://localhost:3100`, live project Supabase tertaut, dan browser Chromium nyata.
 
+Addendum visual setelah audit utama didokumentasikan di `docs/design-color-audit-2026-07-14.md`. Bagian warna di bawah mencerminkan sistem surface final setelah follow-up tersebut.
+
 ## Ringkasan eksekutif
 
 Tidak ditemukan temuan **Critical**. Temuan High-impact yang dapat diselesaikan aman di repo sudah diperbaiki: limiter dan batas payload login admin, atribut cookie sesi, propagasi header anti-cache Supabase SSR, HSTS produksi, kontras form, semantik FAQ/landmark/toggle, title homepage, schema, dan metadata 404.
@@ -117,8 +119,7 @@ Limiter login admin juga tetap in-memory, sehingga restart mereset window dan sc
 - Raw chromatic Tailwind classes: **0**.
 - Literal TS/TSX yang tersisa hanya pengecualian visual terklasifikasi:
   - warna ikon brand statis;
-  - fixed navy gradient pada service hero;
-  - copper atmospheric overlay Footer/WhyChooseUs;
+  - copper atmospheric overlay halus pada Footer/WhyChooseUs;
   - black neutral shadows pada dossier/hero.
 - Tidak ada kebocoran status color lama.
 - Utility CSS orphan (`glass`, `glass-border`, `gradient-navy`, `gradient-cta`, `section-divider`, `shadow-glow`) sudah dihapus setelah pencarian pemakaian menunjukkan nol consumer.
@@ -133,9 +134,11 @@ Limiter login admin juga tetap in-memory, sehingga restart mereset window dan sc
    - Sebelum: `neutral-400`, sekitar 3.20–3.28:1.
    - Sesudah: token `form-placeholder` memakai `#675f57` light dan `#c4c9d0` dark; sekitar **6.16:1** dan **10.27:1**.
 
-3. **Fixed light paper masih memakai literal lokal.**
-   - Ditarik ke token `fixed-paper-*` untuk surface, text, muted, border, line, dan accent.
-   - Tampilan cream/navy tetap sengaja fixed pada dua theme; override dark ad hoc dihapus.
+3. **Surface publik drift dan menghasilkan full-width band pada dark mode.**
+   - Seluruh root section publik sekarang memakai satu token `page`: `#fbfaf7` light dan `#07111f` dark.
+   - `panel` dan `inset` hanya dipakai pada kartu/form/aside lokal; header/footer menjadi satu-satunya bookend full-width.
+   - Service hero fixed navy dan bidang vertikal kontak dihapus. Dossier layanan memakai token `dossier-*` yang adaptif; token `fixed-paper-*` yang tidak lagi dipakai dihapus.
+   - Navbar dan Footer sekarang memakai satu strategi token tanpa heuristik pathname atau override `dark:*` paralel.
 
 Browser computed-style proof pada form kontak:
 
@@ -151,6 +154,7 @@ Angka dekoratif pada TrustIndicators dan Industries juga dinaikkan dari `neutral
 - 60/60 route/viewport tidak memiliki horizontal overflow.
 - Setiap kombinasi memiliki tepat satu H1 yang terlihat.
 - Light default, dark toggle, dan dark persistence lulus tanpa console/page error.
+- Follow-up surface audit menambah 40 kombinasi route × theme pada desktop 1440×900 dan mobile 390×844; seluruhnya memiliki satu background section publik, bookend header/footer yang benar, satu H1 terlihat, dan overflow 0.
 - Screenshot admin menunjukkan border kontrol tetap jelas tanpa berubah menjadi outline berat.
 
 ---
@@ -216,7 +220,7 @@ Perbaikan kecil yang ikut masuk:
 - Semua 10 route publik, robots, sitemap, icon, OG, dan Twitter image tetap static/prerendered.
 - Hanya admin dan API yang dynamic.
 - Home response cache HIT/prerendered, gzip, dan server response sekitar **10 ms**.
-- `.next/static`: 37 file; **1,269,941 byte** total raw, **878,033 byte JS**, **88,121 byte CSS** lintas seluruh chunk build.
+- `.next/static`: 37 file; **1,263,121 byte** total raw, **876,794 byte JS**, **82,540 byte CSS** lintas seluruh chunk build.
 - Transfer modern-browser audit tetap sekitar 212–215 KiB gzip JS per route; CSS global sekitar 13.8 KiB gzip.
 - Supabase SDK marker tidak ada di client chunks.
 - Dua font WOFF2 self-hosted/preloaded; total sekitar 75.7 KiB.

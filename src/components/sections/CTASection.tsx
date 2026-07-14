@@ -10,7 +10,7 @@ export default function CTASection({
 }: CTASectionProps) {
   return (
     <section
-      className="relative overflow-hidden bg-paper py-20 md:py-28"
+      className="relative overflow-hidden bg-page py-20 md:py-28"
       aria-labelledby="cta-title"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -49,7 +49,7 @@ export default function CTASection({
             </div>
           </div>
 
-          <aside className="bg-warm-50 px-6 py-10 sm:px-8 lg:border-l lg:border-neutral-200">
+          <aside className="bg-inset px-6 py-10 sm:px-8 lg:border-l lg:border-neutral-200">
             <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-primary-dark">
               Catatan kontak
             </p>
