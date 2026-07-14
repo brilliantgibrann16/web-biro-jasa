@@ -7,9 +7,9 @@ interface ProcessSectionProps {
 }
 
 const previewChapters = [
-  { label: "Baca kondisi", step: PROCESS_STEPS[0] },
-  { label: "Tentukan jalur", step: PROCESS_STEPS[2] },
-  { label: "Periksa hasil", step: PROCESS_STEPS[4] },
+  { label: "Pemeriksaan", step: PROCESS_STEPS[0] },
+  { label: "Penentuan proses", step: PROCESS_STEPS[2] },
+  { label: "Verifikasi hasil", step: PROCESS_STEPS[4] },
 ];
 
 export default function ProcessSection({ variant = "preview" }: ProcessSectionProps) {
@@ -30,11 +30,11 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
                 id="process-detail-title"
                 className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.02] text-accent sm:text-6xl"
               >
-                Posisi berkas harus tetap bisa dibaca dari awal sampai serah terima.
+                Setiap tahap dicatat sejak pemeriksaan awal hingga serah terima.
               </h2>
             </div>
             <p className="border-l border-neutral-200 pl-5 text-base leading-8 text-neutral-500">
-              Setiap tahap punya pertanyaan yang berbeda. Urutannya membantu kami menjelaskan apa yang sudah diketahui, apa yang masih kurang, dan apa yang sedang ditunggu.
+              Urutan ini membantu Anda mengetahui dokumen yang sudah lengkap, bagian yang masih perlu diperbaiki, dan proses yang sedang menunggu instansi.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
                   </div>
                   <div className="border-l border-neutral-200 pl-5">
                     <p className="text-[0.62rem] font-black uppercase tracking-[0.17em] text-neutral-500">
-                      Yang dijelaskan pada tahap ini
+                      Yang dilakukan pada tahap ini
                     </p>
                     <p className="mt-3 text-sm font-medium leading-7 text-neutral-500 sm:text-base sm:leading-8">
                       {step.detail}
@@ -89,24 +89,24 @@ export default function ProcessSection({ variant = "preview" }: ProcessSectionPr
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.42fr)] lg:items-end">
           <div>
             <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary">
-              Tiga bab ringkas
+              Ringkasan proses
             </p>
             <h2
               id="process-preview-title"
               className="mt-5 max-w-4xl font-display text-4xl font-semibold leading-[1.02] text-accent sm:text-6xl"
             >
-              Berkas dibaca, jalur ditentukan, hasil diperiksa.
+              Dari pemeriksaan awal hingga serah terima.
             </h2>
           </div>
           <div>
             <p className="text-base leading-8 text-neutral-500">
-              Ringkasan ini menunjukkan arah kerja. Halaman proses menjelaskan lima tahapnya secara utuh.
+              Lihat gambaran singkat proses kami, lalu pelajari lima tahapnya secara lengkap.
             </p>
             <Link
               href="/proses"
               className="mt-6 inline-flex items-center gap-2 border-b border-primary pb-2 text-sm font-extrabold text-primary"
             >
-              Baca proses lengkap
+              Lihat lima tahap
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>

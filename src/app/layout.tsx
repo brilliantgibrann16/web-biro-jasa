@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Biro Jasa Tiga Saudara",
   },
   description:
-    "Biro Jasa Tiga Saudara membantu pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis melalui pemeriksaan berkas yang rapi sejak awal.",
+    "Biro Jasa Tiga Saudara melayani pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis. Konsultasi dimulai dengan pemeriksaan kebutuhan dan kelengkapan awal.",
   keywords: [
     "biro jasa",
     "pengurusan STNK",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "SLF",
     "perizinan bangunan",
     "ANDALALIN",
-    "hak paten",
+    "kekayaan intelektual",
     "mutasi kendaraan",
     "balik nama kendaraan",
   ],
@@ -43,14 +43,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Biro Jasa Tiga Saudara",
     description:
-      "Pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis dengan pemeriksaan berkas yang jelas.",
+      "Layanan pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis dengan pemeriksaan awal.",
     type: "website",
     locale: "id_ID",
     siteName: COMPANY.name,
     images: [
       {
         url: "/opengraph-image",
-        alt: "Biro Jasa Tiga Saudara — berkas dibaca dulu, proses dijalankan dengan rapi.",
+        alt: "Biro Jasa Tiga Saudara dan layanan pengurusan dokumen.",
         width: 1731,
         height: 909,
         type: "image/png",
@@ -61,11 +61,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Biro Jasa Tiga Saudara",
     description:
-      "Pendamping pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
+      "Layanan pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
     images: [
       {
         url: "/twitter-image",
-        alt: "Biro Jasa Tiga Saudara — berkas dibaca dulu, proses dijalankan dengan rapi.",
+        alt: "Biro Jasa Tiga Saudara dan layanan pengurusan dokumen.",
       },
     ],
   },

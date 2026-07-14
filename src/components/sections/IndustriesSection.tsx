@@ -13,7 +13,7 @@ export default function IndustriesSection() {
           <div className="grid lg:grid-cols-[12rem_minmax(0,1fr)]">
             <div className="flex items-center justify-between gap-5 border-b border-neutral-200 py-5 lg:block lg:border-r lg:border-b-0 lg:py-10 lg:pr-8">
               <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
-                Profil kebutuhan
+                Jenis kebutuhan
               </p>
               <span
                 className="font-display text-2xl font-semibold text-neutral-400 lg:mt-4 lg:block lg:text-3xl"
@@ -27,10 +27,10 @@ export default function IndustriesSection() {
                 id="industries-title"
                 className="max-w-5xl font-display text-4xl font-semibold leading-[1.03] text-accent sm:text-5xl"
               >
-                Kebutuhan pribadi, usaha, dan proyek dibaca dengan konteks yang berbeda.
+                Jenis pengurusan berbeda untuk kebutuhan pribadi, usaha, dan proyek.
               </h2>
               <p className="mt-6 max-w-3xl text-base leading-8 text-neutral-600">
-                Dokumen yang sama dapat memiliki alur berbeda ketika pemilik, fungsi aset, wilayah, atau tujuan pengurusannya berubah.
+                Wilayah, fungsi aset, status pemilik, dan tujuan pengurusan dapat mengubah persyaratan yang perlu disiapkan.
               </p>
             </div>
           </div>
@@ -39,7 +39,7 @@ export default function IndustriesSection() {
         <article className="mt-12 grid gap-6 border-b border-neutral-200 pb-8 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] md:items-center">
           <div>
             <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-primary-dark">
-              Titik mulai yang sering ditemui
+              Kebutuhan yang sering kami tangani
             </p>
             <h3 className="mt-3 font-display text-3xl font-semibold leading-tight text-accent sm:text-4xl">
               {leadIndustry.title}

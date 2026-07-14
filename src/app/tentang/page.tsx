@@ -15,18 +15,18 @@ export default function TentangPage() {
     <>
       <PageHero
         variant="manifesto"
-        title="Kami bekerja di bagian yang sering ingin diselesaikan tanpa salah langkah."
-        intro="Biro Jasa Tiga Saudara mendampingi klien yang ingin mengurus dokumen penting dengan cara yang lebih tertib. Kami menjaga agar keputusan diambil setelah kondisi berkas dibaca, bukan hanya dari cerita singkat."
+        title="Kami membantu Anda mengurus dokumen dengan langkah yang jelas."
+        intro="Biro Jasa Tiga Saudara mendampingi pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis. Kami memulai setiap kebutuhan dengan pemeriksaan informasi dan dokumen awal."
         asideTitle="Prinsip kami"
-        asideBody="Setiap dokumen punya pemilik, riwayat, dan akibat hukum. Cara menanganinya harus tenang dan bisa dipertanggungjawabkan."
+        asideBody="Kami menjelaskan persyaratan, tahapan, dan batas layanan sebelum pengurusan dimulai."
         points={CORPORATE_PRINCIPLES}
         primaryAction={{
-          label: "Bicarakan Berkas",
+          label: "Konsultasi via WhatsApp",
           href: COMPANY.whatsappUrl(WHATSAPP_MESSAGES.tentang),
           external: true,
           icon: "message",
         }}
-        secondaryAction={{ label: "Lihat Proses", href: "/proses" }}
+        secondaryAction={{ label: "Lihat proses", href: "/proses" }}
       />
       <WhyChooseUs />
       <CTASection message={WHATSAPP_MESSAGES.tentang} />

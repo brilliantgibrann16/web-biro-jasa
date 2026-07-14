@@ -220,12 +220,12 @@ Perbaikan kecil yang ikut masuk:
 - Semua 10 route publik, robots, sitemap, icon, OG, dan Twitter image tetap static/prerendered.
 - Hanya admin dan API yang dynamic.
 - Home response cache HIT/prerendered, gzip, dan server response sekitar **10 ms**.
-- `.next/static`: 37 file; **1,263,121 byte** total raw, **876,794 byte JS**, **82,540 byte CSS** lintas seluruh chunk build.
+- `.next/static`: 38 file; **1,278,917 byte** total raw, **890,795 byte JS**, **84,335 byte CSS** lintas seluruh chunk build.
 - Transfer modern-browser audit tetap sekitar 212–215 KiB gzip JS per route; CSS global sekitar 13.8 KiB gzip.
 - Supabase SDK marker tidak ada di client chunks.
 - Dua font WOFF2 self-hosted/preloaded; total sekitar 75.7 KiB.
 - Tidak ada raster LCP pada halaman publik; hero utama HTML/CSS.
-- OG/Twitter PNG 2,197,498 byte tidak berada pada critical page-load path.
+- OG/Twitter PNG baru **1,157,129 byte** tidak berada pada critical page-load path; visual perizinan yang dipakai di halaman detail sudah dioptimalkan menjadi WebP **71,198 byte**.
 
 ### Lighthouse final
 

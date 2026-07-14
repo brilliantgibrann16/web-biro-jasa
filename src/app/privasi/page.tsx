@@ -20,7 +20,7 @@ export default function PrivacyPage() {
           <div className="mt-6 grid gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(300px,0.48fr)] lg:items-end">
             <div>
               <h1 className="max-w-5xl font-display text-[3rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.6rem]">
-                Informasi Anda dipakai untuk membaca dan menindaklanjuti kebutuhan awal.
+                Data formulir digunakan untuk menindaklanjuti permintaan konsultasi Anda.
               </h1>
               <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-neutral-600 sm:text-xl sm:leading-9">
                 Halaman ini menjelaskan data yang diproses ketika Anda mengisi
@@ -47,15 +47,15 @@ export default function PrivacyPage() {
         <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.56fr)_minmax(0,1fr)] lg:gap-20">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
-              Ringkasan yang dapat dibaca
+              Cara kami memproses data
             </p>
             <h2 className="mt-5 max-w-xl font-display text-4xl font-semibold leading-[1.03] text-accent sm:text-5xl">
-              Kami menjelaskan aliran data tanpa menyembunyikannya di balik istilah teknis.
+              Data yang diterima, tujuan penggunaan, dan pihak yang terlibat.
             </h2>
             <p className="mt-7 max-w-lg text-base leading-8 text-neutral-600">
-              Pengelola situs web dan data permintaan ini adalah Biro Jasa Tiga
-              Saudara. Kontak yang tersedia untuk urusan data sama dengan kanal
-              bisnis yang tercantum di situs web.
+              Biro Jasa Tiga Saudara mengelola situs web dan data permintaan
+              konsultasi. Permintaan pemeriksaan, koreksi, atau penghapusan data
+              dapat disampaikan melalui kontak bisnis yang tercantum di situs.
             </p>
           </div>
 
@@ -99,10 +99,9 @@ export default function PrivacyPage() {
                 <p className="mt-5 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
                   Data dipakai untuk mencatat permintaan, menyiapkan ringkasan
                   percakapan WhatsApp, membantu tindak lanjut, dan melindungi
-                  jalur formulir publik dari pengiriman berulang. Data permintaan dapat
-                  dibaca dan diperbarui oleh admin yang berhasil masuk ke ruang
-                  internal; pengunjung publik tidak diberi akses membaca daftar
-                  permintaan.
+                  formulir publik dari pengiriman berulang. Data permintaan dapat
+                  diakses dan diperbarui oleh admin yang berhasil masuk ke
+                  dashboard; pengunjung tidak dapat melihat daftar permintaan.
                 </p>
               </div>
             </article>
@@ -117,11 +116,11 @@ export default function PrivacyPage() {
                   Layanan pihak ketiga
                 </h3>
                 <p className="mt-5 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
-                  Supabase digunakan sebagai infrastruktur database dan login
-                  admin. Ketika Anda memilih melanjutkan, ringkasan yang sama
-                  diteruskan ke WhatsApp untuk membuka percakapan. Pemrosesan di
-                  WhatsApp berada pada layanan WhatsApp/Meta dan tidak
-                  dikendalikan oleh aplikasi situs web ini.
+                  Supabase digunakan sebagai penyedia database dan autentikasi
+                  admin. Saat Anda melanjutkan ke WhatsApp, ringkasan formulir
+                  disusun menjadi pesan yang dapat Anda periksa sebelum dikirim.
+                  Pemrosesan di WhatsApp berada pada layanan WhatsApp/Meta dan
+                  tidak dikendalikan oleh situs web ini.
                 </p>
               </div>
             </article>
@@ -131,7 +130,7 @@ export default function PrivacyPage() {
                 Retensi, koreksi, dan penghapusan
               </p>
               <h3 className="mt-4 font-display text-2xl font-semibold text-accent">
-                Permintaan disimpan selama dua belas bulan.
+                Data formulir disimpan selama dua belas bulan.
               </h3>
               <p className="mt-5 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
                 Data permintaan dihapus permanen ketika telah melewati dua belas
@@ -160,7 +159,7 @@ export default function PrivacyPage() {
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-sm font-semibold text-neutral-600">
-              Terakhir diperbarui 12 Juli 2026.
+              Terakhir diperbarui 14 Juli 2026.
             </p>
             <p className="mt-2 text-sm leading-7 text-neutral-500">
               Pemberitahuan ini akan disesuaikan bila cara pengumpulan atau

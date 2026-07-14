@@ -7,7 +7,7 @@ export function buildInquiryWhatsAppMessage(
   options: { recorded?: boolean } = {},
 ): string {
   const lines = [
-    "Halo Biro Jasa Tiga Saudara, saya baru mengisi formulir kebutuhan di situs web.",
+    "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi. Berikut ringkasan kebutuhan yang saya isi melalui situs web:",
     "",
     `Nama: ${inquiry.full_name}`,
     `Nomor telepon: ${inquiry.phone}`,
@@ -15,7 +15,7 @@ export function buildInquiryWhatsAppMessage(
   ];
 
   if (inquiry.service_detail) {
-    lines.push(`Detail layanan: ${inquiry.service_detail}`);
+    lines.push(`Sub-layanan: ${inquiry.service_detail}`);
   }
   if (inquiry.region) {
     lines.push(`Wilayah: ${inquiry.region}`);
@@ -27,11 +27,11 @@ export function buildInquiryWhatsAppMessage(
   if (options.recorded === false) {
     lines.push(
       "",
-      "Catatan sistem: pencatatan situs web belum berhasil. Mohon admin mencatat permintaan ini secara manual.",
+      "Catatan untuk admin: data formulir belum tersimpan di dashboard. Mohon catat percakapan ini secara manual.",
     );
   }
 
-  lines.push("", "Mohon bantu periksa kebutuhan awal saya.");
+  lines.push("", "Mohon informasikan langkah awal dan dokumen yang perlu saya siapkan.");
   return lines.join("\n");
 }
 

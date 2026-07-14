@@ -25,7 +25,7 @@ export function buildCustomerWhatsAppUrl(
 ): string {
   const digits = normalizePhoneNumber(phone).replace(/\D/g, "");
   const greeting = fullName?.trim() ? `Halo ${fullName.trim()},` : "Halo,";
-  const message = `${greeting} kami dari Biro Jasa Tiga Saudara menindaklanjuti inquiry yang Anda kirim melalui website.`;
+  const message = `${greeting} kami dari Biro Jasa Tiga Saudara menindaklanjuti permintaan konsultasi yang Anda kirim melalui situs web.`;
 
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }

@@ -1,12 +1,25 @@
+import Image from "next/image";
 import CTASection from "@/components/sections/CTASection";
 import { COMPANY, type ServiceCategory } from "@/lib/constants";
 import PageHero from "./PageHero";
 
-interface ServiceDetailPageProps {
-  category: ServiceCategory;
+interface ServiceEditorialVisual {
+  src: string;
+  alt: string;
+  label: string;
+  title: string;
+  body: string;
 }
 
-export default function ServiceDetailPage({ category }: ServiceDetailPageProps) {
+interface ServiceDetailPageProps {
+  category: ServiceCategory;
+  editorialVisual?: ServiceEditorialVisual;
+}
+
+export default function ServiceDetailPage({
+  category,
+  editorialVisual,
+}: ServiceDetailPageProps) {
   const Icon = category.icon;
 
   return (
@@ -19,12 +32,12 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
         asideBody={category.summary}
         points={category.processFocus.slice(0, 3)}
         primaryAction={{
-          label: "Bicarakan Berkas",
+          label: "Konsultasi via WhatsApp",
           href: COMPANY.whatsappUrl(category.whatsappMessage),
           external: true,
           icon: "message",
         }}
-        secondaryAction={{ label: "Lihat Semua Layanan", href: "/layanan" }}
+        secondaryAction={{ label: "Lihat semua layanan", href: "/layanan" }}
       />
 
       <section className="relative overflow-hidden bg-page py-24 md:py-32">
@@ -50,7 +63,7 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
 
           <aside className="border-t-2 border-accent pt-6">
             <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-primary-dark">
-              Biasanya cocok untuk
+              Sesuai untuk
             </p>
             <div className="mt-5 space-y-5">
               {category.suitableFor.map((item) => (
@@ -64,6 +77,33 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
             </div>
           </aside>
         </div>
+
+        {editorialVisual ? (
+          <figure className="relative mx-auto mt-16 aspect-[4/5] max-w-7xl overflow-hidden border border-neutral-200 bg-panel shadow-medium sm:aspect-[16/9] lg:mt-20 lg:aspect-[2/1]">
+            <Image
+              src={editorialVisual.src}
+              alt={editorialVisual.alt}
+              fill
+              sizes="(min-width: 1280px) 1248px, (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
+              className="object-cover object-[68%_center] sm:object-center"
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-ink/5"
+              aria-hidden="true"
+            />
+            <figcaption className="absolute inset-y-0 left-0 flex max-w-2xl flex-col justify-end p-7 text-white sm:p-10 lg:p-14">
+              <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-light">
+                {editorialVisual.label}
+              </p>
+              <h2 className="mt-4 max-w-xl font-display text-3xl font-semibold leading-[1.08] sm:text-4xl lg:text-5xl">
+                {editorialVisual.title}
+              </h2>
+              <p className="mt-5 max-w-lg text-sm leading-7 text-white/75 sm:text-base sm:leading-8">
+                {editorialVisual.body}
+              </p>
+            </figcaption>
+          </figure>
+        ) : null}
       </section>
 
       <section className="relative overflow-hidden bg-page py-24 md:py-32">
@@ -71,14 +111,14 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:items-end">
             <div>
               <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
-                Katalog kategori
+                Daftar layanan
               </p>
               <h2 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.03] text-accent sm:text-5xl">
-                Nama layanan boleh berbeda. Kondisi berkas tetap menjadi titik awalnya.
+                Pilih jenis pengurusan yang sesuai dengan kebutuhan Anda.
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-8 text-neutral-600 lg:justify-self-end">
-              Jika istilah yang Anda cari tidak persis sama, sampaikan kebutuhan sebenarnya. Kami akan membantu menempatkannya pada alur yang sesuai.
+              Jika kebutuhan Anda belum tercantum, sampaikan kondisi dokumen melalui konsultasi awal agar kami dapat memeriksa layanan yang sesuai.
             </p>
           </div>
 
@@ -110,10 +150,10 @@ export default function ServiceDetailPage({ category }: ServiceDetailPageProps) 
               Pemeriksaan berkas
             </p>
             <h2 className="mt-5 max-w-xl font-display text-4xl font-semibold leading-[1.03] text-accent sm:text-5xl">
-              Bagian yang dibaca sebelum langkah disarankan.
+              Dokumen yang diperiksa sebelum pengurusan dimulai.
             </h2>
             <p className="mt-7 max-w-lg text-base leading-8 text-neutral-600">
-              Daftar ini bukan syarat final untuk semua kasus. Ia menunjukkan arah pemeriksaan awal sebelum dokumen diproses lebih jauh.
+              Daftar ini merupakan panduan awal. Persyaratan akhir tetap bergantung pada jenis layanan, wilayah, dan kondisi dokumen.
             </p>
           </div>
 

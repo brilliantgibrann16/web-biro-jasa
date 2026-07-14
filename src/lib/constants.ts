@@ -31,15 +31,15 @@ export const WHATSAPP_MESSAGES = {
   default:
     "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi mengenai pengurusan dokumen.",
   layanan:
-    "Halo Biro Jasa Tiga Saudara, saya ingin menentukan layanan yang sesuai untuk dokumen saya.",
+    "Halo Biro Jasa Tiga Saudara, saya ingin memastikan layanan yang sesuai dengan kebutuhan saya.",
   proses:
-    "Halo Biro Jasa Tiga Saudara, saya ingin memahami alur pemeriksaan dan pengurusan dokumen.",
+    "Halo Biro Jasa Tiga Saudara, saya ingin menanyakan tahapan pengurusan dokumen.",
   tentang:
-    "Halo Biro Jasa Tiga Saudara, saya ingin mengetahui cara kerja pendampingan pengurusan dokumen.",
+    "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi mengenai layanan dan cara kerja pengurusan dokumen.",
   faq:
     "Halo Biro Jasa Tiga Saudara, saya memiliki pertanyaan mengenai syarat atau proses pengurusan dokumen.",
   kontak:
-    "Halo Biro Jasa Tiga Saudara, saya ingin memulai konsultasi dan pemeriksaan awal berkas.",
+    "Halo Biro Jasa Tiga Saudara, saya ingin memulai konsultasi pengurusan dokumen.",
   dokumenKendaraan:
     "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi mengenai pengurusan dokumen kendaraan.",
   perizinanBangunan:
@@ -47,7 +47,7 @@ export const WHATSAPP_MESSAGES = {
   legalitasTeknis:
     "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi mengenai legalitas teknis atau rekomendasi pendukung.",
   simKirNopil:
-    "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi mengenai SIM, KIR, ETLE, atau nomor cantik (NOPIL).",
+    "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi mengenai SIM, KIR, ETLE, atau nomor polisi pilihan.",
   mutasiKendaraan:
     "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi mengenai mutasi atau cabut berkas kendaraan.",
   dokumenKendaraanHilang:
@@ -69,9 +69,9 @@ export const CLIENT_DATA_TODOS = {
 export const COMPANY = {
   name: "Biro Jasa Tiga Saudara",
   shortName: "Tiga Saudara",
-  tagline: "Berkas dibaca dulu, proses dijalankan dengan rapi.",
+  tagline: "Berkas diperiksa sebelum proses dimulai.",
   subtitle:
-    "Kami membantu pemilik kendaraan, pemilik bangunan, dan pelaku usaha menyelesaikan pengurusan dokumen melalui alur yang jelas. Setiap pekerjaan dimulai dari pemeriksaan kondisi berkas, bukan dari janji yang belum tentu sesuai keadaan.",
+    "Kami membantu pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis. Setiap kebutuhan diperiksa terlebih dahulu agar persyaratan, tahapan, dan perkiraan biayanya dapat dijelaskan dengan jelas.",
   phone: "+62 813 6324 9533",
   whatsappNumber: WHATSAPP_NUMBER,
   whatsappUrl: (message: string = WHATSAPP_MESSAGES.default) =>
@@ -104,22 +104,26 @@ export const TRUST_ITEMS: TrustItem[] = [
   {
     icon: Search,
     label: "Pemeriksaan awal",
-    description: "Kondisi dokumen dibaca sebelum biaya dan langkah dibicarakan.",
+    description:
+      "Kelengkapan, kecocokan data, wilayah, dan tujuan pengurusan diperiksa sebelum proses dimulai.",
   },
   {
     icon: Stamp,
-    label: "Jalur instansi",
-    description: "Pengurusan diarahkan sesuai lembaga dan aturan yang berlaku.",
+    label: "Proses sesuai instansi",
+    description:
+      "Tahapan disusun berdasarkan jenis dokumen dan instansi yang menangani.",
   },
   {
     icon: Lock,
-    label: "Berkas dijaga",
-    description: "Identitas, bukti kepemilikan, dan dokumen usaha ditangani terbatas.",
+    label: "Dokumen sesuai kebutuhan",
+    description:
+      "Kami menjelaskan dokumen yang perlu disiapkan dan kapan dokumen asli diperlukan.",
   },
   {
     icon: MessageCircle,
-    label: "Pembaruan seperlunya",
-    description: "Klien diberi kabar saat ada status, kebutuhan, atau keputusan.",
+    label: "Pembaruan status",
+    description:
+      "Anda mendapat kabar saat ada perkembangan, koreksi, atau dokumen tambahan yang diperlukan.",
   },
 ];
 
@@ -139,7 +143,7 @@ export const FEATURED_SERVICES: ServiceItem[] = [
     title: "Dokumen Kendaraan",
     scope: "STNK, BPKB, balik nama, mutasi",
     description:
-      "Kami memeriksa data kendaraan, identitas pemilik, dan tujuan pengurusan lebih dulu agar proses di Samsat tidak berjalan dengan asumsi yang keliru.",
+      "Kami memeriksa kecocokan data kendaraan, identitas pemilik, wilayah Samsat, dan tujuan pengurusan sebelum menentukan proses.",
     whatsappMessage: WHATSAPP_MESSAGES.dokumenKendaraan,
     href: "/layanan/dokumen-kendaraan",
     featured: true,
@@ -149,7 +153,7 @@ export const FEATURED_SERVICES: ServiceItem[] = [
     title: "Perizinan Bangunan",
     scope: "PBG, SLF, PKKPR, peil banjir",
     description:
-      "Untuk bangunan dan proyek, kami bantu membaca kebutuhan izin, dokumen teknis, dan urutan pengajuan agar pemilik tidak kehilangan arah di tengah proses.",
+      "Kami membantu mengidentifikasi kebutuhan izin dan dokumen teknis berdasarkan fungsi, lokasi, serta kondisi bangunan.",
     whatsappMessage: WHATSAPP_MESSAGES.perizinanBangunan,
     href: "/layanan/perizinan-bangunan",
     featured: true,
@@ -157,27 +161,27 @@ export const FEATURED_SERVICES: ServiceItem[] = [
   {
     icon: Scale,
     title: "Legalitas Teknis",
-    scope: "ANDALALIN, damkar, RKK, hak paten",
+    scope: "ANDALALIN, dokumen damkar, rekomendasi teknis, kekayaan intelektual",
     description:
-      "Beberapa pekerjaan membutuhkan rekomendasi teknis atau dokumen pendukung. Bagian ini kami petakan sejak awal supaya syarat utama tidak berhenti karena lampiran yang kurang.",
+      "Kami membantu mengidentifikasi dokumen teknis atau legalitas pendukung yang perlu dilengkapi sebelum pengajuan utama.",
     whatsappMessage: WHATSAPP_MESSAGES.legalitasTeknis,
     href: "/layanan/legalitas-teknis",
   },
   {
     icon: Fingerprint,
     title: "Dokumen Pengemudi dan Kendaraan",
-    scope: "SIM, KIR, ETLE, nomor cantik (NOPIL)",
+    scope: "SIM, KIR, ETLE, nomor polisi pilihan",
     description:
-      "Administrasi identitas kendaraan dan pengemudi perlu disesuaikan dengan masa berlaku, jenis kendaraan, dan kebutuhan pemilik.",
+      "Jenis permohonan, masa berlaku, serta data kendaraan dan pengemudi diperiksa sebelum kebutuhan administrasinya ditentukan.",
     whatsappMessage: WHATSAPP_MESSAGES.simKirNopil,
     href: "/layanan/dokumen-kendaraan",
   },
   {
     icon: Truck,
     title: "Perpindahan Daerah",
-    scope: "Mutasi antar-Samsat, antar-daerah, cabut berkas semua daerah",
+    scope: "Mutasi antar-Samsat, antar-daerah, cabut berkas",
     description:
-      "Perpindahan data kendaraan membutuhkan urutan yang tertib dari daerah asal sampai tujuan. Kami bantu menjaga agar berkas tidak salah langkah.",
+      "Kami membantu menyusun tahapan mutasi dari Samsat asal hingga Samsat tujuan, termasuk kebutuhan cabut berkas.",
     whatsappMessage: WHATSAPP_MESSAGES.mutasiKendaraan,
     href: "/layanan/dokumen-kendaraan",
   },
@@ -186,7 +190,7 @@ export const FEATURED_SERVICES: ServiceItem[] = [
     title: "Dokumen Hilang",
     scope: "STNK dan BPKB",
     description:
-      "Jika dokumen hilang, proses dimulai dari membaca kronologi dan bukti pendukung agar penggantian dapat diajukan dengan dasar yang tepat.",
+      "Kami membantu memeriksa kronologi, bukti kepemilikan, dan dokumen pendukung untuk penggantian STNK atau BPKB yang hilang.",
     whatsappMessage: WHATSAPP_MESSAGES.dokumenKendaraanHilang,
     href: "/layanan/dokumen-kendaraan",
   },
@@ -202,44 +206,44 @@ export interface WhyUsItem {
 export const WHY_CHOOSE_US: WhyUsItem[] = [
   {
     icon: Search,
-    title: "Kami tidak langsung menjalankan berkas",
+    title: "Kebutuhan diperiksa sebelum proses dimulai",
     description:
-      "Langkah pertama selalu membaca tujuan klien, wilayah pengurusan, masa berlaku, dan kelengkapan dokumen. Dari situ baru terlihat proses yang paling masuk akal.",
-    proof: "Audit awal",
+      "Kami memeriksa tujuan pengurusan, wilayah, masa berlaku, dan kelengkapan dokumen untuk menentukan langkah berikutnya.",
+    proof: "Pemeriksaan awal",
   },
   {
     icon: Shield,
-    title: "Yang dikejar adalah dokumen yang sah",
+    title: "Proses mengikuti ketentuan yang berlaku",
     description:
-      "Kami menghindari cara kerja yang hanya mengejar cepat tetapi meninggalkan risiko pada pemilik dokumen. Proses harus bisa dijelaskan ulang bila suatu saat diperlukan.",
-    proof: "Jalur resmi",
+      "Setiap pengurusan diarahkan ke instansi yang berwenang sesuai jenis dokumen dan wilayahnya.",
+    proof: "Prosedur resmi",
   },
   {
     icon: Eye,
-    title: "Biaya dibicarakan setelah kondisi jelas",
+    title: "Rincian biaya dijelaskan sebelum Anda melanjutkan",
     description:
-      "Biaya jasa dan kebutuhan administrasi berbeda untuk setiap kasus. Klien perlu tahu sumber biayanya sebelum memutuskan untuk lanjut.",
-    proof: "Transparan",
+      "Komponen biaya dijelaskan berdasarkan kondisi dokumen dan informasi yang tersedia sebelum proses disetujui.",
+    proof: "Rincian biaya",
   },
   {
     icon: Clock,
-    title: "Komunikasi dibuat singkat dan berguna",
+    title: "Pembaruan disampaikan saat perlu ditindaklanjuti",
     description:
-      "Pembaruan tidak perlu ramai. Yang penting klien tahu status terakhir, hal yang sedang menunggu, dan dokumen tambahan bila diperlukan.",
-    proof: "Tertib kabar",
+      "Anda mendapat kabar ketika ada perkembangan, koreksi, atau dokumen tambahan yang perlu disiapkan.",
+    proof: "Status proses",
   },
   {
     icon: Lock,
-    title: "Dokumen pribadi tidak diperlakukan sembarangan",
+    title: "Dokumen diminta sesuai kebutuhan proses",
     description:
-      "KTP, BPKB, sertifikat, gambar teknis, dan surat usaha adalah dokumen penting. Penanganannya harus terbatas dan tercatat.",
-    proof: "Kontrol berkas",
+      "Kami menjelaskan dokumen yang relevan pada setiap tahap dan mengingatkan Anda agar tidak membagikan data sensitif melalui kanal publik.",
+    proof: "Kebutuhan dokumen",
   },
   {
     icon: HeartHandshake,
-    title: "Kami tetap menjelaskan sampai akhir",
+    title: "Hasil diperiksa sebelum diserahkan",
     description:
-      "Saat dokumen selesai, klien tidak hanya menerima hasil. Kami jelaskan poin penting, masa berlaku, dan hal yang perlu disimpan baik-baik.",
+      "Nama, nomor, masa berlaku, dan keterangan penting diperiksa kembali sebelum serah terima.",
     proof: "Serah terima",
   },
 ];
@@ -256,47 +260,47 @@ export const PROCESS_STEPS: ProcessStep[] = [
   {
     step: 1,
     icon: MessageCircle,
-    title: "Kebutuhan diceritakan dulu",
+    title: "Konsultasi awal",
     description:
-      "Klien menyampaikan jenis dokumen, wilayah, kondisi terakhir, dan tujuan pengurusan.",
+      "Anda menyampaikan jenis dokumen, wilayah, kondisi terakhir, dan tujuan pengurusan.",
     detail:
-      "Tahap ini penting karena kasus yang terlihat sama sering memiliki syarat berbeda saat dokumen aslinya diperiksa.",
+      "Informasi ini membantu kami menentukan dokumen awal yang perlu diperiksa.",
   },
   {
     step: 2,
     icon: Search,
-    title: "Berkas diperiksa satu per satu",
+    title: "Pemeriksaan dokumen",
     description:
-      "Kami membaca identitas, nomor dokumen, masa berlaku, bukti pendukung, dan catatan yang mungkin menahan proses.",
+      "Kelengkapan, kecocokan data, masa berlaku, dan bukti pendukung diperiksa.",
     detail:
-      "Jika ada kekurangan, klien diberi daftar yang jelas sebelum proses berjalan lebih jauh.",
+      "Jika ada kekurangan atau perbedaan data, kami menyampaikannya sebelum pengurusan dimulai.",
   },
   {
     step: 3,
     icon: Settings,
-    title: "Alur resmi ditentukan",
+    title: "Penentuan proses",
     description:
-      "Setelah kondisi berkas jelas, kami menentukan instansi, urutan pengajuan, dan perkiraan kebutuhan administrasi.",
+      "Instansi, urutan pengajuan, dan kebutuhan administrasi disusun berdasarkan hasil pemeriksaan.",
     detail:
-      "Pada tahap ini klien mendapat gambaran realistis mengenai apa yang bisa dikerjakan dan apa yang perlu menunggu.",
+      "Anda menerima penjelasan mengenai tahapan, perkiraan biaya, dan bagian proses yang bergantung pada instansi.",
   },
   {
     step: 4,
     icon: ClipboardCheck,
-    title: "Proses dipantau sampai ada hasil",
+    title: "Pemantauan pengurusan",
     description:
-      "Berkas yang masuk proses dipantau, terutama saat ada verifikasi, koreksi, atau permintaan dokumen tambahan.",
+      "Status pengajuan dipantau, termasuk permintaan koreksi atau dokumen tambahan.",
     detail:
-      "Pembaruan disampaikan ketika ada perkembangan yang perlu diketahui, bukan sekadar pesan formal tanpa isi.",
+      "Kami menghubungi Anda saat ada perkembangan yang perlu ditindaklanjuti.",
   },
   {
     step: 5,
     icon: PackageCheck,
-    title: "Hasil akhir dicek sebelum diserahkan",
+    title: "Verifikasi dan serah terima",
     description:
-      "Nama, nomor, alamat, masa berlaku, dan keterangan penting dibaca kembali sebelum dokumen kembali ke klien.",
+      "Nama, nomor, alamat, masa berlaku, dan keterangan penting diperiksa sebelum dokumen diserahkan.",
     detail:
-      "Serah terima dilakukan dengan penjelasan ringkas agar klien memahami status dokumen yang diterima.",
+      "Kami menjelaskan status hasil, masa berlaku, dan dokumen yang perlu disimpan.",
   },
 ];
 
@@ -309,27 +313,27 @@ export interface ValueProp {
 export const VALUE_PROPS: ValueProp[] = [
   {
     icon: Zap,
-    title: "Waktu klien dihargai",
+    title: "Waktu Anda digunakan lebih efisien",
     description:
-      "Kami menyiapkan daftar kebutuhan sejak awal supaya klien tidak bolak-balik hanya karena informasi yang kurang lengkap.",
+      "Daftar dokumen awal disusun untuk mengurangi kunjungan atau pengiriman berkas yang tidak diperlukan.",
   },
   {
     icon: Shield,
-    title: "Risiko administrasi dibaca lebih awal",
+    title: "Perbedaan data diketahui lebih awal",
     description:
-      "Masalah kecil pada nama, alamat, nomor rangka, atau lampiran teknis bisa berdampak besar bila terlambat ditemukan.",
+      "Nama, alamat, nomor rangka, atau lampiran teknis diperiksa sebelum menjadi kendala pada tahap berikutnya.",
   },
   {
     icon: BadgeCheck,
-    title: "Hasilnya perlu bisa dipakai",
+    title: "Hasil diperiksa sesuai tujuan",
     description:
-      "Dokumen akhir harus sesuai tujuan pengurusan, bukan sekadar selesai secara formal.",
+      "Dokumen hasil diperiksa kembali agar sesuai dengan permohonan yang diajukan.",
   },
   {
     icon: Clock,
-    title: "Respons mengikuti jam layanan",
+    title: "Riwayat komunikasi mudah ditelusuri",
     description:
-      "Pertanyaan diarahkan melalui WhatsApp agar riwayat komunikasi tetap mudah ditelusuri.",
+      "Konsultasi melalui WhatsApp membantu menyimpan pertanyaan, dokumen yang diminta, dan pembaruan status.",
   },
 ];
 
@@ -369,110 +373,110 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     icon: Car,
     seoTitle: "Jasa Pengurusan Dokumen Kendaraan",
     seoDescription:
-      "Pengurusan STNK, BPKB, balik nama, mutasi, cabut berkas, SIM, KIR, ETLE, NOPIL, dan perubahan data kendaraan dengan pemeriksaan awal.",
-    heroTitle: "Pengurusan dokumen kendaraan dimulai dari data yang benar.",
+      "Layanan pengurusan STNK, BPKB, balik nama, mutasi, cabut berkas, KIR, ETLE, dan perubahan data kendaraan dengan pemeriksaan awal.",
+    heroTitle: "Pengurusan dokumen kendaraan dimulai dengan pemeriksaan data dan wilayah Samsat.",
     heroIntro:
-      "Sebelum kendaraan diproses, kami membaca dulu siapa pemiliknya, status dokumen terakhir, wilayah Samsat, dan tujuan pengurusan. Dari situ alurnya bisa dibicarakan dengan lebih jernih.",
+      "Kami memeriksa identitas pemilik, status dokumen, wilayah Samsat, dan tujuan pengurusan sebelum menjelaskan tahapan berikutnya.",
     summary:
-      "STNK, BPKB, balik nama, mutasi, cabut berkas semua daerah, SIM, KIR, ETLE, nomor cantik (NOPIL), perubahan kendaraan, faktur, dan KTP terkait kendaraan.",
+      "STNK, BPKB, balik nama, mutasi, cabut berkas, SIM, KIR, ETLE, nomor polisi pilihan, dan perubahan data kendaraan.",
     whatsappMessage: WHATSAPP_MESSAGES.dokumenKendaraan,
     narrative: [
-      "Pengurusan kendaraan sering terlihat sederhana, tetapi hambatannya biasanya muncul dari detail kecil: nama yang berbeda, alamat lama, pajak tertunda, atau berkas yang belum siap dari daerah asal.",
-      "Kami membantu klien membaca kondisi itu lebih dulu. Jika proses bisa berjalan, kami jelaskan urutannya. Jika ada yang harus dilengkapi, kami sampaikan sebelum klien mengeluarkan waktu dan biaya lebih jauh.",
+      "Perbedaan nama, alamat, masa berlaku, tunggakan, atau data daerah asal dapat mengubah persyaratan dan urutan pengurusan kendaraan.",
+      "Setelah dokumen awal diperiksa, kami menjelaskan kelengkapan yang masih dibutuhkan, tahapan pengurusan, dan bagian yang bergantung pada proses instansi.",
     ],
     suitableFor: [
-      "Pemilik kendaraan pribadi yang ingin memperpanjang atau memperbarui dokumen.",
-      "Pembeli kendaraan bekas yang perlu balik nama dengan data yang rapi.",
-      "Perusahaan yang mengelola kendaraan operasional lintas wilayah.",
-      "Pemilik kendaraan yang kehilangan STNK atau BPKB.",
+      "Pemilik kendaraan yang perlu memperpanjang atau memperbarui dokumen.",
+      "Pembeli kendaraan bekas yang perlu mengurus balik nama.",
+      "Perusahaan yang mengelola dokumen kendaraan operasional.",
+      "Pemilik kendaraan yang perlu mengurus penggantian STNK atau BPKB karena hilang.",
     ],
     documents: [
-      "Identitas pemilik lama dan pemilik baru sesuai kebutuhan proses.",
-      "STNK, BPKB, faktur, kwitansi, atau bukti pendukung kepemilikan.",
-      "Data kendaraan seperti nomor polisi, nomor rangka, dan nomor mesin.",
-      "Dokumen tambahan bila ada mutasi, kehilangan, atau perubahan data.",
+      "Identitas pemilik lama dan/atau pemilik baru sesuai jenis pengurusan.",
+      "STNK, BPKB, faktur, kuitansi pembelian, atau bukti kepemilikan lain yang relevan.",
+      "Nomor polisi, nomor rangka, nomor mesin, dan data kendaraan lainnya.",
+      "Laporan kehilangan atau dokumen tambahan untuk mutasi dan perubahan data, bila diperlukan.",
     ],
     processFocus: [
-      "Membaca kecocokan data kendaraan dan identitas pemilik.",
-      "Menentukan apakah proses dilakukan di Samsat asal, tujuan, atau keduanya.",
-      "Menjelaskan tahap yang perlu ditunggu dan dokumen yang harus dibawa.",
-      "Memeriksa kembali hasil akhir sebelum dokumen diserahkan.",
+      "Memeriksa kecocokan identitas pemilik dan data kendaraan.",
+      "Menentukan proses di Samsat asal, Samsat tujuan, atau keduanya.",
+      "Menjelaskan kelengkapan, tahapan, dan perkiraan waktu berdasarkan jenis pengurusan.",
+      "Memeriksa data pada dokumen hasil sebelum serah terima.",
     ],
     services: [
       {
         name: "Perpanjangan STNK",
         description:
-          "Perpanjangan tahunan dan lima tahunan dengan pengecekan masa berlaku, pajak, dan identitas pemilik.",
+          "Pengurusan perpanjangan tahunan atau lima tahunan dengan pemeriksaan masa berlaku, kewajiban pajak, dan data pemilik.",
       },
       {
         name: "Pengurusan BPKB",
         description:
-          "BPKB baru, perubahan data, penggantian, atau pendampingan ketika dokumen utama bermasalah.",
+          "Pengurusan perubahan data, penggantian, atau kebutuhan administratif lain terkait BPKB berdasarkan dokumen pendukung yang tersedia.",
       },
       {
         name: "Balik Nama Kendaraan",
         description:
-          "Transfer kepemilikan kendaraan bekas agar data pemilik baru tercatat dengan benar.",
+          "Pengurusan perubahan data kepemilikan kendaraan bekas dari pemilik lama ke pemilik baru.",
       },
       {
         name: "Mutasi Antar-Samsat",
         description:
-          "Perpindahan data kendaraan antar-Samsat sesuai wilayah administrasi dan tujuan pemilik.",
+          "Pengurusan perpindahan data kendaraan antarwilayah Samsat sesuai domisili atau tujuan pemilik.",
       },
       {
         name: "Mutasi Antar-Daerah",
         description:
-          "Perpindahan data kendaraan dari daerah asal ke daerah tujuan dengan urutan administrasi yang sesuai.",
+          "Pengurusan mutasi keluar dan masuk ketika kendaraan berpindah kabupaten, kota, atau provinsi.",
       },
       {
-        name: "Cabut Berkas Semua Daerah",
+        name: "Cabut Berkas Kendaraan",
         description:
-          "Pengambilan berkas dari wilayah asal sebagai dasar proses mutasi ke wilayah tujuan.",
+          "Pengurusan berkas kendaraan dari wilayah asal sebagai tahap awal mutasi ke wilayah tujuan.",
       },
       {
         name: "STNK Hilang",
         description:
-          "Pendampingan penggantian STNK berdasarkan kronologi kehilangan dan bukti pendukung yang tersedia.",
+          "Pengurusan penggantian STNK berdasarkan laporan kehilangan, bukti kepemilikan, dan persyaratan instansi.",
       },
       {
         name: "BPKB Hilang",
         description:
-          "Pendampingan penggantian BPKB berdasarkan kronologi, bukti kepemilikan, dan dokumen pendukung.",
+          "Pengurusan penggantian BPKB berdasarkan laporan kehilangan, bukti kepemilikan, dan persyaratan instansi.",
       },
       {
         name: "SIM",
         description:
-          "Pengurusan dokumen pengemudi dengan memperhatikan jenis permohonan, masa berlaku, dan data identitas.",
+          "Konsultasi kebutuhan administrasi SIM berdasarkan jenis permohonan, golongan, masa berlaku, dan identitas pemohon.",
       },
       {
         name: "KIR",
         description:
-          "Pengurusan administrasi uji berkala untuk kendaraan yang wajib KIR sesuai masa berlaku dan jenis kendaraan.",
+          "Pendampingan administrasi uji berkala berdasarkan jenis kendaraan dan masa berlaku.",
       },
       {
         name: "ETLE",
         description:
-          "Pendampingan administrasi terkait tilang elektronik berdasarkan data pelanggaran dan kendaraan.",
+          "Pendampingan pengecekan data pelanggaran dan penyelesaian administrasi melalui kanal resmi ETLE.",
       },
       {
-        name: "Nomor Cantik (NOPIL)",
+        name: "Nomor Polisi Pilihan",
         description:
-          "Pengecekan ketersediaan dan pengurusan nomor kendaraan pilihan sesuai ketentuan yang berlaku.",
+          "Pengecekan persyaratan dan pengurusan nomor kendaraan pilihan sesuai ketersediaan dan ketentuan yang berlaku.",
       },
       {
         name: "Perubahan Bentuk/Ganti Warna Kendaraan",
         description:
-          "Pengurusan perubahan data kendaraan setelah perubahan bentuk atau warna agar dokumen mengikuti kondisi kendaraan.",
+          "Pengurusan pembaruan data setelah perubahan bentuk atau warna kendaraan sesuai dokumen pendukung yang dipersyaratkan.",
       },
       {
         name: "Faktur Mobil/Motor",
         description:
-          "Pengurusan faktur kendaraan sebagai dokumen pendukung asal-usul dan administrasi mobil atau motor.",
+          "Pemeriksaan dan pendampingan pengurusan faktur kendaraan sesuai kebutuhan administrasi.",
       },
       {
-        name: "Perpanjangan KTP Terkait Kendaraan",
+        name: "Kesesuaian Data Identitas",
         description:
-          "Pendampingan pembaruan KTP yang diperlukan sebagai dokumen pendukung pengurusan kendaraan.",
+          "Pemeriksaan kecocokan KTP dan data identitas lain yang digunakan dalam pengurusan kendaraan.",
       },
     ],
   },
@@ -484,65 +488,65 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     icon: Building2,
     seoTitle: "Jasa Pengurusan PBG, SLF, PKKPR",
     seoDescription:
-      "Pendampingan perizinan bangunan untuk PBG, SLF, PKKPR, peil banjir, dan kebutuhan legalitas fungsi bangunan.",
-    heroTitle: "Izin bangunan perlu dibaca dari fungsi, lokasi, dan dokumen teknis.",
+      "Layanan pengurusan PBG, SLF, PKKPR, peil banjir, dan dokumen perizinan bangunan lainnya.",
+    heroTitle: "Perizinan bangunan ditentukan oleh fungsi, lokasi, dan kondisi bangunan.",
     heroIntro:
-      "Untuk bangunan, proses yang tepat bergantung pada fungsi bangunan, luas, lokasi, gambar teknis, dan rencana penggunaan. Kami membantu memetakan syaratnya sebelum pengajuan berjalan.",
+      "Kami memeriksa fungsi, luas, lokasi, status tanah, dan dokumen teknis untuk menentukan izin yang diperlukan sebelum pengajuan.",
     summary:
       "PBG, SLF, PKKPR, peil banjir, perubahan fungsi, dan penyesuaian dokumen bangunan lama.",
     whatsappMessage: WHATSAPP_MESSAGES.perizinanBangunan,
     narrative: [
-      "Setiap bangunan membawa konteks sendiri. Rumah tinggal, ruko, gudang, kantor, dan proyek komersial tidak bisa diperlakukan dengan pola yang sama.",
-      "Kami membantu pemilik atau pengelola bangunan memahami dokumen apa yang sudah ada, dokumen apa yang belum siap, dan tahapan apa yang perlu dilewati agar izin tidak berhenti di tengah jalan.",
+      "Persyaratan rumah tinggal, ruko, gudang, kantor, dan bangunan komersial berbeda menurut fungsi, skala, lokasi, serta kondisi bangunan.",
+      "Kami membantu memeriksa dokumen yang sudah tersedia, menyusun daftar kekurangan, dan menjelaskan tahapan pengajuan yang perlu ditempuh.",
     ],
     suitableFor: [
       "Pemilik rumah, ruko, gudang, atau bangunan komersial.",
-      "Developer dan kontraktor yang menyiapkan dokumen proyek.",
+      "Pengembang properti dan kontraktor yang menyiapkan dokumen proyek.",
       "Pemilik usaha yang membutuhkan legalitas fungsi bangunan.",
-      "Pengelola bangunan lama yang perlu menyesuaikan dokumen ke aturan terbaru.",
+      "Pengelola bangunan lama yang perlu meninjau kesesuaian dokumennya dengan ketentuan yang berlaku.",
     ],
     documents: [
-      "Identitas pemilik atau badan usaha.",
+      "Identitas pemilik atau dokumen badan usaha.",
       "Data tanah, alamat bangunan, dan informasi pemanfaatan ruang.",
       "Gambar teknis, rencana fungsi, dan dokumen pendukung proyek.",
       "Dokumen lama seperti IMB bila akan disesuaikan dengan ketentuan baru.",
     ],
     processFocus: [
-      "Membaca fungsi bangunan dan kebutuhan izin yang paling relevan.",
-      "Memetakan dokumen teknis yang perlu disiapkan sebelum pengajuan.",
-      "Menjelaskan urutan koordinasi dengan instansi terkait.",
-      "Mengecek hasil dan catatan penting sebelum dokumen digunakan.",
+      "Memeriksa fungsi bangunan dan menentukan izin yang relevan.",
+      "Menyusun daftar dokumen teknis yang perlu disiapkan sebelum pengajuan.",
+      "Menjelaskan urutan pengajuan dan koordinasi dengan instansi terkait.",
+      "Memeriksa hasil dan catatan penting sebelum dokumen digunakan.",
     ],
     services: [
       {
         name: "PBG",
         description:
-          "Persetujuan Bangunan Gedung untuk pembangunan baru, perubahan, atau penyesuaian bangunan.",
+          "Pendampingan pengajuan Persetujuan Bangunan Gedung untuk pembangunan baru, perubahan, atau penyesuaian bangunan.",
       },
       {
         name: "SLF",
         description:
-          "Sertifikat Laik Fungsi untuk memastikan bangunan siap digunakan sesuai fungsi yang diajukan.",
+          "Pendampingan pengajuan Sertifikat Laik Fungsi berdasarkan fungsi bangunan dan dokumen teknis yang dipersyaratkan.",
       },
       {
         name: "PKKPR",
         description:
-          "Persetujuan kesesuaian kegiatan pemanfaatan ruang berdasarkan lokasi dan rencana penggunaan.",
+          "Pendampingan persetujuan kesesuaian kegiatan pemanfaatan ruang berdasarkan lokasi dan rencana kegiatan.",
       },
       {
         name: "Peil Banjir",
         description:
-          "Keterangan teknis ketinggian bangunan terhadap acuan banjir atau drainase setempat.",
+          "Pendampingan pengurusan keterangan teknis peil banjir sesuai lokasi bangunan dan ketentuan daerah.",
       },
       {
-        name: "IMB ke PBG",
+        name: "Penyesuaian Dokumen Bangunan Lama",
         description:
-          "Penyesuaian dokumen lama agar mengikuti ketentuan perizinan bangunan yang berlaku saat ini.",
+          "Pemeriksaan dokumen bangunan lama untuk menentukan apakah diperlukan perubahan, pembaruan, atau pengajuan baru.",
       },
       {
         name: "Perubahan Fungsi",
         description:
-          "Pendampingan ketika bangunan akan digunakan untuk fungsi yang berbeda dari dokumen awal.",
+          "Pendampingan penyesuaian dokumen ketika bangunan akan digunakan untuk fungsi yang berbeda dari dokumen awal.",
       },
     ],
   },
@@ -552,62 +556,62 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     title: "Legalitas Teknis",
     navLabel: "Legalitas",
     icon: Scale,
-    seoTitle: "Jasa ANDALALIN, RKK, SKK Damkar, Hak Paten",
+    seoTitle: "Jasa ANDALALIN, Dokumen Damkar, dan Kekayaan Intelektual",
     seoDescription:
-      "Pendampingan dokumen legalitas teknis seperti ANDALALIN, RKK, SKK Damkar, rekomendasi teknis, dan hak paten.",
-    heroTitle: "Dokumen pendukung sering menentukan lancar tidaknya izin utama.",
+      "Layanan pengurusan ANDALALIN, dokumen keselamatan kebakaran, rekomendasi teknis, dan kekayaan intelektual.",
+    heroTitle: "Izin utama dapat memerlukan dokumen teknis pendukung.",
     heroIntro:
-      "Beberapa kebutuhan tidak berdiri sebagai izin utama, tetapi tetap menentukan apakah sebuah proses bisa lanjut. Kami membantu memetakan dokumen teknis dan legalitas pendukung sejak awal.",
+      "Kami membantu mengidentifikasi dokumen pendukung, instansi yang menangani, dan urutan pengajuannya sebelum proses utama dimulai.",
     summary:
-      "ANDALALIN, rekomendasi damkar, RKK, SKK, dokumen teknis, dan hak kekayaan intelektual.",
+      "ANDALALIN, dokumen keselamatan kebakaran, rekomendasi teknis, dan kekayaan intelektual.",
     whatsappMessage: WHATSAPP_MESSAGES.legalitasTeknis,
     narrative: [
-      "Legalitas teknis biasanya muncul ketika sebuah proyek, usaha, atau aset membutuhkan pembuktian tambahan. Jika dokumen ini terlambat disiapkan, proses utama bisa tertahan.",
-      "Kami membantu membaca dokumen pendukung yang relevan, menjelaskan kenapa dokumen itu dibutuhkan, dan mengarahkan proses sesuai instansi yang menangani.",
+      "Kebutuhan dokumen teknis bergantung pada jenis kegiatan, lokasi, fungsi bangunan, dan izin utama yang sedang diajukan.",
+      "Kami memeriksa keterkaitan antar dokumen dan menjelaskan dokumen yang perlu dipersiapkan lebih dahulu.",
     ],
     suitableFor: [
-      "Pemilik usaha yang membutuhkan rekomendasi teknis untuk operasional.",
-      "Developer, kontraktor, atau pengelola bangunan komersial.",
-      "Pemilik merek, karya, atau inovasi yang ingin menata hak kekayaan intelektual.",
+      "Pemilik usaha yang memerlukan dokumen teknis untuk perizinan atau operasional.",
+      "Pengembang, kontraktor, atau pengelola bangunan komersial.",
+      "Pemilik merek, karya, atau invensi yang ingin mengidentifikasi jenis perlindungan kekayaan intelektual.",
       "Tim proyek yang perlu melengkapi dokumen sebelum pengajuan utama.",
     ],
     documents: [
-      "Identitas pemohon atau badan usaha.",
+      "Identitas pemohon atau dokumen badan usaha.",
       "Profil kegiatan, lokasi, fungsi bangunan, atau data proyek.",
       "Dokumen teknis yang diminta oleh instansi terkait.",
       "Bukti kepemilikan, gambar, uraian karya, atau lampiran pendukung bila diperlukan.",
     ],
     processFocus: [
-      "Menentukan dokumen pendukung yang benar-benar dibutuhkan.",
-      "Membaca hubungan dokumen teknis dengan izin utama.",
+      "Menentukan dokumen pendukung yang diperlukan.",
+      "Memeriksa hubungan dokumen teknis dengan izin utama.",
       "Menyiapkan urutan pengajuan agar proses tidak saling menunggu.",
-      "Mengawal koreksi bila instansi meminta perbaikan data.",
+      "Menindaklanjuti koreksi bila instansi meminta perbaikan data.",
     ],
     services: [
       {
         name: "ANDALALIN",
         description:
-          "Analisis dampak lalu lintas untuk proyek, bangunan, atau kegiatan yang memengaruhi pergerakan kendaraan.",
+          "Pendampingan dokumen analisis dampak lalu lintas sesuai jenis dan skala kegiatan.",
       },
       {
         name: "RKK dan SKK Damkar",
         description:
-          "Dokumen rekomendasi keselamatan kebakaran sesuai kebutuhan bangunan atau kegiatan usaha.",
+          "Pendampingan dokumen keselamatan kebakaran berdasarkan fungsi dan persyaratan bangunan.",
       },
       {
         name: "Rekomendasi Teknis",
         description:
-          "Pendampingan dokumen teknis yang menjadi syarat pengajuan izin atau operasional.",
+          "Pendampingan dokumen teknis yang dipersyaratkan untuk pengajuan izin atau operasional.",
       },
       {
-        name: "Hak Paten dan Kekayaan Intelektual",
+        name: "Kekayaan Intelektual",
         description:
-          "Pendampingan awal untuk pendaftaran dan perlindungan karya, merek, atau inovasi.",
+          "Konsultasi awal untuk mengidentifikasi jenis perlindungan yang sesuai, seperti merek, hak cipta, atau paten.",
       },
       {
         name: "Dokumen Pendukung Usaha",
         description:
-          "Pemetaan lampiran administratif yang diperlukan agar pengajuan usaha tidak terhenti.",
+          "Pemetaan lampiran administratif yang diperlukan dalam pengajuan usaha.",
       },
     ],
   },
@@ -630,7 +634,7 @@ export const INDUSTRIES: IndustryItem[] = [
     icon: Truck,
     title: "Perusahaan dengan kendaraan operasional",
     description:
-      "Perlu menjaga masa berlaku dan data kendaraan agar administrasi armada tetap tertib.",
+      "Memerlukan pemantauan masa berlaku dan kesesuaian data dokumen kendaraan operasional.",
   },
   {
     icon: Home,
@@ -640,21 +644,21 @@ export const INDUSTRIES: IndustryItem[] = [
   },
   {
     icon: HardHat,
-    title: "Developer dan kontraktor",
+    title: "Pengembang dan kontraktor",
     description:
-      "Perlu memetakan izin proyek, dokumen teknis, dan rekomendasi pendukung sejak awal.",
+      "Perlu menentukan izin proyek, dokumen teknis, dan rekomendasi pendukung sejak awal.",
   },
   {
     icon: PenTool,
     title: "Pelaku usaha",
     description:
-      "Membutuhkan dokumen legalitas yang bisa dipakai untuk operasional, pengajuan, atau kerja sama.",
+      "Membutuhkan dokumen legalitas untuk mendukung operasional, pengajuan, atau kerja sama.",
   },
   {
     icon: Landmark,
     title: "Pengelola aset",
     description:
-      "Perlu membaca ulang dokumen lama sebelum aset dijual, direnovasi, atau digunakan kembali.",
+      "Perlu meninjau dokumen lama sebelum aset dijual, direnovasi, atau digunakan kembali.",
   },
 ];
 
@@ -665,19 +669,19 @@ export interface FAQItem {
 
 export const FAQ_ITEMS: FAQItem[] = [
   {
-    question: "Apakah saya harus datang langsung sejak awal?",
+    question: "Apakah saya perlu datang langsung untuk konsultasi awal?",
     answer:
-      "Tidak selalu. Untuk konsultasi awal, cukup sampaikan kebutuhan dan kondisi dokumen melalui WhatsApp. Jika ada tahap yang memerlukan kehadiran fisik, kami jelaskan sejak awal agar waktu Anda bisa diatur.",
+      "Tidak selalu. Anda dapat menyampaikan kebutuhan dan kondisi dokumen melalui WhatsApp. Jika ada tahap yang memerlukan kehadiran langsung, kami akan menginformasikannya terlebih dahulu.",
   },
   {
-    question: "Kapan estimasi biaya bisa diberikan?",
+    question: "Kapan perkiraan biaya dapat diberikan?",
     answer:
-      "Estimasi diberikan setelah jenis layanan, wilayah, dan kondisi berkas dibaca. Cara ini lebih adil karena biaya pengurusan bisa berubah bila ada tunggakan, data berbeda, dokumen hilang, atau syarat teknis tambahan.",
+      "Perkiraan biaya diberikan setelah jenis layanan, wilayah, dan kondisi dokumen diketahui. Komponen biaya dapat berbeda jika terdapat tunggakan, perbedaan data, dokumen hilang, atau persyaratan tambahan.",
   },
   {
-    question: "Apakah semua proses melalui jalur resmi?",
+    question: "Apakah pengurusan dilakukan melalui jalur resmi?",
     answer:
-      "Ya. Pengurusan diarahkan melalui instansi yang berwenang sesuai jenis dokumen, seperti Samsat, dinas teknis, atau lembaga terkait. Kami tidak menyarankan proses yang tidak bisa dipertanggungjawabkan.",
+      "Pengurusan dilakukan melalui instansi yang berwenang sesuai jenis dokumen dan wilayahnya, seperti Samsat, dinas teknis, atau lembaga terkait. Kami tidak menawarkan proses di luar prosedur resmi.",
   },
   {
     question: "Dokumen apa yang perlu saya siapkan?",
@@ -685,29 +689,29 @@ export const FAQ_ITEMS: FAQItem[] = [
       "Daftar dokumen berbeda untuk setiap layanan. Pada tahap awal, kami biasanya meminta informasi dasar seperti identitas, dokumen utama, wilayah pengurusan, dan kronologi bila ada masalah pada berkas.",
   },
   {
-    question: "Berapa lama proses pengurusan selesai?",
+    question: "Berapa lama waktu pengurusannya?",
     answer:
-      "Waktu proses bergantung pada jenis dokumen, kelengkapan berkas, wilayah, dan antrean instansi. Kami akan menjelaskan bagian yang bisa dipantau dan bagian yang memang harus menunggu proses resmi.",
+      "Waktu penyelesaian bergantung pada jenis dokumen, kelengkapan berkas, wilayah, dan antrean instansi. Kami akan menjelaskan bagian yang dapat dipantau dan bagian yang harus menunggu proses instansi.",
   },
   {
-    question: "Bagaimana bila dokumen saya bermasalah?",
+    question: "Apa yang dapat dilakukan jika data atau dokumen bermasalah?",
     answer:
-      "Masalah dokumen perlu dibaca dulu sumbernya. Setelah itu kami jelaskan pilihan penyelesaian, dokumen tambahan yang mungkin dibutuhkan, dan risiko bila proses tetap dilanjutkan.",
+      "Kami perlu memeriksa sumber perbedaan atau kendalanya terlebih dahulu. Setelah itu, kami menjelaskan pilihan tindak lanjut, dokumen tambahan yang mungkin diperlukan, dan batas proses yang dapat dilakukan.",
   },
   {
     question: "Apakah layanan tersedia untuk wilayah saya?",
     answer:
-      "Cakupan berbeda untuk setiap jenis layanan dan tahap pengurusan. Sampaikan wilayah serta dokumen yang ingin diurus; kami akan memeriksa lebih dulu apakah proses dapat dibantu dan apakah ada tahap yang memerlukan kehadiran langsung.",
+      "Cakupan layanan berbeda menurut jenis dokumen dan tahap pengurusan. Sampaikan wilayah serta dokumen yang ingin diurus agar kami dapat memeriksa ketersediaan layanan dan kebutuhan kehadiran langsung.",
   },
   {
     question: "Bagaimana cara memulai konsultasi?",
     answer:
-      "Hubungi kami melalui WhatsApp, jelaskan dokumen yang ingin diurus, lalu kirim informasi awal yang diminta. Setelah berkas dibaca, kami bantu susun langkah yang paling sesuai.",
+      "Hubungi kami melalui WhatsApp dan jelaskan dokumen yang ingin diurus, wilayah, serta kondisi terakhirnya. Kami akan menginformasikan dokumen awal yang perlu disiapkan.",
   },
 ];
 
 export const CORPORATE_PRINCIPLES = [
-  "Kami lebih memilih menjelaskan batas proses daripada memberi janji yang tidak bisa dijaga.",
-  "Dokumen klien diperlakukan sebagai amanah administrasi, bukan sekadar berkas kerja.",
-  "Setiap rekomendasi harus punya alasan yang bisa dipahami pemilik dokumen.",
+  "Kami menjelaskan batas layanan dan bagian proses yang bergantung pada instansi sejak awal.",
+  "Dokumen diminta sesuai kebutuhan pengurusan yang telah disepakati.",
+  "Setiap rekomendasi disertai alasan dan langkah yang dapat dipahami.",
 ];

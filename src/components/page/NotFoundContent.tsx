@@ -11,12 +11,11 @@ export default function NotFoundContent() {
             404 / Halaman tidak ditemukan
           </p>
           <h1 className="mt-6 max-w-4xl font-display text-[3rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.6rem]">
-            Alamat ini tidak membawa ke halaman yang tersedia.
+            Halaman yang Anda cari tidak ditemukan.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-600">
-            Tautannya mungkin sudah berubah atau ada bagian alamat yang tidak
-            lengkap. Tidak ada data yang perlu Anda kirim untuk kembali ke jalur
-            utama.
+            Tautan mungkin sudah berubah atau alamat yang dimasukkan tidak
+            lengkap. Kembali ke beranda atau lihat daftar layanan yang tersedia.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
@@ -38,8 +37,7 @@ export default function NotFoundContent() {
         <aside className="border-l border-primary-dark/35 pl-6 lg:pl-8">
           <SearchX className="h-7 w-7 text-primary-dark" aria-hidden="true" />
           <p className="mt-5 text-base font-semibold leading-8 text-accent">
-            Jika Anda sedang mencari jalur konsultasi, formulir ringkas tersedia
-            di halaman kontak.
+            Untuk memulai konsultasi, isi ringkasan kebutuhan di halaman kontak.
           </p>
           <Link
             href="/kontak#inquiry-form"

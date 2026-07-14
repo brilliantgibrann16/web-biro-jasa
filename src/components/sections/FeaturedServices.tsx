@@ -30,10 +30,10 @@ export default function FeaturedServices() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-[0.72rem] font-black uppercase tracking-[0.18em] text-primary">
-              Layanan
+              Layanan utama
             </p>
             <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.02] text-accent sm:text-5xl lg:text-6xl">
-              Tiga ruang kerja utama, dengan cara membaca berkas yang sama.
+              Tiga kategori layanan untuk kebutuhan administrasi yang berbeda.
             </h2>
           </motion.div>
 
@@ -43,10 +43,8 @@ export default function FeaturedServices() {
             animate={isInView ? { y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            Setiap kategori punya halaman sendiri agar klien bisa memahami
-            konteksnya sebelum menghubungi kami. Dokumen kendaraan, perizinan
-            bangunan, dan legalitas teknis tidak seharusnya dibicarakan dengan
-            satu jawaban umum.
+            Pilih kategori berdasarkan dokumen yang ingin diurus. Setiap halaman
+            menjelaskan cakupan layanan, dokumen awal, dan fokus prosesnya.
           </motion.p>
         </div>
 
@@ -86,7 +84,7 @@ export default function FeaturedServices() {
 
                 <div className="mt-10 flex items-center justify-between border-t border-neutral-200 pt-6">
                   <span className="text-sm font-bold text-neutral-500">
-                    Baca halaman layanan
+                    Lihat detail layanan
                   </span>
                   <span className="inline-flex items-center gap-2 text-sm font-extrabold text-primary">
                     Buka
@@ -128,7 +126,7 @@ export default function FeaturedServices() {
 
               <div className="mt-10 flex items-center justify-between border-t border-neutral-200 pt-6">
                 <span className="text-sm font-bold text-neutral-500">
-                  Baca halaman layanan
+                  Lihat detail layanan
                 </span>
                 <span className="inline-flex items-center gap-2 text-sm font-extrabold text-primary">
                   Buka

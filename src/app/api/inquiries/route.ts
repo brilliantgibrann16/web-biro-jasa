@@ -188,7 +188,7 @@ export async function POST(request: Request) {
       {
         ok: false,
         message:
-          "Pencatatan inquiry belum tersedia. Silakan lanjutkan melalui WhatsApp.",
+          "Pencatatan permintaan belum tersedia. Silakan lanjutkan melalui WhatsApp.",
       },
       { status: 503, remaining: rateLimit.remaining },
     );
@@ -213,7 +213,7 @@ export async function POST(request: Request) {
       {
         ok: false,
         message:
-          "Inquiry belum dapat dicatat. Silakan lanjutkan melalui WhatsApp.",
+          "Permintaan belum dapat dicatat. Silakan lanjutkan melalui WhatsApp.",
       },
       { status: 503, remaining: rateLimit.remaining },
     );

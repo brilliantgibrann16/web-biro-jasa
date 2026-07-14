@@ -29,11 +29,11 @@ export default function FAQSection() {
               FAQ
             </p>
             <h2 className="mt-5 max-w-md text-4xl font-semibold leading-[1.04] text-accent sm:text-5xl">
-              Pertanyaan yang sebaiknya dijawab sebelum berkas berjalan.
+              Informasi penting sebelum Anda memulai pengurusan.
             </h2>
             <p className="mt-7 max-w-md text-base leading-8 text-neutral-500">
-              Jawaban di sini membantu memberi gambaran awal. Untuk keputusan
-              proses, kami tetap perlu membaca dokumen dan konteks kasus Anda.
+              Jawaban berikut memberi gambaran umum. Persyaratan dan proses akhir
+              tetap ditentukan setelah kondisi dokumen diperiksa.
             </p>
 
             <a
@@ -43,7 +43,7 @@ export default function FAQSection() {
               className="mt-9 inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-extrabold text-primary transition-colors hover:text-primary-dark"
             >
               <MessageCircleMore className="h-5 w-5" />
-              Bicarakan kasus Anda
+              Tanyakan via WhatsApp
               <ArrowUpRight className="h-4 w-4" />
             </a>
           </motion.div>

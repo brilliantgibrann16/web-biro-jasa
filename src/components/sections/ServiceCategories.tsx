@@ -13,17 +13,17 @@ export default function ServiceCategories() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-end">
           <div>
             <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
-              Daftar ruang kerja
+              Kategori layanan
             </p>
             <h2
               id="service-index-title"
               className="mt-5 max-w-2xl font-display text-4xl font-semibold leading-[1.03] text-accent sm:text-5xl"
             >
-              Pilih kategori dari kebutuhan dokumen, bukan dari nama yang terdengar mirip.
+              Pilih layanan sesuai jenis dokumen yang ingin diurus.
             </h2>
           </div>
           <p className="max-w-2xl text-base leading-8 text-neutral-600 lg:justify-self-end">
-            Setiap ruang kerja memiliki halaman sendiri agar kondisi berkas, dokumen awal, dan fokus proses dapat dibaca dalam konteks yang tepat.
+            Setiap kategori menjelaskan cakupan layanan, dokumen awal, dan tahapan yang perlu diperhatikan.
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export default function ServiceCategories() {
                   href={`/layanan/${category.slug}`}
                   className="inline-flex items-center gap-2 self-start border-b border-primary-dark pb-2 text-sm font-extrabold text-primary-dark transition-colors hover:text-accent"
                 >
-                  Baca detail
+                  Lihat detail
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </div>

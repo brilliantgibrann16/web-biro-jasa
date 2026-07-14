@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const alt =
-  "Biro Jasa Tiga Saudara — berkas dibaca dulu, proses dijalankan dengan rapi.";
+  "Biro Jasa Tiga Saudara dan layanan pengurusan dokumen.";
 
 export const size = {
   width: 1731,
@@ -12,7 +12,7 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function OpenGraphImage() {
-  const image = await readFile(join(process.cwd(), "public", "og.png"));
+  const image = await readFile(join(process.cwd(), "public", "og-v2.png"));
 
   return new Response(image, {
     headers: {

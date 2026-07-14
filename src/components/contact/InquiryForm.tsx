@@ -95,12 +95,11 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
             id="inquiry-form-title"
             className="mt-5 max-w-xl font-display text-4xl font-semibold leading-[1.03] sm:text-5xl"
           >
-            Ceritakan kebutuhan pokok sebelum percakapan dilanjutkan.
+            Isi ringkasan kebutuhan untuk memulai konsultasi.
           </h2>
           <p className="mt-7 max-w-xl text-base leading-8 text-neutral-600">
-            Kami akan mencoba mencatat ringkasan awal yang Anda tulis. Setelah
-            itu, WhatsApp terbuka dengan informasi yang sama agar Anda tidak
-            perlu mengulang cerita dari awal.
+            Setelah formulir dikirim, WhatsApp akan terbuka dengan ringkasan
+            yang sama sehingga Anda dapat langsung melanjutkan percakapan.
           </p>
 
           <div className="mt-9 flex max-w-xl gap-4 border-t border-neutral-200 pt-6 text-sm leading-7 text-neutral-600">
@@ -238,13 +237,13 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
             className="mt-5 block text-sm font-extrabold"
             htmlFor="notes"
           >
-            Catatan kebutuhan <span className="font-normal">(opsional)</span>
+            Kondisi atau kendala <span className="font-normal">(opsional)</span>
             <textarea
               id="notes"
               name="notes"
               rows={5}
               maxLength={2000}
-              placeholder="Ceritakan kondisi berkas atau kendala secara singkat, tanpa data identitas sensitif."
+              placeholder="Jelaskan kondisi dokumen atau kendala secara singkat, tanpa data identitas sensitif."
               className={`${fieldClassName} resize-y`}
             />
           </label>
@@ -256,8 +255,8 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
               className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-sm bg-primary-dark px-6 py-4 text-base font-extrabold text-white transition-colors hover:bg-navy disabled:cursor-wait disabled:opacity-70 sm:w-auto"
             >
               {isSubmitting
-                ? "Menyiapkan percakapan..."
-                : "Kirim ringkasan & buka WhatsApp"}
+                ? "Membuka WhatsApp..."
+                : "Lanjutkan ke WhatsApp"}
               <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
             </button>
             <p
@@ -265,8 +264,8 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
               aria-live="polite"
             >
               {isSubmitting
-                ? "WhatsApp tetap akan dibuka meskipun pencatatan sedang tidak tersedia."
-                : "Kami mencoba mencatat informasi kontak dan kebutuhan dasar untuk tindak lanjut. Jika pencatatan gagal, pesan WhatsApp akan menandainya untuk admin."}
+                ? "Ringkasan sedang disiapkan. Anda akan diarahkan ke WhatsApp."
+                : "Setelah dikirim, Anda dapat memeriksa kembali ringkasan sebelum mengirimkannya melalui WhatsApp."}
             </p>
             <p className="mt-2 text-xs leading-6 text-neutral-500">
               Cara kami memakai dan menghapus data dijelaskan dalam{" "}

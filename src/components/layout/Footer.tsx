@@ -24,11 +24,11 @@ export default function Footer() {
               Biro Jasa Tiga Saudara
             </p>
             <h2 className="mt-6 max-w-2xl text-3xl font-semibold leading-tight text-accent sm:text-5xl">
-              Tempat klien bertanya sebelum dokumen penting mulai diproses.
+              Konsultasikan kebutuhan sebelum pengurusan dimulai.
             </h2>
             <p className="mt-6 max-w-xl text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
-              Kami membantu membaca syarat, menyiapkan urutan kerja, dan
-              mendampingi pengurusan dokumen melalui jalur yang tepat.
+              Kami membantu memeriksa persyaratan, menyusun tahapan, dan
+              mendampingi pengurusan melalui instansi yang berwenang.
             </p>
 
             <a
@@ -38,7 +38,7 @@ export default function Footer() {
               className="group mt-8 inline-flex items-center gap-3 rounded-sm bg-primary px-5 py-3 text-sm font-extrabold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-dark"
             >
               <MessageCircle className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
-              Bicarakan Berkas
+              Konsultasi via WhatsApp
             </a>
           </div>
 

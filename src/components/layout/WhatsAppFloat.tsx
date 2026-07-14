@@ -36,7 +36,7 @@ export default function WhatsAppFloat() {
       >
         <MessageCircle className="relative z-10 h-6 w-6" />
         <span className="absolute right-full mr-3 hidden whitespace-nowrap rounded-sm bg-ink px-3 py-1.5 text-xs font-bold text-white opacity-0 shadow-soft transition-opacity duration-200 group-hover:opacity-100 lg:block">
-          Bicarakan berkas
+          Konsultasi via WhatsApp
         </span>
       </a>
     </motion.div>

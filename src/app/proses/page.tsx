@@ -12,22 +12,22 @@ export default function ProsesPage() {
     <>
       <PageHero
         variant="process"
-        title="Proses yang rapi dimulai sebelum berkas berjalan."
-        intro="Kami tidak memulai pekerjaan dari perkiraan. Kondisi dokumen, wilayah, dan tujuan pengurusan perlu dibaca dulu agar klien tahu langkah yang sedang ditempuh."
+        title="Tahapan pengurusan dari pemeriksaan awal hingga serah terima."
+        intro="Sebelum memulai, kami memeriksa kondisi dokumen, wilayah, dan tujuan pengurusan agar persyaratan serta tahapan dapat dijelaskan dengan jelas."
         asideTitle="Cara kami bekerja"
-        asideBody="Halaman ini menjelaskan urutan kerja kami dari konsultasi awal sampai dokumen kembali ke tangan klien."
+        asideBody="Halaman ini menjelaskan urutan kerja kami dari konsultasi awal hingga dokumen diserahkan kembali kepada Anda."
         points={[
-          "Kebutuhan dan kondisi dokumen dibaca lebih dulu.",
+          "Kebutuhan dan kondisi dokumen diperiksa lebih dahulu.",
           "Syarat yang kurang disampaikan sebelum proses dilanjutkan.",
           "Hasil akhir diperiksa sebelum serah terima.",
         ]}
         primaryAction={{
-          label: "Bicarakan Berkas",
+          label: "Konsultasi via WhatsApp",
           href: COMPANY.whatsappUrl(WHATSAPP_MESSAGES.proses),
           external: true,
           icon: "message",
         }}
-        secondaryAction={{ label: "Lihat Layanan", href: "/layanan" }}
+        secondaryAction={{ label: "Lihat layanan", href: "/layanan" }}
       />
       <ProcessSection variant="detail" />
       <StatsSection />

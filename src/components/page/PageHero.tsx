@@ -247,7 +247,7 @@ export default function PageHero({
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(310px,0.52fr)] lg:items-start">
             <div>
               <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
-                Pertanyaan & jawaban
+                Pertanyaan dan jawaban
               </p>
               <h1 className="mt-6 max-w-5xl font-display text-[3rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.8rem]">
                 {title}
@@ -325,7 +325,7 @@ export default function PageHero({
       <div className="relative mx-auto grid min-h-[72vh] max-w-7xl gap-12 px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40 lg:grid-cols-[minmax(0,1.05fr)_minmax(330px,0.62fr)] lg:items-center">
         <div>
           <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
-            Ruang layanan
+            Detail layanan
           </p>
           <h1 className="mt-6 max-w-5xl font-display text-[3rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.65rem]">
             {title}

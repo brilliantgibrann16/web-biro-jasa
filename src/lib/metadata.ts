@@ -24,7 +24,7 @@ export const METADATA_BASE =
 
 const DEFAULT_SOCIAL_IMAGE: SocialImageMetadata = {
   url: "/opengraph-image",
-  alt: "Biro Jasa Tiga Saudara — berkas dibaca dulu, proses dijalankan dengan rapi.",
+  alt: "Biro Jasa Tiga Saudara dan layanan pengurusan dokumen.",
   width: 1731,
   height: 909,
   type: "image/png",
@@ -57,31 +57,31 @@ export const ROUTE_METADATA = {
   home: {
     title: "Biro Jasa Tiga Saudara | Pengurusan Dokumen dan Perizinan",
     description:
-      "Biro Jasa Tiga Saudara membantu pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis melalui pemeriksaan berkas yang rapi sejak awal.",
+      "Biro Jasa Tiga Saudara melayani pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis dengan pemeriksaan kebutuhan dan kelengkapan awal.",
     path: "/",
   },
   layanan: {
     title: "Layanan Pengurusan Dokumen",
     description:
-      "Indeks layanan Biro Jasa Tiga Saudara untuk dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
+      "Informasi layanan pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis dari Biro Jasa Tiga Saudara.",
     path: "/layanan",
   },
   proses: {
     title: "Proses Pengurusan Dokumen",
     description:
-      "Cara kerja Biro Jasa Tiga Saudara dalam memeriksa berkas, menentukan alur, memantau proses, dan menyerahkan dokumen akhir.",
+      "Pelajari tahapan konsultasi, pemeriksaan dokumen, pengurusan, pemantauan status, dan serah terima di Biro Jasa Tiga Saudara.",
     path: "/proses",
   },
   tentang: {
     title: "Tentang Kami",
     description:
-      "Profil Biro Jasa Tiga Saudara sebagai pendamping pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
+      "Kenali layanan dan cara kerja Biro Jasa Tiga Saudara dalam mendampingi pengurusan dokumen dan perizinan.",
     path: "/tentang",
   },
   faq: {
     title: "FAQ Pengurusan Dokumen",
     description:
-      "Pertanyaan umum mengenai konsultasi, estimasi biaya, dokumen awal, waktu proses, dan pengurusan berkas bermasalah.",
+      "Jawaban mengenai konsultasi, perkiraan biaya, dokumen awal, waktu penyelesaian, dan kendala pengurusan dokumen.",
     path: "/faq",
   },
   kontak: {
@@ -93,7 +93,7 @@ export const ROUTE_METADATA = {
   privasi: {
     title: "Pemberitahuan Privasi",
     description:
-      "Penjelasan data yang diproses ketika Anda mengirim ringkasan kebutuhan melalui website Biro Jasa Tiga Saudara.",
+      "Penjelasan data yang diproses ketika Anda mengirim ringkasan kebutuhan melalui situs web Biro Jasa Tiga Saudara.",
     path: "/privasi",
   },
 } as const satisfies Record<string, PageMetadataDefinition>;

@@ -11,22 +11,22 @@ export default function LayananPage() {
     <>
       <PageHero
         variant="index"
-        title="Layanan dipisahkan berdasarkan kebutuhan dokumen."
-        intro="Klien sering datang dengan nama layanan yang berbeda, tetapi akar persoalannya biasanya ada pada jenis dokumen, wilayah, dan tujuan pengurusan. Karena itu, kami membagi layanan ke dalam beberapa halaman yang lebih jelas."
-        asideTitle="Indeks layanan"
-        asideBody="Mulai dari kategori yang paling dekat dengan kebutuhan Anda. Jika masih belum tepat, konsultasi awal akan membantu memetakannya."
+        title="Layanan pengurusan sesuai jenis dokumen Anda."
+        intro="Jenis layanan ditentukan oleh dokumen, wilayah, kondisi data, dan tujuan pengurusan. Gunakan tiga kategori berikut untuk melihat cakupan dan persyaratan awalnya."
+        asideTitle="Daftar layanan"
+        asideBody="Pilih kategori yang paling sesuai. Jika masih ragu, sampaikan kondisi dokumen melalui konsultasi awal."
         points={[
-          "Dokumen kendaraan untuk STNK, BPKB, mutasi, dan balik nama.",
+          "Dokumen kendaraan untuk STNK, BPKB, balik nama, dan mutasi.",
           "Perizinan bangunan untuk PBG, SLF, PKKPR, dan fungsi bangunan.",
-          "Legalitas teknis untuk rekomendasi, ANDALALIN, damkar, dan hak paten.",
+          "Legalitas teknis untuk ANDALALIN, dokumen damkar, rekomendasi teknis, dan kekayaan intelektual.",
         ]}
         primaryAction={{
-          label: "Bicarakan Berkas",
+          label: "Konsultasi via WhatsApp",
           href: COMPANY.whatsappUrl(WHATSAPP_MESSAGES.layanan),
           external: true,
           icon: "message",
         }}
-        secondaryAction={{ label: "Lihat Proses", href: "/proses" }}
+        secondaryAction={{ label: "Lihat proses", href: "/proses" }}
       />
       <ServiceCategories />
       <CTASection message={WHATSAPP_MESSAGES.layanan} />

@@ -22,21 +22,21 @@ export default function KontakPage() {
     <>
       <PageHero
         variant="contact"
-        title="Hubungi kami setelah Anda tahu dokumen apa yang ingin dibicarakan."
-        intro="Tidak perlu menyiapkan semua jawaban sejak awal. Cukup sampaikan jenis dokumen, wilayah, dan kendala yang sedang terjadi. Kami bantu membaca langkah berikutnya."
+        title="Sampaikan kebutuhan Anda untuk memulai konsultasi."
+        intro="Anda belum perlu menyiapkan semua dokumen. Sampaikan jenis dokumen, wilayah, dan kendala yang sedang terjadi agar kami dapat menjelaskan langkah awal."
         asideTitle="Kanal konsultasi"
-        asideBody="Formulir membantu kebutuhan awal tercatat sebelum percakapan berlanjut. WhatsApp tetap tersedia bila Anda ingin langsung menghubungi kami."
+        asideBody="Formulir mencatat ringkasan kebutuhan sebelum percakapan dilanjutkan melalui WhatsApp."
         points={[
           "Isi nama, kategori layanan, wilayah, dan kendala singkat.",
           "Jangan tulis nomor identitas atau data dokumen sensitif.",
-          "Tunggu pemeriksaan berkas sebelum biaya diputuskan.",
+          "Perkiraan biaya diberikan setelah kondisi dokumen diperiksa.",
         ]}
         primaryAction={{
-          label: "Isi Ringkasan Kebutuhan",
+          label: "Isi ringkasan kebutuhan",
           href: "#inquiry-form",
         }}
         secondaryAction={{
-          label: "Langsung ke WhatsApp",
+          label: "Konsultasi via WhatsApp",
           href: COMPANY.whatsappUrl(WHATSAPP_MESSAGES.kontak),
           external: true,
           icon: "message",
@@ -50,12 +50,12 @@ export default function KontakPage() {
               Kontak alternatif
             </p>
             <h2 className="mt-5 max-w-xl text-4xl font-semibold leading-[1.04] text-accent sm:text-5xl">
-              Jika formulir tidak sesuai, Anda tetap bisa menghubungi kami langsung.
+              Pilih cara menghubungi kami yang paling nyaman.
             </h2>
             <p className="mt-7 max-w-xl text-base leading-8 text-neutral-500">
               Telepon tersedia pada jam layanan. Untuk percakapan tertulis,
-              gunakan tautan WhatsApp di bagian atas dan jangan kirim nomor
-              identitas atau foto dokumen sensitif sebelum diminta.
+              gunakan WhatsApp dan jangan mengirim nomor identitas atau foto
+              dokumen sensitif sebelum diminta.
             </p>
           </div>
 
@@ -103,12 +103,12 @@ export default function KontakPage() {
                 Topik konsultasi
               </p>
               <h2 className="mt-5 max-w-2xl font-display text-4xl font-semibold leading-[1.03] text-accent sm:text-5xl">
-                Buka percakapan dari ruang dokumen yang paling dekat.
+                Pelajari kategori layanan sebelum mengisi formulir.
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-8 text-neutral-600 lg:justify-self-end">
-              Baca cakupan setiap kategori lebih dulu, lalu kembali ke formulir
-              saat Anda sudah menemukan ruang layanan yang paling dekat.
+              Jika belum yakin, lihat cakupan setiap kategori atau sampaikan
+              kondisi dokumen melalui konsultasi awal.
             </p>
           </div>
 

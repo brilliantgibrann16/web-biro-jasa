@@ -17,11 +17,11 @@ export default function ErrorPage({ unstable_retry }: ErrorPageProps) {
             Halaman belum dapat dimuat
           </p>
           <h1 className="mt-6 max-w-4xl font-display text-[3rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.4rem]">
-            Ada gangguan sementara saat menyiapkan halaman ini.
+            Halaman ini tidak dapat dimuat sementara.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-neutral-600">
-            Detail teknis tidak ditampilkan di halaman publik. Anda dapat mencoba
-            memuat ulang bagian ini atau kembali ke beranda.
+            Coba muat ulang halaman. Jika gangguan berlanjut, kembali ke beranda
+            atau hubungi kami melalui halaman kontak.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <button
@@ -44,8 +44,7 @@ export default function ErrorPage({ unstable_retry }: ErrorPageProps) {
 
         <aside className="border-l border-primary-dark/35 pl-6 lg:pl-8">
           <p className="text-sm leading-7 text-neutral-600">
-            Bila halaman tetap tidak dapat dibuka, jalur konsultasi utama masih
-            tersedia dari halaman kontak.
+            Konsultasi tetap dapat dimulai melalui kontak yang tersedia.
           </p>
           <Link
             href="/kontak"

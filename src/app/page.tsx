@@ -14,7 +14,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: COMPANY.name,
   description:
-    "Jasa pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
+    "Layanan pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
   telephone: COMPANY.phone,
   ...(VERIFIED_SITE_URL ? { url: VERIFIED_SITE_URL.toString() } : {}),
   contactPoint: {

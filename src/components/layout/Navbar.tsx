@@ -213,7 +213,7 @@ export default function Navbar() {
               className="group inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-3 text-[0.82rem] font-extrabold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-dark"
             >
               <MessageCircle className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-              Bicarakan Berkas
+              Konsultasi via WhatsApp
             </a>
           </div>
 
@@ -330,7 +330,7 @@ export default function Navbar() {
                   className="flex w-full items-center justify-center gap-2 rounded-sm bg-primary px-6 py-4 font-bold text-white transition-all hover:bg-primary-dark"
                 >
                   <MessageCircle className="h-5 w-5" />
-                  Bicarakan Berkas
+                  Konsultasi via WhatsApp
                 </a>
                 <p className="mt-4 text-center text-sm text-neutral-500">
                   {COMPANY.hours}

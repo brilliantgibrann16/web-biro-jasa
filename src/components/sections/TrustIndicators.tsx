@@ -32,8 +32,8 @@ export default function TrustIndicators() {
               id="trust-indicators-title"
               className="max-w-4xl py-6 text-xl font-semibold leading-8 text-accent sm:py-7 sm:pl-8 sm:text-2xl sm:leading-9 lg:pl-12"
             >
-              Dokumen yang baik bukan hanya selesai. Asal berkas, syarat,
-              status, dan penyerahannya harus bisa dijelaskan.
+              Setiap pengurusan perlu menjelaskan dokumen yang dibutuhkan,
+              tahapan proses, dan hasil yang diterima.
             </h2>
           </header>
 

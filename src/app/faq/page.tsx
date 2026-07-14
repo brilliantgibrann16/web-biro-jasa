@@ -11,22 +11,22 @@ export default function FAQPage() {
     <>
       <PageHero
         variant="questions"
-        title="Pertanyaan awal yang sebaiknya dijawab sebelum proses dimulai."
-        intro="Beberapa hal bisa dijelaskan secara umum, tetapi keputusan proses tetap bergantung pada kondisi berkas. FAQ ini membantu Anda menyiapkan pertanyaan yang lebih tepat saat konsultasi."
-        asideTitle="Sebelum konsultasi"
-        asideBody="Semakin jelas informasi awal yang Anda sampaikan, semakin mudah kami membaca kemungkinan alurnya."
+        title="Informasi yang perlu diketahui sebelum memulai pengurusan."
+        intro="Jawaban berikut memberi gambaran umum mengenai persyaratan, biaya, dan waktu penyelesaian. Ketentuan akhir tetap bergantung pada kondisi dokumen dan instansi yang menangani."
+        asideTitle="Siapkan informasi ini"
+        asideBody="Informasi awal yang lengkap membantu kami menentukan dokumen dan tahapan yang perlu diperiksa."
         points={[
           "Jenis dokumen yang ingin diurus.",
           "Wilayah atau instansi yang berkaitan.",
           "Kondisi terakhir dan kendala yang sudah diketahui.",
         ]}
         primaryAction={{
-          label: "Bicarakan Berkas",
+          label: "Konsultasi via WhatsApp",
           href: COMPANY.whatsappUrl(WHATSAPP_MESSAGES.faq),
           external: true,
           icon: "message",
         }}
-        secondaryAction={{ label: "Lihat Layanan", href: "/layanan" }}
+        secondaryAction={{ label: "Lihat layanan", href: "/layanan" }}
       />
       <FAQSection />
       <CTASection message={WHATSAPP_MESSAGES.faq} />

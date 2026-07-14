@@ -13,17 +13,17 @@ export default function WhyChooseUs() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-end">
           <div>
             <p className="text-[0.68rem] font-black uppercase tracking-[0.2em] text-primary-dark">
-              Sikap kerja
+              Standar kerja
             </p>
             <h2
               id="why-us-title"
               className="mt-5 max-w-2xl font-display text-4xl font-semibold leading-[1.03] text-accent sm:text-5xl"
             >
-              Kepercayaan dibangun dari keputusan yang dapat dijelaskan ulang.
+              Standar kerja yang dapat dijelaskan di setiap tahap.
             </h2>
           </div>
           <p className="max-w-2xl text-base leading-8 text-neutral-600 lg:justify-self-end">
-            Dokumen klien menyangkut kendaraan, bangunan, atau usaha. Cara kerjanya harus cukup jelas untuk dibaca kembali ketika proses sudah selesai.
+            Pengurusan dokumen kendaraan, bangunan, dan usaha memerlukan persyaratan, tahapan, serta batas layanan yang jelas.
           </p>
         </div>
 
