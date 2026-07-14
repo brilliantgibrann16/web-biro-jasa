@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, MessageCircle, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { COMPANY, NAV_ITEMS } from "@/lib/constants";
+import { CUSTOMER_NAV_ITEMS } from "@/lib/public-navigation";
 import { ThemeToggle } from "@/lib/theme";
 
 const FOCUSABLE_SELECTOR = [
@@ -48,7 +49,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const desktopQuery = window.matchMedia("(min-width: 1280px)");
     const handleDesktopChange = (event: MediaQueryListEvent) => {
       if (event.matches) closeMobileMenu();
     };
@@ -177,7 +178,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-8 lg:flex">
+          <div className="hidden items-center gap-5 xl:flex 2xl:gap-7">
             {NAV_ITEMS.map((item) => {
               const isActive = isActivePath(item.href);
 
@@ -196,13 +197,30 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            {CUSTOMER_NAV_ITEMS.map((item) => {
+              const isActive = isActivePath(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`animated-underline text-[0.82rem] font-bold uppercase tracking-[0.08em] transition-colors duration-300 ${
+                    isActive
+                      ? "text-primary"
+                      : "text-neutral-600 hover:text-accent"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.href === "/lacak" ? "Lacak" : item.label}
+                </Link>
+              );
+            })}
           </div>
 
-          <div className="hidden items-center gap-4 text-accent transition-colors duration-300 lg:flex">
+          <div className="hidden items-center gap-4 text-accent transition-colors duration-300 xl:flex">
             <ThemeToggle />
             <a
               href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
-              className="hidden text-[0.82rem] font-bold text-neutral-500 transition-colors hover:text-accent xl:inline"
+              className="hidden text-[0.82rem] font-bold text-neutral-500 transition-colors hover:text-accent 2xl:inline"
             >
               {COMPANY.phone}
             </a>
@@ -221,7 +239,7 @@ export default function Navbar() {
             ref={menuButtonRef}
             type="button"
             onClick={() => setIsMobileOpen((value) => !value)}
-            className="relative z-10 rounded-sm border border-current/10 p-2.5 text-accent transition-colors duration-300 lg:hidden"
+            className="relative z-10 rounded-sm border border-current/10 p-2.5 text-accent transition-colors duration-300 xl:hidden"
             aria-label={isMobileOpen ? "Tutup menu" : "Buka menu"}
             aria-expanded={isMobileOpen}
             aria-controls="mobile-nav"
@@ -241,7 +259,7 @@ export default function Navbar() {
             aria-modal="true"
             aria-labelledby="mobile-nav-title"
             data-mobile-drawer-root
-            className="fixed inset-0 z-[60] lg:hidden"
+            className="fixed inset-0 z-[60] xl:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -301,6 +319,27 @@ export default function Navbar() {
                           isActivePath(item.href) ? "text-primary" : "text-accent"
                         }`}
                         aria-current={isActivePath(item.href) ? "page" : undefined}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  ))}
+                  {CUSTOMER_NAV_ITEMS.map((item, i) => (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: 18 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.35 + i * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={closeMobileMenu}
+                        className={`block border-b border-neutral-100 py-4 text-lg font-semibold transition-colors hover:text-primary ${
+                          isActivePath(item.href) ? "text-primary" : "text-accent"
+                        }`}
+                        aria-current={
+                          isActivePath(item.href) ? "page" : undefined
+                        }
                       >
                         {item.label}
                       </Link>

@@ -10,7 +10,7 @@ const contentSecurityPolicy = [
   `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
   "script-src-attr 'none'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://*.supabase.co",
   "font-src 'self' data:",
   `connect-src 'self' https://*.supabase.co wss://*.supabase.co${
     isDevelopment ? " http: ws:" : ""
@@ -54,6 +54,15 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.supabase.co",
+        pathname: "/storage/v1/object/public/payment-assets/**",
+      },
+    ],
+  },
   experimental: {
     globalNotFound: true,
   },

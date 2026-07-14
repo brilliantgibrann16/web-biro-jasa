@@ -120,12 +120,28 @@ termasuk ketika Supabase atau jaringan gagal. Pesan fallback memberi tahu admin
 bila inquiry belum sempat tercatat.
 
 `POST /api/inquiries` memakai validasi server, honeypot, batas body, dan limiter
-in-memory lima request per 15 menit per fingerprint IP/user-agent. Limiter ini
+in-memory lima request per 15 menit per alamat proxy tepercaya. Limiter ini
 melindungi alur aplikasi normal, tetapi bukan pembatas terdistribusi lintas
-instance. Karena anon masih diberi `INSERT` langsung oleh kebutuhan arsitektur
-saat ini, pemanggil Data API secara sengaja juga dapat melewati limiter Next.js.
-Proteksi spam global kelak memerlukan RPC/Edge Function atau pembatas Data API
-terpisah.
+instance. Anon tidak memiliki akses `INSERT` atau `SELECT` langsung ke tabel
+`inquiries`; pencatatan dilakukan lewat RPC `submit_public_inquiry` yang
+memvalidasi input dan hanya mengembalikan kode referensi. Karena desain publik
+tanpa akun memang memberi anon hak `EXECUTE` pada RPC sempit, pemanggil Data API
+secara sengaja tetap dapat melewati limiter Next.js. Proteksi spam otoritatif
+kelak memerlukan Edge Function/server boundary dengan limiter terdistribusi atau
+challenge antispam, kemudian hak RPC langsung dicabut dari anon.
+
+Setiap inquiry yang tercatat mendapat kode `TS-YYMM-XXXXXXXXXX`. Kode disertakan
+pada pesan WhatsApp dan menjadi satu-satunya kunci untuk `/lacak`. RPC tracking
+hanya mengembalikan status, kategori, detail layanan, waktu pembaruan, dan
+informasi pembayaran yang relevan; nama, telepon, catatan pengunjung, catatan
+internal, serta UUID inquiry tidak ikut dikembalikan.
+
+Pembayaran di project ini hanya lapisan koordinasi manual. Admin dapat menyimpan
+rekening/QRIS, menentukan nominal dan waktu pembayaran per inquiry, lalu
+memverifikasi laporan transfer secara manual. Website tidak memproses uang dan
+tidak terhubung ke payment gateway. Testimoni juga manual: inquiry ditandai
+layak, konten disimpan sebagai draft, lalu dipublikasikan dengan tindakan
+terpisah. Anon hanya dapat membaca kolom publik dari testimoni yang sudah tayang.
 
 ## Retensi inquiry
 
@@ -166,9 +182,11 @@ $env:SUPABASE_TEST_ADMIN_PASSWORD="<password-kuat-sementara>"
 npm run verify:supabase
 ```
 
-Script memastikan anon hanya dapat insert, user biasa tidak dapat membaca atau
-memutasi data, dan user dengan claim admin dapat menjalankan CRUD fixture.
-Fixture selalu dibersihkan. Setelah production build, periksa bundle client:
+Script memastikan anon tidak dapat mengakses tabel inquiry secara langsung,
+tracking hanya mengembalikan field aman, laporan transfer tidak menandai lunas,
+pengaturan pembayaran tetap privat, draft testimoni tidak terlihat, dan hanya
+testimoni published yang dapat dibaca publik. Fixture selalu dibersihkan.
+Setelah production build, periksa bundle client:
 
 ```bash
 npm run verify:client-secrets
@@ -189,9 +207,9 @@ Checklist aman untuk Vercel atau hosting Node.js yang mendukung Next.js 16:
 5. pastikan credential admin permanen tersimpan di password manager dan login
    berhasil pada origin production;
 6. jalankan lint, typecheck, build, secret scan, dan verifier Supabase;
-7. deploy, lalu ulangi smoke test form inquiry, handoff WhatsApp, login,
-   dashboard, update status, logout, metadata, dan layout responsive pada domain
-   asli.
+7. deploy, lalu ulangi smoke test form inquiry, kode di WhatsApp, `/lacak`,
+   koordinasi pembayaran, draft/publikasi testimoni, login, dashboard, logout,
+   metadata, dan layout responsive pada domain asli;
 8. verifikasi reverse proxy membersihkan header IP dari client, lalu isi
    `RATE_LIMIT_TRUSTED_PROXY_HEADER`; pada deployment multi-instance, ganti
    limiter in-memory dengan penyimpanan terdistribusi.

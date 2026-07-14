@@ -4,6 +4,7 @@ import { type FormEvent, useMemo, useState } from "react";
 import { ArrowUpRight, LockKeyhole } from "lucide-react";
 import Link from "next/link";
 import { buildInquiryWhatsAppUrl } from "@/lib/inquiries/whatsapp";
+import { isInquiryReferenceCode } from "@/lib/inquiries/constants";
 import type {
   InquiryFormCategory,
   InquiryPublicInput,
@@ -54,7 +55,7 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
     };
     const controller = new AbortController();
     const timeoutId = window.setTimeout(() => controller.abort(), 8_000);
-    let recorded = false;
+    let referenceCode: string | undefined;
 
     setIsSubmitting(true);
 
@@ -68,14 +69,22 @@ export default function InquiryForm({ categories }: InquiryFormProps) {
         }),
         signal: controller.signal,
       });
-      recorded = response.ok;
+      if (response.ok) {
+        const result = (await response.json()) as { referenceCode?: unknown };
+        if (isInquiryReferenceCode(result.referenceCode)) {
+          referenceCode = result.referenceCode;
+        }
+      }
     } catch {
       // Database and network failures must never block the established
       // WhatsApp consultation path.
     } finally {
       window.clearTimeout(timeoutId);
       window.location.assign(
-        buildInquiryWhatsAppUrl(inquiry, { recorded }),
+        buildInquiryWhatsAppUrl(inquiry, {
+          recorded: Boolean(referenceCode),
+          referenceCode,
+        }),
       );
     }
   }

@@ -1,10 +1,15 @@
 import { COMPANY, WHATSAPP_MESSAGES } from "@/lib/constants";
 import { validatePublicInquiry } from "@/lib/inquiries/validation";
 import { buildInquiryWhatsAppUrl } from "@/lib/inquiries/whatsapp";
+import { isInquiryReferenceCode } from "@/lib/inquiries/constants";
 import {
   INQUIRY_RATE_LIMIT,
   checkInquiryRateLimit,
 } from "@/lib/server/rate-limit";
+import {
+  readTextBodyWithLimit,
+  RequestBodyTooLargeError,
+} from "@/lib/server/request-body";
 import { createPublicServerClient } from "@/lib/supabase/public-server";
 
 export const runtime = "nodejs";
@@ -25,18 +30,7 @@ function isNativeFormSubmission(request: Request): boolean {
 }
 
 async function readPayload(request: Request): Promise<unknown> {
-  const declaredLength = Number(request.headers.get("content-length"));
-  if (
-    Number.isFinite(declaredLength) &&
-    declaredLength > MAX_REQUEST_BODY_BYTES
-  ) {
-    throw new Error("payload-too-large");
-  }
-
-  const body = await request.text();
-  if (new TextEncoder().encode(body).byteLength > MAX_REQUEST_BODY_BYTES) {
-    throw new Error("payload-too-large");
-  }
+  const body = await readTextBodyWithLimit(request, MAX_REQUEST_BODY_BYTES);
 
   if (isNativeFormSubmission(request)) {
     return Object.fromEntries(new URLSearchParams(body));
@@ -132,12 +126,24 @@ export async function POST(request: Request) {
 
   try {
     payload = await readPayload(request);
-  } catch {
+  } catch (error) {
     if (nativeForm) return invalidFormRedirect(request);
 
+    const payloadTooLarge = error instanceof RequestBodyTooLargeError;
+
     return jsonResponse(
-      { ok: false, errors: { form: "Data formulir tidak valid." } },
-      { status: 400, remaining: rateLimit.remaining },
+      {
+        ok: false,
+        errors: {
+          form: payloadTooLarge
+            ? "Data formulir terlalu besar."
+            : "Data formulir tidak valid.",
+        },
+      },
+      {
+        status: payloadTooLarge ? 413 : 400,
+        remaining: rateLimit.remaining,
+      },
     );
   }
 
@@ -194,12 +200,22 @@ export async function POST(request: Request) {
     );
   }
 
-  const { error } = await supabase.from("inquiries").insert(validation.data);
+  const { data: referenceCode, error } = await supabase.rpc(
+    "submit_public_inquiry",
+    {
+      p_full_name: validation.data.full_name,
+      p_phone: validation.data.phone,
+      p_service_category: validation.data.service_category,
+      p_service_detail: validation.data.service_detail,
+      p_region: validation.data.region,
+      p_notes: validation.data.notes,
+    },
+  );
 
-  if (error) {
-    console.error("Public inquiry insert failed", {
-      code: error.code,
-      message: error.message,
+  if (error || !isInquiryReferenceCode(referenceCode)) {
+    console.error("Public inquiry submission failed", {
+      code: error?.code ?? "invalid-reference-code",
+      message: error?.message ?? "RPC did not return a valid reference code",
     });
 
     if (nativeForm) {
@@ -219,15 +235,19 @@ export async function POST(request: Request) {
     );
   }
 
+  const whatsappUrl = buildInquiryWhatsAppUrl(validation.data, {
+    referenceCode,
+  });
+
   if (nativeForm) {
-    return redirectNoStore(buildInquiryWhatsAppUrl(validation.data), {
+    return redirectNoStore(whatsappUrl, {
       remaining: rateLimit.remaining,
       recorded: true,
     });
   }
 
   return jsonResponse(
-    { ok: true },
+    { ok: true, referenceCode, whatsappUrl },
     { status: 201, remaining: rateLimit.remaining },
   );
 }

@@ -4,7 +4,7 @@ import type { InquiryPublicInput } from "@/lib/inquiries/types";
 
 export function buildInquiryWhatsAppMessage(
   inquiry: InquiryPublicInput,
-  options: { recorded?: boolean } = {},
+  options: { recorded?: boolean; referenceCode?: string } = {},
 ): string {
   const lines = [
     "Halo Biro Jasa Tiga Saudara, saya ingin berkonsultasi. Berikut ringkasan kebutuhan yang saya isi melalui situs web:",
@@ -13,6 +13,13 @@ export function buildInquiryWhatsAppMessage(
     `Nomor telepon: ${inquiry.phone}`,
     `Kategori: ${SERVICE_CATEGORY_LABELS[inquiry.service_category]}`,
   ];
+
+  if (options.referenceCode) {
+    lines.push(
+      `Kode referensi: ${options.referenceCode}`,
+      "Simpan kode referensi ini untuk memeriksa progres melalui halaman Lacak.",
+    );
+  }
 
   if (inquiry.service_detail) {
     lines.push(`Sub-layanan: ${inquiry.service_detail}`);
@@ -37,7 +44,7 @@ export function buildInquiryWhatsAppMessage(
 
 export function buildInquiryWhatsAppUrl(
   inquiry: InquiryPublicInput,
-  options: { recorded?: boolean } = {},
+  options: { recorded?: boolean; referenceCode?: string } = {},
 ): string {
   return COMPANY.whatsappUrl(buildInquiryWhatsAppMessage(inquiry, options));
 }

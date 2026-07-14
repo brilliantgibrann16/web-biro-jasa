@@ -9,7 +9,14 @@ import {
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import InquiryUpdateForm from "@/components/admin/InquiryUpdateForm";
+import PaymentCoordinationForm from "@/components/admin/PaymentCoordinationForm";
 import StatusBadge from "@/components/admin/StatusBadge";
+import TestimonialWorkflow from "@/components/admin/TestimonialWorkflow";
+import type {
+  PaymentStatus,
+  PaymentTiming,
+} from "@/lib/admin-tracking/constants";
+import type { AdminTestimonialRecord } from "@/lib/admin-tracking/types";
 import { requireAdminAuth } from "@/lib/auth/admin";
 import { SERVICE_CATEGORY_LABELS } from "@/lib/inquiries/constants";
 import {
@@ -46,7 +53,7 @@ export default async function InquiryDetailPage({
   const { data: inquiry, error } = await supabase
     .from("inquiries")
     .select(
-      "id, created_at, updated_at, full_name, phone, service_category, service_detail, region, notes, status, source, handled_note",
+      "id, created_at, updated_at, full_name, phone, service_category, service_detail, region, notes, status, source, handled_note, reference_code, payment_required, payment_amount, payment_timing, payment_status, payment_confirmation_requested_at, payment_verified_at, testimonial_eligible_at",
     )
     .eq("id", id)
     .maybeSingle();
@@ -90,6 +97,15 @@ export default async function InquiryDetailPage({
 
   if (!inquiry) notFound();
 
+  const { data: testimonialData, error: testimonialError } = await supabase
+    .from("testimonials")
+    .select(
+      "id, inquiry_id, service_category, rating, testimonial_text, display_name, published, published_at, created_at, updated_at",
+    )
+    .eq("inquiry_id", inquiry.id)
+    .maybeSingle();
+  const testimonial = testimonialData as AdminTestimonialRecord | null;
+
   const normalizedPhone = normalizePhoneNumber(inquiry.phone);
 
   return (
@@ -115,6 +131,12 @@ export default async function InquiryDetailPage({
             <p className="mt-3 flex items-center gap-2 text-sm text-neutral-600">
               <CalendarClock className="h-4 w-4" aria-hidden="true" />
               Masuk {formatDate(inquiry.created_at)} WIB
+            </p>
+            <p className="mt-3 text-sm font-bold text-neutral-600">
+              Kode referensi:{" "}
+              <code className="rounded-md border border-neutral-200 bg-surface px-2 py-1 font-mono text-accent">
+                {inquiry.reference_code}
+              </code>
             </p>
           </div>
           <StatusBadge status={inquiry.status} />
@@ -191,6 +213,63 @@ export default async function InquiryDetailPage({
             </section>
 
             <section className="rounded-xl border border-neutral-200 bg-paper p-5 shadow-soft sm:p-6">
+              <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-primary-dark">
+                Koordinasi manual
+              </p>
+              <h2 className="mt-2 text-xl font-semibold text-accent">
+                Pembayaran order
+              </h2>
+              <p className="mt-2 text-sm leading-7 text-neutral-600">
+                Isi setelah nominal disepakati melalui WhatsApp. Status “sudah dibayar” tetap harus dipilih admin setelah memeriksa mutasi rekening atau QRIS.
+              </p>
+              <div className="mt-6">
+                <PaymentCoordinationForm
+                  key={"payment-" + inquiry.updated_at}
+                  inquiryId={inquiry.id}
+                  initialPaymentRequired={inquiry.payment_required}
+                  initialPaymentAmount={inquiry.payment_amount}
+                  initialPaymentTiming={inquiry.payment_timing as PaymentTiming | null}
+                  initialPaymentStatus={inquiry.payment_status as PaymentStatus}
+                  initialConfirmationRequestedAt={inquiry.payment_confirmation_requested_at}
+                  initialVerifiedAt={inquiry.payment_verified_at}
+                  initialUpdatedAt={inquiry.updated_at}
+                />
+              </div>
+            </section>
+
+            <section className="rounded-xl border border-neutral-200 bg-paper p-5 shadow-soft sm:p-6">
+              <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-primary-dark">
+                Konten dengan persetujuan
+              </p>
+              <h2 className="mt-2 text-xl font-semibold text-accent">
+                Workflow testimoni
+              </h2>
+              <p className="mt-2 text-sm leading-7 text-neutral-600">
+                Kelayakan, penulisan draft, dan publikasi adalah keputusan terpisah. Tidak ada teks, rating, atau nama tampilan yang dibuat otomatis.
+              </p>
+              <div className="mt-6">
+                {testimonialError ? (
+                  <p className="rounded-lg border border-state-danger-border bg-state-danger-surface px-4 py-3 text-sm text-state-danger-text" role="alert">
+                    Data testimoni belum dapat dimuat. Muat ulang halaman sebelum membuat perubahan.
+                  </p>
+                ) : (
+                  <TestimonialWorkflow
+                    key={
+                      "testimonial-" +
+                      inquiry.updated_at +
+                      "-" +
+                      (testimonial?.updated_at ?? "none")
+                    }
+                    inquiryId={inquiry.id}
+                    initialEligibleAt={inquiry.testimonial_eligible_at}
+                    initialInquiryUpdatedAt={inquiry.updated_at}
+                    initialTestimonial={testimonial}
+                  />
+                )}
+              </div>
+            </section>
+
+            <section className="rounded-xl border border-neutral-200 bg-paper p-5 shadow-soft sm:p-6">
               <h2 className="text-xl font-semibold text-accent">Jejak data</h2>
               <dl className="mt-5 grid gap-5 sm:grid-cols-2">
                 <div>
@@ -232,6 +311,7 @@ export default async function InquiryDetailPage({
             </p>
             <div className="mt-6">
               <InquiryUpdateForm
+                key={"progress-" + inquiry.updated_at}
                 inquiryId={inquiry.id}
                 initialStatus={inquiry.status}
                 initialHandledNote={inquiry.handled_note}

@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { COMPANY, NAV_ITEMS, SERVICE_CATEGORIES } from "@/lib/constants";
+import { CUSTOMER_NAV_ITEMS } from "@/lib/public-navigation";
 
 export default function Footer() {
   return (
@@ -48,6 +49,17 @@ export default function Footer() {
             </h2>
             <ul className="mt-6 space-y-4">
               {NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-neutral-600 transition-colors duration-200 hover:text-primary-dark"
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-primary/0 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+              {CUSTOMER_NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

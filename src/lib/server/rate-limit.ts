@@ -58,12 +58,9 @@ function getTrustedClientAddress(request: Request): string {
 }
 
 function getFingerprint(request: Request): string {
-  const raw = [
-    getTrustedClientAddress(request),
-    request.headers.get("user-agent")?.slice(0, 180) || "unknown-agent",
-  ].join("|");
-
-  return createHash("sha256").update(raw).digest("hex");
+  return createHash("sha256")
+    .update(getTrustedClientAddress(request))
+    .digest("hex");
 }
 
 function getAdminLoginFingerprint(request: Request): string {

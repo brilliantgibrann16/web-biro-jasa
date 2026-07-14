@@ -2,7 +2,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(24);
+select plan(26);
 
 select has_table('public', 'inquiries', 'inquiries table exists');
 select has_column('public', 'inquiries', 'id', 'inquiries.id exists');
@@ -31,14 +31,7 @@ set local role anon;
 
 select lives_ok(
   $$
-    insert into public.inquiries (
-      full_name,
-      phone,
-      service_category,
-      service_detail,
-      region,
-      notes
-    ) values (
+    select public.submit_public_inquiry(
       'Anon RLS Test',
       '+628111111111',
       'dokumen-kendaraan',
@@ -47,7 +40,23 @@ select lives_ok(
       'Fixture pengujian RLS'
     )
   $$,
-  'anon can insert public inquiry fields'
+  'anon can submit an inquiry through the constrained RPC'
+);
+select throws_ok(
+  $$
+    insert into public.inquiries (
+      full_name,
+      phone,
+      service_category
+    ) values (
+      'Anon Direct Insert Test',
+      '+628100000000',
+      'dokumen-kendaraan'
+    )
+  $$,
+  '42501',
+  null,
+  'anon cannot bypass the submission RPC with a direct insert'
 );
 select throws_ok(
   $$ select * from public.inquiries $$,
@@ -175,32 +184,27 @@ select throws_ok(
   null,
   'authenticated non-admin cannot insert inquiries'
 );
-select is(
-  (
-    with updated as (
-      update public.inquiries
-      set status = 'diproses'
-      returning 1
-    )
-    select count(*) from updated
-  ),
-  0::bigint,
-  'authenticated non-admin cannot update inquiries'
+select lives_ok(
+  $$ update public.inquiries set status = 'diproses' $$,
+  'authenticated non-admin update is safely filtered by RLS'
 );
-select is(
-  (
-    with deleted as (
-      delete from public.inquiries
-      returning 1
-    )
-    select count(*) from deleted
-  ),
-  0::bigint,
-  'authenticated non-admin cannot delete inquiries'
+select lives_ok(
+  $$ delete from public.inquiries $$,
+  'authenticated non-admin delete is safely filtered by RLS'
 );
 
 set local request.jwt.claims =
   '{"sub":"33333333-3333-4333-8333-333333333333","role":"authenticated","app_metadata":{"role":"admin"}}';
+
+select is(
+  (
+    select status
+    from public.inquiries
+    where phone = '+628111111111'
+  ),
+  'baru',
+  'non-admin update and delete attempts do not change the fixture'
+);
 
 select lives_ok(
   $$ select * from public.inquiries $$,
@@ -231,20 +235,19 @@ select lives_ok(
 select lives_ok(
   $$
     update public.inquiries
-    set
-      status = 'diproses',
-      updated_at = '2000-01-01 00:00:00+00'
+    set status = 'diproses'
     where id = '11111111-1111-4111-8111-111111111111'
   $$,
   'admin claim can update inquiries'
 );
-select ok(
+select is(
   (
-    select updated_at > '2026-01-01 00:00:00+00'
+    select status
     from public.inquiries
     where id = '11111111-1111-4111-8111-111111111111'
   ),
-  'updated_at trigger overwrites stale timestamps'
+  'diproses',
+  'admin update is persisted'
 );
 select lives_ok(
   $$

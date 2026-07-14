@@ -12,6 +12,9 @@ import {
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import StatusBadge from "@/components/admin/StatusBadge";
+import {
+  PAYMENT_STATUS_LABELS,
+} from "@/lib/admin-tracking/constants";
 import { requireAdminAuth } from "@/lib/auth/admin";
 import { SERVICE_CATEGORIES, type ServiceCategoryId } from "@/lib/constants";
 import {
@@ -34,6 +37,8 @@ export const dynamic = "force-dynamic";
 interface DashboardSearchParams {
   status?: string | string[];
   category?: string | string[];
+  payment?: string | string[];
+  reference?: string | string[];
   page?: string | string[];
 }
 
@@ -47,11 +52,17 @@ type InquiryListItem = Pick<
   | "service_detail"
   | "region"
   | "status"
+  | "reference_code"
+  | "payment_required"
+  | "payment_status"
+  | "payment_confirmation_requested_at"
 >;
 
 const PAGE_SIZE = 25;
 const INQUIRY_LIST_COLUMNS =
-  "id, created_at, full_name, phone, service_category, service_detail, region, status" as const;
+  "id, created_at, full_name, phone, service_category, service_detail, region, status, reference_code, payment_required, payment_status, payment_confirmation_requested_at" as const;
+
+const REFERENCE_CODE_PATTERN = /^TS-[0-9]{4}-[0-9A-F]{10}$/;
 
 const dateFormatter = new Intl.DateTimeFormat("id-ID", {
   dateStyle: "medium",
@@ -84,15 +95,21 @@ function parsePage(value: string | undefined): {
 function buildDashboardHref({
   status,
   category,
+  paymentVerification,
+  reference,
   page,
 }: {
   status?: InquiryStatus;
   category?: ServiceCategoryId;
+  paymentVerification?: boolean;
+  reference?: string;
   page?: number;
 }): string {
   const query = new URLSearchParams();
   if (status) query.set("status", status);
   if (category) query.set("category", category);
+  if (paymentVerification) query.set("payment", "perlu-verifikasi");
+  if (reference) query.set("reference", reference);
   if (page && page > 1) query.set("page", String(page));
   const serialized = query.toString();
   return serialized ? `/admin?${serialized}` : "/admin";
@@ -107,6 +124,8 @@ export default async function AdminDashboardPage({
   const query = await searchParams;
   const rawStatus = firstValue(query.status);
   const rawCategory = firstValue(query.category);
+  const rawPayment = firstValue(query.payment);
+  const rawReference = firstValue(query.reference);
   const rawPage = firstValue(query.page);
   const status: InquiryStatus | undefined = isInquiryStatus(rawStatus)
     ? rawStatus
@@ -116,6 +135,9 @@ export default async function AdminDashboardPage({
   )
     ? rawCategory
     : undefined;
+  const paymentVerification = rawPayment === "perlu-verifikasi";
+  const normalizedReference = rawReference?.trim().toUpperCase().slice(0, 18);
+  const reference = normalizedReference || undefined;
 
   let countQuery = supabase
     .from("inquiries")
@@ -125,6 +147,15 @@ export default async function AdminDashboardPage({
   if (category) {
     countQuery = countQuery.eq("service_category", category);
   }
+  if (paymentVerification) {
+    countQuery = countQuery.eq("payment_status", "menunggu-verifikasi");
+  }
+  if (reference) {
+    countQuery = countQuery.eq(
+      "reference_code",
+      REFERENCE_CODE_PATTERN.test(reference) ? reference : "__invalid__",
+    );
+  }
 
   const { count, error: countError } = await countQuery;
   const totalCount = count ?? 0;
@@ -133,7 +164,15 @@ export default async function AdminDashboardPage({
   const page = Math.min(parsedPage.page, totalPages);
 
   if (!countError && (parsedPage.invalid || parsedPage.page !== page)) {
-    redirect(buildDashboardHref({ status, category, page }));
+    redirect(
+      buildDashboardHref({
+        status,
+        category,
+        paymentVerification,
+        reference,
+        page,
+      }),
+    );
   }
 
   let inquiries: InquiryListItem[] | null = null;
@@ -151,15 +190,32 @@ export default async function AdminDashboardPage({
     if (category) {
       inquiryQuery = inquiryQuery.eq("service_category", category);
     }
+    if (paymentVerification) {
+      inquiryQuery = inquiryQuery.eq("payment_status", "menunggu-verifikasi");
+    }
+    if (reference) {
+      inquiryQuery = inquiryQuery.eq(
+        "reference_code",
+        REFERENCE_CODE_PATTERN.test(reference) ? reference : "__invalid__",
+      );
+    }
 
     const result = await inquiryQuery;
     inquiries = result.data;
     error = result.error;
   }
 
-  const hasFilters = Boolean(status || category);
+  const hasFilters = Boolean(
+    status || category || paymentVerification || reference,
+  );
   const userEmail = typeof claims.email === "string" ? claims.email : undefined;
-  const currentHref = buildDashboardHref({ status, category, page });
+  const currentHref = buildDashboardHref({
+    status,
+    category,
+    paymentVerification,
+    reference,
+    page,
+  });
   const firstVisible = totalCount === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
   const lastVisible = Math.min(
     (page - 1) * PAGE_SIZE + (inquiries?.length ?? 0),
@@ -195,8 +251,28 @@ export default async function AdminDashboardPage({
         <form
           action="/admin"
           method="get"
-          className="mt-8 grid gap-4 rounded-xl border border-neutral-200 bg-paper p-4 shadow-soft sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end sm:p-5"
+          className="mt-8 grid gap-4 rounded-xl border border-neutral-200 bg-paper p-4 shadow-soft sm:p-5 md:grid-cols-2 md:items-end lg:grid-cols-5"
         >
+          <div>
+            <label
+              htmlFor="reference-filter"
+              className="text-sm font-bold text-accent"
+            >
+              Kode referensi
+            </label>
+            <input
+              id="reference-filter"
+              name="reference"
+              type="text"
+              maxLength={18}
+              defaultValue={reference ?? ""}
+              autoCapitalize="characters"
+              spellCheck={false}
+              placeholder="TS-YYMM-XXXXXXXXXX"
+              className="mt-2 min-h-11 w-full rounded-lg border border-control-border bg-surface px-3 font-mono text-sm uppercase text-accent"
+            />
+          </div>
+
           <div>
             <label htmlFor="status-filter" className="text-sm font-bold text-accent">
               Status
@@ -235,6 +311,24 @@ export default async function AdminDashboardPage({
                   {item.title}
                 </option>
               ))}
+            </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="payment-filter"
+              className="text-sm font-bold text-accent"
+            >
+              Perhatian pembayaran
+            </label>
+            <select
+              id="payment-filter"
+              name="payment"
+              defaultValue={paymentVerification ? "perlu-verifikasi" : ""}
+              className="mt-2 min-h-11 w-full rounded-lg border border-control-border bg-surface px-3 text-sm text-accent"
+            >
+              <option value="">Semua pembayaran</option>
+              <option value="perlu-verifikasi">Perlu verifikasi transfer</option>
             </select>
           </div>
 
@@ -305,6 +399,9 @@ export default async function AdminDashboardPage({
                         <p className="mt-1 text-sm text-neutral-600">
                           {normalizePhoneNumber(inquiry.phone)}
                         </p>
+                        <p className="mt-2 font-mono text-xs font-bold text-primary-dark">
+                          {inquiry.reference_code}
+                        </p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           <a
                             href={phoneHref(inquiry.phone)}
@@ -345,6 +442,26 @@ export default async function AdminDashboardPage({
                       </td>
                       <td className="px-5 py-5">
                         <StatusBadge status={inquiry.status} />
+                        {inquiry.payment_required ? (
+                          <div className="mt-2">
+                            <span
+                              className={`inline-flex rounded-full border px-2.5 py-1 text-[0.7rem] font-extrabold ${
+                                inquiry.payment_status === "menunggu-verifikasi"
+                                  ? "border-status-waiting-border bg-status-waiting-surface text-status-waiting-text"
+                                  : inquiry.payment_status === "sudah-dibayar"
+                                    ? "border-status-success-border bg-status-success-surface text-status-success-text"
+                                    : "border-neutral-300 bg-inset text-neutral-600"
+                              }`}
+                            >
+                              {PAYMENT_STATUS_LABELS[inquiry.payment_status]}
+                            </span>
+                            {inquiry.payment_confirmation_requested_at ? (
+                              <p className="mt-1 text-xs leading-5 text-neutral-500">
+                                Dilaporkan {formatDate(inquiry.payment_confirmation_requested_at)} WIB
+                              </p>
+                            ) : null}
+                          </div>
+                        ) : null}
                       </td>
                       <td className="px-5 py-5 text-right">
                         <Link
@@ -380,6 +497,9 @@ export default async function AdminDashboardPage({
                       <p className="mt-1 text-xs text-neutral-500">
                         {formatDate(inquiry.created_at)} WIB
                       </p>
+                      <p className="mt-2 font-mono text-xs font-bold text-primary-dark">
+                        {inquiry.reference_code}
+                      </p>
                     </div>
                     <StatusBadge status={inquiry.status} />
                   </div>
@@ -408,6 +528,17 @@ export default async function AdminDashboardPage({
                         {normalizePhoneNumber(inquiry.phone)}
                       </dd>
                     </div>
+                    {inquiry.payment_required ? (
+                      <div>
+                        <dt className="font-bold text-neutral-500">Pembayaran</dt>
+                        <dd className="mt-1 text-accent">
+                          {PAYMENT_STATUS_LABELS[inquiry.payment_status]}
+                          {inquiry.payment_confirmation_requested_at
+                            ? ` · dilaporkan ${formatDate(inquiry.payment_confirmation_requested_at)} WIB`
+                            : ""}
+                        </dd>
+                      </div>
+                    ) : null}
                   </dl>
                   <div className="mt-5 grid grid-cols-2 gap-2">
                     <a
@@ -455,6 +586,8 @@ export default async function AdminDashboardPage({
                     href={buildDashboardHref({
                       status,
                       category,
+                      paymentVerification,
+                      reference,
                       page: page - 1,
                     })}
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-surface px-4 text-sm font-bold text-accent hover:border-primary"
@@ -477,6 +610,8 @@ export default async function AdminDashboardPage({
                     href={buildDashboardHref({
                       status,
                       category,
+                      paymentVerification,
+                      reference,
                       page: page + 1,
                     })}
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-surface px-4 text-sm font-bold text-accent hover:border-primary"

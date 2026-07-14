@@ -86,11 +86,12 @@ WhatsApp tetap dibuka dengan ringkasan kebutuhan
    sub-layanan, wilayah, dan catatan bersifat opsional.
 2. Browser mengirim data ke `POST /api/inquiries`.
 3. Server memeriksa format, batas ukuran 16 KiB, kolom jebakan spam, dan rate
-   limit lima permintaan per 15 menit per fingerprint.
-4. Jika valid, server mencoba membuat baris baru di tabel `inquiries` dengan
-   status awal **Baru**.
+   limit lima permintaan per 15 menit per alamat proxy tepercaya.
+4. Jika valid, server memanggil RPC sempit untuk membuat inquiry berstatus awal
+   **Baru** dan menerima kode referensi acak.
 5. Setelah percobaan penyimpanan, browser membuka WhatsApp dengan ringkasan yang
-   sama. WhatsApp tetap dibuka bila jaringan atau Supabase gagal.
+   sama beserta kode referensi. WhatsApp tetap dibuka bila jaringan atau
+   Supabase gagal.
 6. Bila pencatatan gagal, pesan WhatsApp memuat catatan agar admin mencatat
    permintaan tersebut secara manual.
 7. Form tidak menerima unggahan file dan tidak boleh digunakan untuk nomor KTP,
@@ -107,6 +108,11 @@ menandai kegagalan pencatatan.
 - menyimpan nama, nomor telepon, kategori, detail layanan, wilayah, dan catatan
   inquiry;
 - menyimpan status penanganan dan catatan internal admin;
+- menyimpan koordinasi pembayaran, rekening/QRIS, dan permintaan verifikasi
+  transfer manual;
+- menyediakan tracking publik berbasis kode melalui RPC yang hanya
+  mengembalikan field aman;
+- menyimpan draft dan publikasi testimoni;
 - melakukan autentikasi email/password untuk admin;
 - membatasi akses database melalui Row Level Security (RLS);
 - menghapus inquiry yang lebih tua dari 12 bulan melalui job terjadwal.
@@ -120,11 +126,16 @@ Jangan pernah menambahkan password admin atau secret key ke variable bernama
 ### Yang sudah dikonfigurasi
 
 - **[SUDAH]** tabel `public.inquiries` dan index yang diperlukan;
-- **[SUDAH]** pengunjung anonim hanya boleh melakukan insert pada kolom publik;
+- **[SUDAH]** anon tidak dapat `SELECT` atau `INSERT` langsung pada tabel
+  inquiry; pencatatan dan tracking hanya melalui RPC sempit;
 - **[SUDAH]** user authenticated biasa tidak boleh membaca data inquiry;
 - **[SUDAH]** hanya JWT dengan `app_metadata.role = "admin"` yang dapat membaca
   dan memperbarui inquiry;
 - **[SUDAH]** retensi 12 bulan dan purge harian pukul 02.30 UTC atau 09.30 WIB;
+- **[SUDAH]** pengaturan pembayaran hanya dapat dibaca/diubah admin dan bucket
+  QRIS membatasi format serta ukuran file;
+- **[SUDAH]** anon hanya dapat membaca kolom publik pada testimoni yang sudah
+  dipublikasikan;
 - **[SUDAH]** public signup dan anonymous sign-in dinonaktifkan pada konfigurasi
   repo;
 - **[SUDAH]** satu admin permanen telah dibuat dan diuji;
@@ -161,7 +172,7 @@ Jangan pernah menambahkan password admin atau secret key ke variable bernama
 
 4. **[WAJIB] Verifikasi keamanan database**
 
-   - Pastikan keempat migration repo tercatat pada remote project.
+   - Pastikan kelima migration repo tercatat pada remote project.
    - Periksa Security Advisor dan pastikan RLS tetap aktif pada
      `public.inquiries`.
    - Pastikan job `purge-expired-inquiries-daily` tetap aktif dan policy retensi
@@ -202,6 +213,7 @@ Jangan pernah menambahkan password admin atau secret key ke variable bernama
 - Login: `https://DOMAIN-ANDA/admin/login`
 - Dashboard: `https://DOMAIN-ANDA/admin`
 - Detail inquiry: `https://DOMAIN-ANDA/admin/inquiries/ID-INQUIRY`
+- Pengaturan pembayaran: `https://DOMAIN-ANDA/admin/pengaturan-pembayaran`
 
 URL ini sengaja tidak ada di navbar/footer publik. Menyembunyikan link bukan
 mekanisme keamanan; proteksi sesungguhnya tetap dilakukan oleh session Supabase,
@@ -231,12 +243,19 @@ dan [Supabase RLS](https://supabase.com/docs/guides/database/postgres/row-level-
 ### Kemampuan dashboard saat ini
 
 - melihat inquiry terbaru, 25 item per halaman;
-- memfilter berdasarkan status dan kategori layanan;
+- mencari kode referensi dan memfilter status, kategori layanan, serta status
+  pembayaran;
 - membuka detail kebutuhan, nomor telepon, wilayah, dan catatan pengunjung;
 - menghubungi pelanggan melalui telepon atau WhatsApp;
 - mengubah status menjadi **Baru**, **Diproses**, **Menunggu dokumen**,
   **Selesai**, atau **Dibatalkan**;
 - menulis catatan internal maksimal 4.000 karakter;
+- mengatur nominal, waktu, dan status pembayaran per inquiry serta memeriksa
+  laporan transfer secara manual;
+- menyimpan rekening/instruksi atau QRIS statis sekali untuk dipakai pada order
+  yang sedang menunggu pembayaran;
+- menandai inquiry layak testimoni, menulis draft rating/nama/teks secara
+  eksplisit, lalu mempublikasikannya dengan tindakan terpisah;
 - melihat waktu dibuat, waktu terakhir diperbarui, sumber, dan ID inquiry;
 - logout dari session browser yang sedang digunakan.
 
@@ -254,37 +273,42 @@ admin Supabase; tidak ada self-service reset di website sekarang.
 5. Tulis catatan internal secukupnya; jangan salin nomor KTP atau isi dokumen
    sensitif ke catatan.
 6. Ubah status menjadi **Selesai** atau **Dibatalkan** setelah penanganan berakhir.
-7. Logout saat menggunakan perangkat bersama.
+7. Bila ada pembayaran, isi nominal dan timing hanya setelah disepakati melalui
+   WhatsApp. Pilih **Sudah dibayar** hanya setelah mutasi/QRIS diperiksa.
+8. Bila pelanggan menyetujui testimoni, tandai layak, isi konten sesuai ucapan
+   pelanggan, simpan draft, periksa ulang, lalu publikasikan secara terpisah.
+9. Logout saat menggunakan perangkat bersama.
 
 ## Apakah ada fitur tracking proses?
 
-### Yang sudah ada: tracking internal ringan
+### Yang sudah ada: tracking publik ringan
 
-Admin dapat melihat status terakhir, waktu terakhir diperbarui, dan satu catatan
-internal. Ini cocok untuk mengelola follow-up awal, tetapi **bukan** pelacakan
-resmi terhadap antrean Samsat, dinas, atau instansi pemerintah.
+Setiap inquiry yang berhasil dicatat memperoleh kode berbentuk
+`TS-YYMM-XXXXXXXXXX`. Kode itu masuk ke pesan WhatsApp dan dapat dipakai pada
+`/lacak` tanpa akun pelanggan. Halaman hanya menampilkan status ramah pelanggan,
+kategori/detail layanan, waktu pembaruan, serta informasi pembayaran bila
+relevan. Nomor telepon, nama, catatan, dan ID internal tidak ditampilkan.
 
-### Yang belum ada: tracking mandiri untuk pelanggan
+Kode adalah bearer secret: siapa pun yang memilikinya dapat melihat ringkasan
+aman tersebut. Minta pelanggan menyimpannya dan tidak menaruhnya di kanal
+publik. Kode tidak ditempatkan di query URL. Kode salah dan kode yang tidak ada
+memberi respons generik tanpa data.
 
-Pelanggan belum mendapatkan nomor tracking, halaman cek status, timeline,
-notifikasi status, atau akses ke catatan admin. Perubahan status di dashboard
-tidak otomatis dikirim ke WhatsApp.
+Ini bukan tracking resmi antrean Samsat/dinas, bukan timeline per langkah, dan
+tidak mengirim notifikasi WhatsApp otomatis. Status tetap diperbarui admin pada
+dashboard; percakapan rinci tetap dilakukan melalui WhatsApp.
 
-Jangan memberikan URL `/admin` atau ID inquiry mentah kepada pelanggan sebagai
-solusi sementara.
+### Koordinasi pembayaran dan testimoni
 
-### [HANYA JIKA FITUR DIAKTIFKAN] Scope tracking pelanggan yang aman
-
-Fitur ini sebaiknya menjadi pekerjaan terpisah yang mencakup:
-
-- kode tracking acak yang tidak membocorkan UUID, nomor telepon, atau urutan
-  pelanggan;
-- verifikasi pemilik melalui OTP/magic link atau secret code dengan rate limit;
-- tabel timeline append-only, bukan hanya menimpa satu status;
-- pemisahan tegas antara catatan internal dan pesan yang boleh dilihat klien;
-- RLS dan API khusus pelanggan;
-- persetujuan serta mekanisme notifikasi WhatsApp/email;
-- revisi pemberitahuan privasi, retensi, recovery, dan audit keamanan.
+- Isi rekening/QRIS satu kali melalui **Pengaturan pembayaran**. Pastikan milik
+  bisnis dan cek ulang sebelum dipakai.
+- Pada detail inquiry, aktifkan pembayaran, isi nominal dan timing, lalu pilih
+  **Menunggu pembayaran**. Informasi itu baru tampil di `/lacak`.
+- Tombol **Saya sudah transfer** hanya membuat status **Menunggu verifikasi**.
+  Uang tidak diproses website dan status tidak otomatis menjadi lunas.
+- Testimoni tidak pernah dibuat dari catatan admin. Admin harus menandai layak,
+  mengisi rating/nama tampilan/teks, menyimpan draft, lalu menekan publikasi
+  secara terpisah. Nama tampilan harus sesuai persetujuan pelanggan.
 
 ## Cara memberikan preview kepada klien
 

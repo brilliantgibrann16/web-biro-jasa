@@ -90,6 +90,12 @@ export const ROUTE_METADATA = {
       "Hubungi Biro Jasa Tiga Saudara untuk konsultasi awal pengurusan dokumen kendaraan, perizinan bangunan, dan legalitas teknis.",
     path: "/kontak",
   },
+  testimoni: {
+    title: "Testimoni Pelanggan",
+    description:
+      "Baca pengalaman pelanggan Biro Jasa Tiga Saudara yang telah ditinjau dan mendapat izin untuk dipublikasikan.",
+    path: "/testimoni",
+  },
   privasi: {
     title: "Pemberitahuan Privasi",
     description:
