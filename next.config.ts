@@ -53,6 +53,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: __dirname,
+  },
   poweredByHeader: false,
   images: {
     remotePatterns: [
