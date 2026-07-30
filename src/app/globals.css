@@ -107,9 +107,14 @@
 }
 
 html {
+  /* Brand copper scale: the single source of truth for every
+     brown/orange accent in the product. All copper-derived tokens
+     below must reference these variables (directly or via color-mix)
+     instead of repeating hex or rgba literals. */
   --brand-copper: #b8642a;
   --brand-copper-light: #d79a55;
   --brand-copper-dark: #8f451c;
+  --brand-copper-action: #a65021;
   --brand-navy: #07111f;
   --brand-navy-light: #0d1a2c;
   --brand-navy-mid: #14233a;
@@ -141,11 +146,11 @@ html {
   --theme-neutral-700: #34302c;
   --theme-neutral-800: #211e1b;
   --theme-neutral-900: #151311;
-  --semantic-primary-text: #8f451c;
-  --semantic-primary-action: #a65021;
+  --semantic-primary-text: var(--brand-copper-dark);
+  --semantic-primary-action: var(--brand-copper-action);
   --semantic-status-new-border: #d8b295;
   --semantic-status-new-surface: #f5e9df;
-  --semantic-status-new-text: #8f451c;
+  --semantic-status-new-text: var(--brand-copper-dark);
   --semantic-status-progress-border: #a9bac4;
   --semantic-status-progress-surface: #e8edf0;
   --semantic-status-progress-text: #365066;
@@ -170,9 +175,9 @@ html {
   --theme-editorial-base: #fbfaf7;
   --theme-editorial-text: #142033;
   --theme-editorial-muted: #4f5963;
-  --theme-editorial-line: rgba(143, 69, 28, 0.24);
+  --theme-editorial-line: color-mix(in srgb, var(--brand-copper-dark) 24%, transparent);
   --theme-editorial-faint: rgba(20, 32, 51, 0.085);
-  --theme-editorial-action-hover: #a65021;
+  --theme-editorial-action-hover: var(--brand-copper-action);
   --theme-dossier-surface: #fff8eb;
   --theme-dossier-text: #07111f;
   --theme-dossier-strong: rgba(7, 17, 31, 0.82);
@@ -180,16 +185,16 @@ html {
   --theme-dossier-ghost: rgba(7, 17, 31, 0.28);
   --theme-dossier-border: #e7dcc9;
   --theme-dossier-line: rgba(7, 17, 31, 0.1);
-  --theme-dossier-accent: #8f451c;
-  --theme-dossier-accent-line: rgba(184, 100, 42, 0.4);
+  --theme-dossier-accent: var(--brand-copper-dark);
+  --theme-dossier-accent-line: color-mix(in srgb, var(--brand-copper) 40%, transparent);
   --dossier-grid-line: rgba(16, 23, 37, 0.055);
   --editorial-frame: rgba(20, 32, 51, 0.15);
-  --editorial-hero-glow: rgba(184, 100, 42, 0.1);
+  --editorial-hero-glow: color-mix(in srgb, var(--brand-copper) 10%, transparent);
   --editorial-steel-glow: rgba(20, 32, 51, 0.05);
   --editorial-hero-start: #fbfaf7;
   --editorial-hero-mid: #f4eee5;
   --editorial-hero-end: #e9ebea;
-  --page-ambient: rgba(184, 100, 42, 0.07);
+  --page-ambient: color-mix(in srgb, var(--brand-copper) 7%, transparent);
   --focus-on-light: #07111f;
   --focus-on-dark: #fffdf8;
   scroll-behavior: smooth;
@@ -215,7 +220,7 @@ h3 {
 }
 
 ::selection {
-  background: rgba(184, 100, 42, 0.18);
+  background: color-mix(in srgb, var(--brand-copper) 18%, transparent);
   color: var(--theme-accent);
 }
 
@@ -261,7 +266,7 @@ h3 {
 }
 
 html[data-theme="dark"] {
-  --semantic-primary-text: #d79a55;
+  --semantic-primary-text: var(--brand-copper-light);
   --theme-surface: #07111f;
   --theme-surface-warm: #0d1a2c;
   --theme-paper: #111c2d;
@@ -324,18 +329,18 @@ html[data-theme="dark"] {
   --theme-dossier-strong: #eee7dc;
   --theme-dossier-muted: #c9c0b4;
   --theme-dossier-ghost: rgba(255, 248, 235, 0.4);
-  --theme-dossier-border: rgba(215, 154, 85, 0.38);
+  --theme-dossier-border: color-mix(in srgb, var(--brand-copper-light) 38%, transparent);
   --theme-dossier-line: rgba(255, 248, 235, 0.14);
-  --theme-dossier-accent: #d79a55;
-  --theme-dossier-accent-line: rgba(215, 154, 85, 0.48);
+  --theme-dossier-accent: var(--brand-copper-light);
+  --theme-dossier-accent-line: color-mix(in srgb, var(--brand-copper-light) 48%, transparent);
   --dossier-grid-line: rgba(255, 248, 235, 0.055);
   --editorial-frame: rgba(255, 255, 255, 0.12);
-  --editorial-hero-glow: rgba(215, 154, 85, 0.1);
+  --editorial-hero-glow: color-mix(in srgb, var(--brand-copper-light) 10%, transparent);
   --editorial-steel-glow: transparent;
   --editorial-hero-start: #07111f;
   --editorial-hero-mid: #081422;
   --editorial-hero-end: #0b192b;
-  --page-ambient: rgba(215, 154, 85, 0.06);
+  --page-ambient: color-mix(in srgb, var(--brand-copper-light) 6%, transparent);
   color-scheme: dark;
 }
 
