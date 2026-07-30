@@ -20,6 +20,13 @@ const RESPONSE_HEADERS = {
 } as const;
 const MAX_REQUEST_BODY_BYTES = 16_384;
 
+// SQLSTATEs raised by public.submit_public_inquiry (see migration
+// 20260730150000_add_public_inquiry_db_throttle.sql).
+const DB_THROTTLED_SQLSTATE = "54000";
+const DB_INVALID_PAYLOAD_SQLSTATE = "22023";
+// The database throttle uses a one-hour fixed window.
+const DB_THROTTLE_RETRY_AFTER_SECONDS = 3_600;
+
 function isNativeFormSubmission(request: Request): boolean {
   return (
     request.headers
@@ -218,11 +225,46 @@ export async function POST(request: Request) {
       message: error?.message ?? "RPC did not return a valid reference code",
     });
 
+    const throttledByDatabase = error?.code === DB_THROTTLED_SQLSTATE;
+    const rejectedByDatabase = error?.code === DB_INVALID_PAYLOAD_SQLSTATE;
+
     if (nativeForm) {
+      if (rejectedByDatabase) return invalidFormRedirect(request);
+
       return redirectNoStore(fallbackWhatsAppUrl, {
-        remaining: rateLimit.remaining,
+        remaining: throttledByDatabase ? 0 : rateLimit.remaining,
         recorded: false,
+        ...(throttledByDatabase
+          ? { retryAfter: DB_THROTTLE_RETRY_AFTER_SECONDS }
+          : {}),
       });
+    }
+
+    if (throttledByDatabase) {
+      return jsonResponse(
+        {
+          ok: false,
+          message:
+            "Terlalu banyak permintaan. Silakan lanjutkan konsultasi melalui WhatsApp.",
+        },
+        {
+          status: 429,
+          remaining: 0,
+          headers: {
+            "Retry-After": String(DB_THROTTLE_RETRY_AFTER_SECONDS),
+          },
+        },
+      );
+    }
+
+    if (rejectedByDatabase) {
+      return jsonResponse(
+        {
+          ok: false,
+          errors: { form: "Data formulir tidak valid." },
+        },
+        { status: 400, remaining: rateLimit.remaining },
+      );
     }
 
     return jsonResponse(
