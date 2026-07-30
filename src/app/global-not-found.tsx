@@ -4,6 +4,7 @@ import AppChrome from "@/components/layout/AppChrome";
 import NotFoundContent from "@/components/page/NotFoundContent";
 import { METADATA_BASE } from "@/lib/metadata";
 import { ThemeProvider } from "@/lib/theme";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,20 +27,6 @@ export const metadata: Metadata = {
     "Halaman yang Anda cari tidak tersedia. Kembali ke beranda atau lihat layanan Biro Jasa Tiga Saudara.",
 };
 
-const themeScript = `
-  (function() {
-    try {
-      var stored = localStorage.getItem("tiga-saudara-theme");
-      var theme = stored === "light" || stored === "dark"
-        ? stored
-        : "light";
-      document.documentElement.setAttribute("data-theme", theme);
-    } catch (_) {
-      document.documentElement.setAttribute("data-theme", "light");
-    }
-  })();
-`;
-
 export default function GlobalNotFound() {
   return (
     <html
@@ -49,7 +36,7 @@ export default function GlobalNotFound() {
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>

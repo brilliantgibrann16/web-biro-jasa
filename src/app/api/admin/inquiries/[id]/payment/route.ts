@@ -1,9 +1,7 @@
 import { getAdminAuthContext } from "@/lib/auth/admin";
 import { validatePaymentUpdate, readExpectedUpdatedAt } from "@/lib/admin-tracking/validation";
+import { UUID_PATTERN } from "@/lib/server/patterns";
 import { isSameOriginMutation, jsonNoStore } from "../../../_utils";
-
-const UUID_PATTERN =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export async function PATCH(
   request: Request,

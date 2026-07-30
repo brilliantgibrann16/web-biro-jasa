@@ -4,6 +4,7 @@ import AppChrome from "@/components/layout/AppChrome";
 import { COMPANY } from "@/lib/constants";
 import { METADATA_BASE } from "@/lib/metadata";
 import { ThemeProvider } from "@/lib/theme";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import "./globals.css";
 
 const inter = Inter({
@@ -80,20 +81,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const themeScript = `
-    (function() {
-      try {
-        var stored = localStorage.getItem("tiga-saudara-theme");
-        var theme = stored === "light" || stored === "dark"
-          ? stored
-          : "light";
-        document.documentElement.setAttribute("data-theme", theme);
-      } catch (_) {
-        document.documentElement.setAttribute("data-theme", "light");
-      }
-    })();
-  `;
-
   return (
     <html
       lang="id"
@@ -102,7 +89,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
