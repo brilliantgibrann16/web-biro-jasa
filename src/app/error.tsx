@@ -5,10 +5,20 @@ import Link from "next/link";
 
 interface ErrorPageProps {
   error: Error & { digest?: string };
-  unstable_retry: () => void;
+  reset?: () => void;
+  unstable_retry?: () => void;
 }
 
-export default function ErrorPage({ unstable_retry }: ErrorPageProps) {
+export default function ErrorPage({ reset, unstable_retry }: ErrorPageProps) {
+  const handleRetry = () => {
+    const retry = unstable_retry ?? reset;
+    if (retry) {
+      retry();
+      return;
+    }
+    window.location.reload();
+  };
+
   return (
     <section className="relative flex min-h-[72vh] items-center overflow-hidden bg-page pb-20 pt-36 text-accent md:pb-28 md:pt-44">
       <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.42fr)] lg:items-end">
@@ -26,7 +36,7 @@ export default function ErrorPage({ unstable_retry }: ErrorPageProps) {
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <button
               type="button"
-              onClick={() => unstable_retry()}
+              onClick={handleRetry}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-sm bg-primary-dark px-7 py-4 text-base font-extrabold text-white transition-colors hover:bg-navy"
             >
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
