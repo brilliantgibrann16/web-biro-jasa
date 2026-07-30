@@ -24,11 +24,9 @@ import {
   normalizePhoneNumber,
   phoneHref,
 } from "@/lib/inquiries/phone";
+import { UUID_PATTERN } from "@/lib/server/patterns";
 
 export const dynamic = "force-dynamic";
-
-const UUID_PATTERN =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 const dateFormatter = new Intl.DateTimeFormat("id-ID", {
   dateStyle: "long",
@@ -50,13 +48,24 @@ export default async function InquiryDetailPage({
   const { id } = await params;
   if (!UUID_PATTERN.test(id)) notFound();
 
-  const { data: inquiry, error } = await supabase
-    .from("inquiries")
-    .select(
-      "id, created_at, updated_at, full_name, phone, service_category, service_detail, region, notes, status, source, handled_note, reference_code, payment_required, payment_amount, payment_timing, payment_status, payment_confirmation_requested_at, payment_verified_at, testimonial_eligible_at",
-    )
-    .eq("id", id)
-    .maybeSingle();
+  const [inquiryResult, testimonialResult] = await Promise.all([
+    supabase
+      .from("inquiries")
+      .select(
+        "id, created_at, updated_at, full_name, phone, service_category, service_detail, region, notes, status, source, handled_note, reference_code, payment_required, payment_amount, payment_timing, payment_status, payment_confirmation_requested_at, payment_verified_at, testimonial_eligible_at",
+      )
+      .eq("id", id)
+      .maybeSingle(),
+    supabase
+      .from("testimonials")
+      .select(
+        "id, inquiry_id, service_category, rating, testimonial_text, display_name, published, published_at, created_at, updated_at",
+      )
+      .eq("inquiry_id", id)
+      .maybeSingle(),
+  ]);
+
+  const { data: inquiry, error } = inquiryResult;
 
   const userEmail = typeof claims.email === "string" ? claims.email : undefined;
 
@@ -97,13 +106,7 @@ export default async function InquiryDetailPage({
 
   if (!inquiry) notFound();
 
-  const { data: testimonialData, error: testimonialError } = await supabase
-    .from("testimonials")
-    .select(
-      "id, inquiry_id, service_category, rating, testimonial_text, display_name, published, published_at, created_at, updated_at",
-    )
-    .eq("inquiry_id", inquiry.id)
-    .maybeSingle();
+  const { data: testimonialData, error: testimonialError } = testimonialResult;
   const testimonial = testimonialData as AdminTestimonialRecord | null;
 
   const normalizedPhone = normalizePhoneNumber(inquiry.phone);
