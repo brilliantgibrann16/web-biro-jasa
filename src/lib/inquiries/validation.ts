@@ -63,6 +63,9 @@ export function validatePublicInquiry(
     ? SERVICE_CATEGORIES.find((item) => item.id === input.service_category)
     : undefined;
 
+  const normalizedPhone = normalizePhoneNumber(phoneInput);
+  const normalizedPhoneDigits = normalizedPhone.replace(/\D/g, "");
+
   if (fullName.length < 2 || fullName.length > 120) {
     errors.full_name = "Nama harus berisi 2–120 karakter.";
   }
@@ -70,6 +73,12 @@ export function validatePublicInquiry(
     errors.phone = "Nomor telepon harus berisi 8–30 karakter.";
   }
   if (!isValidPhoneInput(phoneInput)) {
+    errors.phone = "Gunakan format nomor telepon yang valid.";
+  }
+  if (
+    !errors.phone &&
+    (normalizedPhoneDigits.length < 8 || normalizedPhoneDigits.length > 15)
+  ) {
     errors.phone = "Gunakan format nomor telepon yang valid.";
   }
   if (!isServiceCategoryId(input.service_category)) {
@@ -100,7 +109,7 @@ export function validatePublicInquiry(
     ok: true,
     data: {
       full_name: fullName,
-      phone: normalizePhoneNumber(phoneInput),
+      phone: normalizedPhone,
       service_category: input.service_category as InquiryPublicInput["service_category"],
       service_detail: serviceDetail,
       region,
