@@ -4,6 +4,10 @@ import {
   ADMIN_LOGIN_RATE_LIMIT,
   checkAdminLoginRateLimit,
 } from "@/lib/server/rate-limit";
+import {
+  readTextBodyWithLimit,
+  RequestBodyTooLargeError,
+} from "@/lib/server/request-body";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { isSameOriginMutation, jsonNoStore } from "../_utils";
 
@@ -16,38 +20,7 @@ interface LoginPayload {
 const MAX_LOGIN_BODY_BYTES = 4_096;
 
 async function readLoginPayload(request: Request): Promise<LoginPayload> {
-  const declaredLength = Number(request.headers.get("content-length"));
-  if (
-    Number.isFinite(declaredLength) &&
-    declaredLength > MAX_LOGIN_BODY_BYTES
-  ) {
-    throw new Error("payload-too-large");
-  }
-
-  if (!request.body) throw new Error("invalid-payload");
-
-  const reader = request.body.getReader();
-  const decoder = new TextDecoder();
-  let body = "";
-  let receivedBytes = 0;
-
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      receivedBytes += value.byteLength;
-      if (receivedBytes > MAX_LOGIN_BODY_BYTES) {
-        await reader.cancel();
-        throw new Error("payload-too-large");
-      }
-
-      body += decoder.decode(value, { stream: true });
-    }
-    body += decoder.decode();
-  } finally {
-    reader.releaseLock();
-  }
+  const body = await readTextBodyWithLimit(request, MAX_LOGIN_BODY_BYTES);
 
   const payload = JSON.parse(body) as unknown;
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
@@ -94,8 +67,7 @@ export async function POST(request: Request) {
   try {
     payload = await readLoginPayload(request);
   } catch (error) {
-    const payloadTooLarge =
-      error instanceof Error && error.message === "payload-too-large";
+    const payloadTooLarge = error instanceof RequestBodyTooLargeError;
     return jsonNoStore(
       {
         error: payloadTooLarge
