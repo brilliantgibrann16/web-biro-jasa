@@ -3,6 +3,10 @@ import { validateInquiryUpdate } from "@/lib/inquiries/validation";
 import { UUID_PATTERN } from "@/lib/server/patterns";
 import { isSameOriginMutation, jsonNoStore } from "../../_utils";
 
+type RouteContext = {
+  params: Promise<{ id: string }>;
+};
+
 const TIMESTAMPTZ_PATTERN =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/;
 
@@ -20,7 +24,7 @@ function readExpectedUpdatedAt(payload: unknown): string | null {
 
 export async function PATCH(
   request: Request,
-  context: RouteContext<"/api/admin/inquiries/[id]">,
+  context: RouteContext,
 ) {
   if (!isSameOriginMutation(request)) {
     return jsonNoStore(
